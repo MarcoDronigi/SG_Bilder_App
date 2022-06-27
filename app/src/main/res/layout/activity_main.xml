@@ -6,13 +6,280 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <TextView
+        android:id="@+id/txtHeadline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="32dp"
+        android:text="@string/choreography_name"
+        android:textColor="@color/sg_gold"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@android:color/transparent"
+        android:minHeight="48dp"
+        android:src="@drawable/ic_edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toEndOf="@+id/txtHeadline"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@android:color/transparent"
+        android:minHeight="48dp"
+        android:src="@drawable/ic_cloud"
+        app:layout_constraintEnd_toStartOf="@+id/txtHeadline"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/pctRaster"
+        android:layout_width="360dp"
+        android:layout_height="400dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtHeadline"
+        app:srcCompat="@drawable/raster3" />
+
+    <Spinner
+        android:id="@+id/spinnerPos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:animateLayoutChanges="true"
+        android:animationCache="true"
+        android:entries="@array/postitions"
+        android:minHeight="48dp"
+        android:theme="@android:style/Theme.Holo.NoActionBar"
+        app:layout_constraintBottom_toBottomOf="@+id/txtX"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtX" />
+
+    <TextView
+        android:id="@+id/txtFutX"
+        android:layout_width="34dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="right"
+        android:text="0"
+        app:layout_constraintEnd_toEndOf="@+id/txtX"
+        app:layout_constraintStart_toStartOf="@+id/txtX"
+        app:layout_constraintTop_toBottomOf="@+id/txtX" />
+
+    <TextView
+        android:id="@+id/txtX"
+        android:layout_width="34dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="right"
+        android:text="0"
+        android:textColor="@color/sg_gold"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/spinnerPos"
+        app:layout_constraintTop_toBottomOf="@+id/txtPrevX" />
+
+    <TextView
+        android:id="@+id/txtPrevX"
+        android:layout_width="34dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="right"
+        android:text="0.0"
+        app:layout_constraintEnd_toEndOf="@+id/txtX"
+        app:layout_constraintStart_toStartOf="@+id/txtX"
+        app:layout_constraintTop_toBottomOf="@+id/pctRaster" />
+
+    <TextView
+        android:id="@+id/txtDance"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="TextView"
+        android:textColor="@color/sg_gold"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/txtPrevY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtPrevY"
+        app:layout_constraintTop_toTopOf="@+id/txtPrevY" />
+
+    <TextView
+        android:id="@+id/txtComment"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="4dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/txtDance"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txtDance"
+        app:layout_constraintTop_toBottomOf="@+id/txtDance" />
+
+    <TextView
+        android:id="@+id/txtPrevY"
+        android:layout_width="34dp"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="0.0"
+        app:layout_constraintBottom_toBottomOf="@+id/txtPrevX"
+        app:layout_constraintEnd_toEndOf="@+id/txtY"
+        app:layout_constraintStart_toStartOf="@+id/txtY"
+        app:layout_constraintTop_toTopOf="@+id/txtPrevX" />
+
+    <TextView
+        android:id="@+id/txtY"
+        android:layout_width="34dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:gravity="right"
+        android:text="0"
+        android:textColor="@color/sg_gold"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/txtX"
+        app:layout_constraintStart_toEndOf="@+id/txtX"
+        app:layout_constraintTop_toTopOf="@+id/txtX" />
+
+    <TextView
+        android:id="@+id/txtFutY"
+        android:layout_width="34dp"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="0"
+        app:layout_constraintBottom_toBottomOf="@+id/txtFutX"
+        app:layout_constraintEnd_toEndOf="@+id/txtY"
+        app:layout_constraintStart_toStartOf="@+id/txtY"
+        app:layout_constraintTop_toTopOf="@+id/txtFutX" />
+
+    <ImageButton
+        android:id="@+id/btnPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:backgroundTint="@android:color/transparent"
+        android:minHeight="48dp"
+        android:src="@drawable/ic_play_arrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinnerAnimationSpeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/speeds"
+        android:minHeight="48dp"
+        android:theme="@android:style/Theme.Holo.NoActionBar"
+        app:layout_constraintBottom_toBottomOf="@+id/btnPlay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnPlay"
+        app:layout_constraintTop_toTopOf="@+id/btnPlay" />
+
+    <Spinner
+        android:id="@+id/spinnerLoopType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnPlay"
+        app:layout_constraintEnd_toStartOf="@+id/btnPlay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnPlay"
+        android:theme="@android:style/Theme.Holo.NoActionBar"
+        android:entries="@array/loopTypes"/>
+
+
+    <ImageView
+        android:id="@+id/marker_blue_1"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="315dp"
+        android:layout_marginTop="328dp"
+        app:layout_constraintStart_toStartOf="@+id/pctRaster"
+        app:layout_constraintTop_toTopOf="@+id/pctRaster"
+        app:srcCompat="@drawable/marker_blue_1" />
+
+    <ImageView
+        android:id="@+id/marker_blue_2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="197.1875dp"
+        android:layout_marginTop="182dp"
+        app:layout_constraintStart_toStartOf="@+id/pctRaster"
+        app:layout_constraintTop_toTopOf="@+id/pctRaster"
+        app:srcCompat="@drawable/marker_blue_2" />
+
+    <ImageView
+        android:id="@+id/marker_blue_3"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="170dp"
+        android:layout_marginTop="165dp"
+        app:layout_constraintStart_toStartOf="@+id/pctRaster"
+        app:layout_constraintTop_toTopOf="@+id/pctRaster"
+        app:srcCompat="@drawable/marker_blue_3" />
+
+    <ImageView
+        android:id="@+id/marker_blue_4"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="202.1875dp"
+        android:layout_marginTop="132.625dp"
+        app:layout_constraintStart_toStartOf="@+id/pctRaster"
+        app:layout_constraintTop_toTopOf="@+id/pctRaster"
+        app:srcCompat="@drawable/marker_blue_4" />
+
+    <ImageView
+        android:id="@+id/marker_blue_5"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="175dp"
+        android:layout_marginTop="132.625dp"
+        app:layout_constraintStart_toStartOf="@+id/pctRaster"
+        app:layout_constraintTop_toTopOf="@+id/pctRaster"
+        app:srcCompat="@drawable/marker_blue_5" />
+
+    <ImageView
+        android:id="@+id/marker_blue_6"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="152dp"
+        android:layout_marginTop="104dp"
+        app:layout_constraintStart_toStartOf="@+id/pctRaster"
+        app:layout_constraintTop_toTopOf="@+id/pctRaster"
+        app:srcCompat="@drawable/marker_blue_6" />
+
+    <ImageView
+        android:id="@+id/marker_blue_7"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="202.1875dp"
+        android:layout_marginTop="159.8125dp"
+        app:layout_constraintStart_toStartOf="@+id/pctRaster"
+        app:layout_constraintTop_toTopOf="@+id/pctRaster"
+        app:srcCompat="@drawable/marker_blue_7" />
+
+    <ImageView
+        android:id="@+id/marker_blue_8"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="202.1875dp"
+        android:layout_marginTop="105.4375dp"
+        app:layout_constraintStart_toStartOf="@+id/pctRaster"
+        app:layout_constraintTop_toTopOf="@+id/pctRaster"
+        app:srcCompat="@drawable/marker_blue_8" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

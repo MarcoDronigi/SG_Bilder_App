@@ -1,3 +1,38 @@
 <resources>
     <string name="app_name">SG Bilder App</string>
+    <string name="choreography_name">Is it a Man\'s World?</string>
+
+    <string-array name="postitions">
+        <item>Pos 1</item>
+        <item>Pos 2</item>
+        <item>Pos 3</item>
+        <item>Pos 4</item>
+        <item>Pos 5</item>
+        <item>Pos 6</item>
+        <item>Pos 7</item>
+        <item>Pos 8</item>
+    </string-array>
+
+    <string-array name="speeds">
+        <item>0.25x</item>
+        <item>0.5x</item>
+        <item>0.75x</item>
+        <item>1x</item>
+        <item>1.5x</item>
+        <item>2x</item>
+        <item>4x</item>
+    </string-array>
+
+    <string-array name="placeholder">
+        <item>Placeholder</item>
+    </string-array>
+
+    <string-array name="loopTypes">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
 </resources>

@@ -1,2 +1,6 @@
-package com.example.sgbilderapp;public class Choreography {
+package com.example.sgbilderapp;
+
+public class Choreography {
+
+
 }
