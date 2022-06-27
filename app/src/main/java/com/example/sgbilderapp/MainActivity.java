@@ -2,28 +2,18 @@ package com.example.sgbilderapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.constraintlayout.widget.Constraints;
-import androidx.viewpager.widget.ViewPager;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.os.SystemClock;
-import android.provider.DocumentsContract;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -32,7 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -67,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int posSelected = 1;
 
-    private int bildNumb = 0;
+    private int bildNumb;
     private int bildNumbMove;
 
     private boolean animationOn = false;
@@ -76,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     final long baseSpeed = 1000;
     final private int maxBild = 19;
 
-    private Choreography isItAMansWorld = new Choreography();
+    //private Choreography isItAMansWorld = new Choreography();
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -84,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        //Punkte von Is it a Man's World?
         double[] bild0 = {0, 0, 1.5, 0, 0, 1.5, 1.5, 3, 0, 3, 0, 4.5, 1.5, 1.5, 1.5, 4.5};
         double[] bild1 = {-3, -1.5, 0, -1.5, -1.5, 0, 3, 1.5, 0, 1.5, 1.5, 3, 1.5, 0, 4.5, 3};
         double[] bild2 = {-1.5, -1.5, 1.5, -1.5, 0, 0, 4.5, 1.5, 1.5, 1.5, 3, 3, 3, 0, 6, 3};
@@ -108,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         //double[] bild20 = {};
         //double[] bild21 = {};
 
+        //Bilder von Is it a Man's World
         bilder = new ArrayList<Bild>();
         bilder.add(new Bild("Einmarsch", "Anfangsbild",false, bild0));
         bilder.add(new Bild("Einmarsch", "Standing Spin",false, bild1));
@@ -132,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         //bilder.add(new Bild("", "", false, bild20));
         //bilder.add(new Bild("", "", false, bild21));
 
-
+        //Views bekommen Variablen zugeordnet
         raster = findViewById(R.id.pctRaster);
 
         txtDance = findViewById(R.id.txtDance);
@@ -155,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
         marker_8 = findViewById(R.id.marker_blue_8);
 
         marker = new ImageView[] {marker_1, marker_2, marker_3, marker_4, marker_5, marker_6, marker_7, marker_8};
+        //Arrays für die Marker Icons
         drawableBlue = new int[] {R.drawable.marker_blue_1, R.drawable.marker_blue_2, R.drawable.marker_blue_3, R.drawable.marker_blue_4, R.drawable.marker_blue_5, R.drawable.marker_blue_6, R.drawable.marker_blue_7, R.drawable.marker_blue_8};
         drawableGold = new int[] {R.drawable.marker_gold_1, R.drawable.marker_gold_2, R.drawable.marker_gold_3, R.drawable.marker_gold_4, R.drawable.marker_gold_5, R.drawable.marker_gold_6, R.drawable.marker_gold_7, R.drawable.marker_gold_8};
 
@@ -166,12 +157,11 @@ public class MainActivity extends AppCompatActivity {
         spinnerAnimationSpeed = findViewById(R.id.spinnerAnimationSpeed);
         spinnerLoopType = findViewById(R.id.spinnerLoopType);
 
-
+        //Animationsgeschwindigkeit wird Default 1x gesetzt
         spinnerAnimationSpeed.setSelection(3);
 
-        updateTxt();
-
-        updateMarker();
+        //Erstes Bild wird Initialisiert
+        restartChoreo(0);
 
 
         spinnerPos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -186,11 +176,8 @@ public class MainActivity extends AppCompatActivity {
 
                 marker[posSelected - 1].setImageResource(drawableGold[posSelected - 1]);
             }
-
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
+            public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
         spinnerAnimationSpeed.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -227,11 +214,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //TODO Implement one dance Loops
         spinnerLoopType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                loopType = i;
-                //Toast.makeText(MainActivity.this, ((Integer) i).toString(), Toast.LENGTH_SHORT).show();
+                if (i == 4 || i == 5){
+                    spinnerLoopType.setSelection(loopType);
+                    Toast.makeText(MainActivity.this, "Die Funktion wurde noch nicht implementiert", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    loopType = i;
+                }
             }
 
             @Override
@@ -268,7 +261,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://onedrive.live.com/?authkey=%21AIuE2fVU8xePeB8&id=3E68918F98BDA615%2122770&cid=3E68918F98BDA615"));
                 startActivity(browserIntent);
-                //Toast.makeText(MainActivity.this, "Funktion noch nicht implementiert!", Toast.LENGTH_SHORT).show();
             }
         });
 
