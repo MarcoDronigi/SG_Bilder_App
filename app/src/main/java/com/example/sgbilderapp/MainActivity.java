@@ -427,11 +427,7 @@ public class MainActivity extends AppCompatActivity {
                         if (loopType == 3){
                             bildNumb--;
                             updateMarker();
-                            bildNumb++;
-                            //updateTxt();
                             animateChoreo();
-                            bildNumb--;
-                            //updateMarker();
                         }
 
                     }
