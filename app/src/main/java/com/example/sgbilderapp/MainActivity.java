@@ -122,23 +122,27 @@ public class MainActivity extends AppCompatActivity {
         //Erstes Bild wird Initialisiert
         restartChoreo(0);
 
-
+        //Durch Spinnner kann User die hervorgehobene Position & die entsprechend davon angezeigten Coord auswählen
         spinnerPos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
+                //Davor ausgewählter Marker wird wieder mit Default Token anzgezeigt
                 marker[posSelected - 1].setImageResource(drawableBlue[posSelected - 1]);
 
                 posSelected = Integer.parseInt(spinnerPos.getSelectedItem().toString().substring(4));
 
+                //Angezeigte Coord werden Updated
                 updateTxt();
 
+                //Neu ausgewählter Marker wird mit anderem Token angezeigt
                 marker[posSelected - 1].setImageResource(drawableGold[posSelected - 1]);
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
+        //Durch Spinner kann User Animationsgeschwindigkeit auswählen
         spinnerAnimationSpeed.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -173,11 +177,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //TODO Implement one dance Loops
+
+        // Durch Spinner kann User den Loop Type auswählen (Aufschlüsselung in Deklaration)
         spinnerLoopType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i == 4 || i == 5){
+                if (i == 4 || i == 5){ //TODO Implement one dance Loops
                     spinnerLoopType.setSelection(loopType);
                     Toast.makeText(MainActivity.this, "Die Funktion wurde noch nicht implementiert", Toast.LENGTH_SHORT).show();
                 }
@@ -187,25 +192,22 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
+            public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
-
+        // Button zum Start und Stop der Animationen (& Restart Choero
         btnPlay.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
 
-                if (animationOn){
+                if (animationOn){ // Animation wird gestoppt
                     animationOn = false;
                     btnPlay.setImageResource(R.drawable.ic_play_arrow);
 
-                } else if(bildNumb == isItAMansWorld.getMAX_BILD()){
+                } else if(bildNumb == isItAMansWorld.getMAX_BILD()){ //Choero wird Resetet (Fall letztes Bild)
                     restartChoreo(0);
                     btnPlay.setImageResource(R.drawable.ic_play_arrow);
-                } else {
+                } else { //Animation wird gestartet
                     animationOn = true;
                     animateChoreo();
                     btnPlay.setImageResource(R.drawable.ic_stop);
@@ -215,6 +217,8 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        // Derzeit Bringt Buttton User in die Cloud
+        // Gedacht: Menü
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -223,6 +227,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //TODO Funktion zur Berabeitung von Bildern
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -231,14 +236,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        //Swip nach Rechts und Links springt zum nächsten und letzten Bild
         raster.setOnTouchListener(new OnSwipeTouchListener(this) {
-            public void onSwipeTop() {
-
-            }
+            public void onSwipeTop() {}
             //prev Bild
             public void onSwipeRight() {
-                if (bildNumb == 0){
-                    Toast.makeText(MainActivity.this, "erstes Bild", Toast.LENGTH_SHORT).show();
+                if (bildNumb == 0){ //Fall "Startbild"
+                    restartChoreo(isItAMansWorld.getMAX_BILD());
+                    btnPlay.setImageResource(R.drawable.ic_restart);
                 } else {
                     if (bildNumb == isItAMansWorld.getMAX_BILD()){
                         btnPlay.setImageResource(R.drawable.ic_play_arrow);
@@ -251,8 +256,9 @@ public class MainActivity extends AppCompatActivity {
             }
             //next Bild
             public void onSwipeLeft() {
-                if (bildNumb == isItAMansWorld.getMAX_BILD()){
-                    //Toast.makeText(MainActivity.this, "letztes Bild", Toast.LENGTH_SHORT).show();
+                if (bildNumb == isItAMansWorld.getMAX_BILD()){ //Fall letztes Bild
+                    restartChoreo(0);
+                    btnPlay.setImageResource(R.drawable.ic_play_arrow);
                 } else {
                     bildNumb++;
                     updateTxt();
@@ -263,21 +269,20 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             }
-            public void onSwipeBottom() {
-
-            }
+            public void onSwipeBottom() {}
         });
     }
 
+    //Funktion Bewegt einen Marker zu "bildNumb"
     public void moveMarker(ImageView marker, int pos){
         int pxTranslationX = (int) (width * isItAMansWorld.getCoordX(bildNumb, pos) * CONVERSION_VALUE_COORD / 2);
         int pxTranslationY = (int) (width * isItAMansWorld.getCoordY(bildNumb, pos) * CONVERSION_VALUE_COORD * (-1) / 2);
-
 
         marker.setTranslationX(pxTranslationX);
         marker.setTranslationY(pxTranslationY);
     }
 
+    //Funktion Bewegt alle Marker zu "bildNumb"
     public void updateMarker(){
         moveMarker(marker_1, 1);
         moveMarker(marker_2, 2);
@@ -289,12 +294,12 @@ public class MainActivity extends AppCompatActivity {
         moveMarker(marker_8, 8);
     }
 
+    // Kommentare sowie Angezeigte Koord werden auf Wert laut "bildNumb" gestellt
     public void updateTxt(){
-
         txtDance.setText(isItAMansWorld.getDance(bildNumb));
         txtComment.setText(isItAMansWorld.getComment(bildNumb));
 
-        if (bildNumb == 0){
+        if (bildNumb == 0){ //Fall erstes Bild
             txtPrevX.setText("0.0");
             txtPrevY.setText("0.0");
         } else{
@@ -305,7 +310,7 @@ public class MainActivity extends AppCompatActivity {
         txtX.setText(String.valueOf(isItAMansWorld.getCoordX(bildNumb, posSelected)));
         txtY.setText(String.valueOf(isItAMansWorld.getCoordY(bildNumb, posSelected)));
 
-        if (bildNumb == isItAMansWorld.getMAX_BILD()){
+        if (bildNumb == isItAMansWorld.getMAX_BILD()){ //Fall letztes Bild
             txtFutX.setText("0.0");
             txtFutY.setText("0.0");
         } else{
@@ -314,6 +319,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Animation wird generiert, welche einen Marker in einer Koord zu "bildNumb" bewegt
     public ObjectAnimator animateMarkerTo(ImageView marker, int pos, boolean isX){
         ObjectAnimator animation;
 
@@ -330,8 +336,8 @@ public class MainActivity extends AppCompatActivity {
         return animation;
     }
 
+    //Jeweils ein Bild wird Animiert
     //TODO Different kind of Animation
-
     public void animateChoreo (){
         if (bildNumb < isItAMansWorld.getMAX_BILD()){
             if (animationOn){
@@ -356,21 +362,21 @@ public class MainActivity extends AppCompatActivity {
 
                 animatorSetChoreo.start();
 
-
+                //Trigger bei AnimationsEnde
                 animatorSetChoreo.addListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
 
 
-                        if (loopType == 0 || loopType == 1){
+                        if (loopType == 0 || loopType == 1){ //Nächstes Bild wird Animiert
                             animateChoreo();
                         }
-                        if (loopType == 2){
+                        if (loopType == 2){ //Animation Stopt nach einem Bild
                             animationOn = false;
                             btnPlay.setImageResource(R.drawable.ic_play_arrow);
                         }
-                        if (loopType == 3){
+                        if (loopType == 3){ //Animation wiederholt sich (Ein Bild)
                             bildNumb--;
                             updateMarker();
                             animateChoreo();
@@ -379,23 +385,24 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-            } else {
+            } else { //Fall Start/Stop-Button wird gedrückt (Animation Stopt)
                 updateTxt();
             }
 
-        } else{
-            if (loopType == 0){
+        } else{ //FAll letztes Bild
+            if (loopType == 0){ //Animation wird gestopt
                 animationOn = false;
                 btnPlay.setImageResource(R.drawable.ic_restart);
                 //Toast.makeText(MainActivity.this, "Letztes Bild erreicht", Toast.LENGTH_SHORT).show();
             }
-            if (loopType == 1){
+            if (loopType == 1){ //Animation Loopt gesamte Choreo
                 restartChoreo(0);
                 animateChoreo();
             }
         }
     }
 
+    //Punkte und Anzwigen werden auf ein bestimmten Punkt gesetzt
     public void restartChoreo (int restartAT){
         bildNumb = restartAT;
         updateMarker();
