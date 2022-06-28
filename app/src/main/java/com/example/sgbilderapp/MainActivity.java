@@ -33,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton btnMenu;
     private ImageButton btnEdit;
 
-    private ArrayList<Bild> bilder;
-
     private ImageView raster;
 
     private ImageView marker_1, marker_2, marker_3, marker_4, marker_5, marker_6, marker_7, marker_8;
@@ -68,9 +66,9 @@ public class MainActivity extends AppCompatActivity {
     final double CONVERSION_VALUE_COORD = 0.1269;
     //0.1207
     final long BASE_SPEED = 1000;
-    final private int MAX_BILD = 19;
+    //final private int MAX_BILD = 26;
 
-    //private Choreography isItAMansWorld = new Choreography();
+    private Choreography isItAMansWorld = new Choreography();
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -82,58 +80,6 @@ public class MainActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         height = displayMetrics.heightPixels;
         width = displayMetrics.widthPixels;
-
-//        System.out.println("height = " + height);
-//        System.out.println("width = " + width);
-
-        //Punkte von Is it a Man's World?
-        double[] bild0 = {0, 0, 1.5, 0, 0, 1.5, 1.5, 3, 0, 3, 0, 4.5, 1.5, 1.5, 1.5, 4.5};
-        double[] bild1 = {-3, -1.5, 0, -1.5, -1.5, 0, 3, 1.5, 0, 1.5, 1.5, 3, 1.5, 0, 4.5, 3};
-        double[] bild2 = {-1.5, -1.5, 1.5, -1.5, 0, 0, 4.5, 1.5, 1.5, 1.5, 3, 3, 3, 0, 6, 3};
-        double[] bild3 = {-3, -1.5, 0, -1.5, -1.5, 0, 3, 1.5, 0, 1.5, 1.5, 3, 1.5, 0, 4.5, 3};
-        double[] bild4 = {-6, -1.5, -3, -4.5, -4.5, -3, -1.5, -3, -4.5, 0, -1.5, 0, -3, -1.5, 0, -1.5};
-        double[] bild5 = {-6, -3, -3, -6, -4.5, -4.5, -1.5, -4.5, -4.5, -1.5, -1.5, -1.5, -3, -3, 0, -3};
-        double[] bild6 = {0, -3, 3, -6, 1.5, -4.5, 4.5, -4.5, 1.5, -1.5, 4.5, -1.5, 3, -3, 6, -3};
-        double[] bild7 = {-1.5, 0, 1.5, -3, 0, -1.5, 3, -1.5, 0, 1.5, 3, 1.5, 1.5, 0, 4.5, 0};
-        double[] bild8 = {-4.5, 3, 0, 1.5, -3, 1.5, 3, 1.5, -1.5, 3, 1.5, 3, 0, 4.5, 4.5, 3};
-        double[] bild9 = {-2, -3, 0, -6, -2, -6, 2, -6, -1, -4.5, 1, -4.5, 0, -3, 2, -3};
-        double[] bild10 = {-2, 1.5, 0, -1.5, -2, -1.5, 2, -1.5, -1, 0, 1, 0, 0, 1.5, 2, 1.5};
-        double[] bild11 = {-6, -3, -3, -6, -6, -6, 6, 3, -4.5, -4.5, 4.5, 4.5, 3, 6, 6, 6};
-        double[] bild12 = {0, -4.5, 1.5, -6, 0, -6, 0, 4.5, 1.5, -4.5, -1.5, 4.5, -1.5, 6, 0, 6};
-        double[] bild13 = {3, -4.5, 4.5, -6, 3, -6, -3, 4.5, 4.5, -4.5, -4.5, 4.5, -4.5, 6, -3, 6};
-        double[] bild14 = {2.25, -3.75, 3, -4.5, 1.5, -4.5, -2.25, 3.75, 3, -3, -3, 3, -3, 4.5, -1.5, 4.5};
-        double[] bild15 = {1.5, 0, 1.5, -1.5, 0, -1.5, -1.5, 0, 1.5, 1.5, -1.5, -1.5, -1.5, 1.5, 0, 1.5};
-        double[] bild16 = {-1.5, -4.5, -1.5, -6, -3, -6, -4.5, -4.5, -1.5, -3, -4.5, -6, -4.5, -3, -3, -3};
-        double[] bild17 = {0, -3, 0, -4.5, -1.5, -4.5, -3, -3, 0, -1.5, -3, -4.5, -3, -1.5, -1.5, -1.5};
-        double[] bild18 = {3, -1.5, 4.5, -3, 3, -4.5, 0, -4.5, 1.5, 0, 1.5, -6, -1.5, -3, 0, -1.5};
-        double[] bild19 = {4.5, -1.5, 6, -3, 4.5, -4.5, 1.5, -4.5, 3, 0, 3, -6, 0, -3, 1.5, -1.5};
-        //double[] bild20 = {};
-        //double[] bild21 = {};
-
-        //Bilder von Is it a Man's World
-        bilder = new ArrayList<Bild>();
-        bilder.add(new Bild("Einmarsch", "Anfangsbild",false, bild0));
-        bilder.add(new Bild("Einmarsch", "Standing Spin",false, bild1));
-        bilder.add(new Bild("Einmarsch", "Ende Drehung\nLinker Fuß Herr",false, bild2));
-        bilder.add(new Bild("1.1 WW - 1. Wiener Walzer", "Gong\nCojones Herr", false, bild3));
-        bilder.add(new Bild("1.1 WW - 1. Wiener Walzer", "Ende RD\nLinker Fuß Herr", false, bild4));
-        bilder.add(new Bild("1.1 WW - 1. Wiener Walzer", "Achse\nLinker Fuß Herr", false, bild5));
-        bilder.add(new Bild("1.1 WW - 1. Wiener Walzer", "Schlag 3 RD\nLinker Fuß Herr", false, bild6));
-        bilder.add(new Bild("1.1 WW - 1. Wiener Walzer", "", false, bild7));
-        bilder.add(new Bild("1.1 WW - 1. Wiener Walzer", "Change of Direction\nRechter Fuß Herr", false, bild8));
-        bilder.add(new Bild("1.2 Qs - 1. Quickstep", "Fleckerl", false, bild9));
-        bilder.add(new Bild("1.2 Qs - 1. Quickstep", "Außenseitlicher Wechsel\nRechter Fuß Herr", false, bild10));
-        bilder.add(new Bild("1.2 Qs - 1. Quickstep", "2. Step Hop", false, bild11));
-        bilder.add(new Bild("1.2 Qs - 1. Quickstep", "Slow nach 4. Step Hop\nRechter Fuß Herr", false, bild12));
-        bilder.add(new Bild("1.2 Qs - 1. Quickstep", "", false, bild13));
-        bilder.add(new Bild("1.2 Qs - 1. Quickstep", "Dreieck\nRechter Fuß Herr", false, bild14));
-        bilder.add(new Bild("1.2 Qs - 1. Quickstep", "Kick Dame", false, bild15));
-        bilder.add(new Bild("1.3 TG - 1. Tango", "", false, bild16));
-        bilder.add(new Bild("1.3 TG - 1. Tango", "Verschieben mit Schlägen 1 bis 6", false, bild17));
-        bilder.add(new Bild("1.3 TG - 1. Tango", "Ende Fallaway\nRechter Fuß Herr", false, bild18));
-        bilder.add(new Bild("1.3 TG - 1. Tango", "Linker Fuß Herr außenseitlich", false, bild19));
-        //bilder.add(new Bild("", "", false, bild20));
-        //bilder.add(new Bild("", "", false, bild21));
 
         //Views bekommen Variablen zugeordnet
         raster = findViewById(R.id.pctRaster);
@@ -256,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
                     animationOn = false;
                     btnPlay.setImageResource(R.drawable.ic_play_arrow);
 
-                } else if(bildNumb == MAX_BILD){
+                } else if(bildNumb == isItAMansWorld.getMAX_BILD()){
                     restartChoreo(0);
                     btnPlay.setImageResource(R.drawable.ic_play_arrow);
                 } else {
@@ -294,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
                 if (bildNumb == 0){
                     Toast.makeText(MainActivity.this, "erstes Bild", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (bildNumb == MAX_BILD){
+                    if (bildNumb == isItAMansWorld.getMAX_BILD()){
                         btnPlay.setImageResource(R.drawable.ic_play_arrow);
                     }
 
@@ -305,13 +251,13 @@ public class MainActivity extends AppCompatActivity {
             }
             //next Bild
             public void onSwipeLeft() {
-                if (bildNumb == MAX_BILD){
+                if (bildNumb == isItAMansWorld.getMAX_BILD()){
                     //Toast.makeText(MainActivity.this, "letztes Bild", Toast.LENGTH_SHORT).show();
                 } else {
                     bildNumb++;
                     updateTxt();
                     updateMarker();
-                    if (bildNumb == MAX_BILD){
+                    if (bildNumb == isItAMansWorld.getMAX_BILD()){
                         btnPlay.setImageResource(R.drawable.ic_restart);
                     }
                 }
@@ -324,8 +270,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void moveMarker(ImageView marker, int pos){
-        int pxTranslationX = (int) (width * bilder.get(bildNumb).getPositionX(pos) * CONVERSION_VALUE_COORD / 2);
-        int pxTranslationY = (int) (width * bilder.get(bildNumb).getPositionY(pos) * CONVERSION_VALUE_COORD * (-1) / 2);
+        int pxTranslationX = (int) (width * isItAMansWorld.getCoordX(bildNumb, pos) * CONVERSION_VALUE_COORD / 2);
+        int pxTranslationY = (int) (width * isItAMansWorld.getCoordY(bildNumb, pos) * CONVERSION_VALUE_COORD * (-1) / 2);
 
 
         marker.setTranslationX(pxTranslationX);
@@ -345,39 +291,38 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateTxt(){
 
-        txtDance.setText(bilder.get(bildNumb).getDance());
-        txtComment.setText(bilder.get(bildNumb).getComment());
+        txtDance.setText(isItAMansWorld.getDance(bildNumb));
+        txtComment.setText(isItAMansWorld.getComment(bildNumb));
 
         if (bildNumb == 0){
             txtPrevX.setText("0.0");
             txtPrevY.setText("0.0");
         } else{
-            txtPrevX.setText(String.valueOf(bilder.get(bildNumb - 1).getPositionX(posSelected)));
-            txtPrevY.setText(String.valueOf(bilder.get(bildNumb - 1).getPositionY(posSelected)));
+            txtPrevX.setText(String.valueOf(isItAMansWorld.getCoordX(bildNumb - 1, posSelected)));
+            txtPrevY.setText(String.valueOf(isItAMansWorld.getCoordY(bildNumb - 1, posSelected)));
         }
 
-        txtX.setText(String.valueOf(bilder.get(bildNumb).getPositionX(posSelected)));
-        txtY.setText(String.valueOf(bilder.get(bildNumb).getPositionY(posSelected)));
+        txtX.setText(String.valueOf(isItAMansWorld.getCoordX(bildNumb, posSelected)));
+        txtY.setText(String.valueOf(isItAMansWorld.getCoordY(bildNumb, posSelected)));
 
-        if (bildNumb == MAX_BILD){
+        if (bildNumb == isItAMansWorld.getMAX_BILD()){
             txtFutX.setText("0.0");
             txtFutY.setText("0.0");
         } else{
-            txtFutX.setText(String.valueOf(bilder.get(bildNumb + 1).getPositionX(posSelected)));
-            txtFutY.setText(String.valueOf(bilder.get(bildNumb + 1).getPositionY(posSelected)));
+            txtFutX.setText(String.valueOf(isItAMansWorld.getCoordX(bildNumb + 1, posSelected)));
+            txtFutY.setText(String.valueOf(isItAMansWorld.getCoordY(bildNumb + 1, posSelected)));
         }
     }
 
-    public ObjectAnimator animateMarkerTo(ImageView marker, int pos, int bild, boolean isX){
+    public ObjectAnimator animateMarkerTo(ImageView marker, int pos, boolean isX){
         ObjectAnimator animation;
 
         if (isX){
-            int pxTranslationX = (int) (width * bilder.get(bildNumb).getPositionX(pos) * CONVERSION_VALUE_COORD / 2);
+            int pxTranslationX = (int) (width * isItAMansWorld.getCoordX(bildNumb, pos) * CONVERSION_VALUE_COORD / 2);
             animation = ObjectAnimator.ofFloat(marker, "translationX", pxTranslationX);
             animation.setDuration((long) (BASE_SPEED * animationSpeed));
         } else{
-
-            int pxTranslationY = (int) (width * bilder.get(bildNumb).getPositionY(pos) * CONVERSION_VALUE_COORD * (-1) / 2);
+            int pxTranslationY = (int) (width * isItAMansWorld.getCoordY(bildNumb, pos) * CONVERSION_VALUE_COORD * (-1) / 2);
             animation = ObjectAnimator.ofFloat(marker, "translationY", pxTranslationY);
             animation.setDuration((long) (BASE_SPEED * animationSpeed));
         }
@@ -388,26 +333,26 @@ public class MainActivity extends AppCompatActivity {
     //TODO Different kind of Animation
 
     public void animateChoreo (){
-        if (bildNumb < MAX_BILD){
+        if (bildNumb < isItAMansWorld.getMAX_BILD()){
             if (animationOn){
                 bildNumb++;
 
-                txtDance.setText(bilder.get(bildNumb).getDance());
-                txtComment.setText(bilder.get(bildNumb).getComment());
+                txtDance.setText(isItAMansWorld.getDance(bildNumb));
+                txtComment.setText(isItAMansWorld.getComment(bildNumb));
 
                 updateTxt();
 
                 AnimatorSet animatorSetChoreo = new AnimatorSet();
 
                 animatorSetChoreo.playTogether(
-                        animateMarkerTo(marker_1, 1, bildNumb, true), animateMarkerTo(marker_1, 1, bildNumb, false),
-                        animateMarkerTo(marker_2, 2, bildNumb, true), animateMarkerTo(marker_2, 2, bildNumb, false),
-                        animateMarkerTo(marker_3, 3, bildNumb, true), animateMarkerTo(marker_3, 3, bildNumb, false),
-                        animateMarkerTo(marker_4, 4, bildNumb, true), animateMarkerTo(marker_4, 4, bildNumb, false),
-                        animateMarkerTo(marker_5, 5, bildNumb, true), animateMarkerTo(marker_5, 5, bildNumb, false),
-                        animateMarkerTo(marker_6, 6, bildNumb, true), animateMarkerTo(marker_6, 6, bildNumb, false),
-                        animateMarkerTo(marker_7, 7, bildNumb, true), animateMarkerTo(marker_7, 7, bildNumb, false),
-                        animateMarkerTo(marker_8, 8, bildNumb, true), animateMarkerTo(marker_8, 8, bildNumb, false));
+                        animateMarkerTo(marker_1, 1, true), animateMarkerTo(marker_1, 1, false),
+                        animateMarkerTo(marker_2, 2, true), animateMarkerTo(marker_2, 2, false),
+                        animateMarkerTo(marker_3, 3, true), animateMarkerTo(marker_3, 3, false),
+                        animateMarkerTo(marker_4, 4, true), animateMarkerTo(marker_4, 4, false),
+                        animateMarkerTo(marker_5, 5, true), animateMarkerTo(marker_5, 5, false),
+                        animateMarkerTo(marker_6, 6, true), animateMarkerTo(marker_6, 6, false),
+                        animateMarkerTo(marker_7, 7, true), animateMarkerTo(marker_7, 7, false),
+                        animateMarkerTo(marker_8, 8, true), animateMarkerTo(marker_8, 8, false));
 
                 animatorSetChoreo.start();
 

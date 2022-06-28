@@ -13,11 +13,13 @@
         android:layout_height="wrap_content"
         android:text="@string/choreography_name"
         android:textColor="@color/sg_gold"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/pctRaster"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.8" />
 
     <ImageButton
         android:id="@+id/btnEdit"
@@ -60,115 +62,135 @@
         android:id="@+id/spinnerPos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="460dp"
         android:animateLayoutChanges="true"
         android:animationCache="true"
         android:entries="@array/postitions"
         android:minHeight="48dp"
         android:theme="@android:style/Theme.Holo.NoActionBar"
-        app:layout_constraintBottom_toBottomOf="@+id/txtX"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txtX" />
-
-    <TextView
-        android:id="@+id/txtFutX"
-        android:layout_width="34dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:gravity="right"
-        android:text="0"
-        app:layout_constraintEnd_toEndOf="@+id/txtX"
-        app:layout_constraintStart_toStartOf="@+id/txtX"
-        app:layout_constraintTop_toBottomOf="@+id/txtX" />
-
-    <TextView
-        android:id="@+id/txtX"
-        android:layout_width="34dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:gravity="right"
-        android:text="0"
-        android:textColor="@color/sg_gold"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/spinnerPos"
-        app:layout_constraintTop_toBottomOf="@+id/txtPrevX" />
-
-    <TextView
-        android:id="@+id/txtPrevX"
-        android:layout_width="34dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="right"
-        android:text="0.0"
-        app:layout_constraintEnd_toEndOf="@+id/txtX"
-        app:layout_constraintStart_toStartOf="@+id/txtX"
-        app:layout_constraintTop_toBottomOf="@+id/pctRaster" />
+        app:layout_constraintBottom_toTopOf="@+id/spinnerLoopType"
+        app:layout_constraintEnd_toEndOf="@+id/txtPrevY"
+        app:layout_constraintStart_toStartOf="@+id/txtPrevX"
+        app:layout_constraintTop_toTopOf="@+id/pctRaster"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/txtDance"
         android:layout_width="0dp"
         android:layout_height="20dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="8dp"
         android:text="TextView"
         android:textColor="@color/sg_gold"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/txtPrevY"
+        app:layout_constraintBottom_toBottomOf="@+id/spinnerPos"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/txtPrevY"
-        app:layout_constraintTop_toTopOf="@+id/txtPrevY" />
+        app:layout_constraintTop_toTopOf="@+id/spinnerPos" />
 
     <TextView
         android:id="@+id/txtComment"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="0dp"
         android:layout_marginTop="4dp"
+        android:layout_marginBottom="20dp"
         android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerAnimationSpeed"
         app:layout_constraintEnd_toEndOf="@+id/txtDance"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/txtDance"
         app:layout_constraintTop_toBottomOf="@+id/txtDance" />
 
     <TextView
-        android:id="@+id/txtPrevY"
-        android:layout_width="34dp"
+        android:id="@+id/txtFutY"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:gravity="right"
-        android:text="0.0"
-        app:layout_constraintBottom_toBottomOf="@+id/txtPrevX"
+        android:text="0"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txtFutX"
         app:layout_constraintEnd_toEndOf="@+id/txtY"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/txtY"
-        app:layout_constraintTop_toTopOf="@+id/txtPrevX" />
+        app:layout_constraintTop_toTopOf="@+id/txtFutX"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/txtPrevY"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:gravity="right"
+        android:text="0.0"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txtPrevX"
+        app:layout_constraintEnd_toStartOf="@+id/txtDance"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/txtPrevX"
+        app:layout_constraintTop_toTopOf="@+id/txtPrevX"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/txtPrevX"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="right"
+        android:text="0.0"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/txtPrevY"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerPos" />
 
     <TextView
         android:id="@+id/txtY"
-        android:layout_width="34dp"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
         android:gravity="right"
         android:text="0"
         android:textColor="@color/sg_gold"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/txtX"
-        app:layout_constraintStart_toEndOf="@+id/txtX"
-        app:layout_constraintTop_toTopOf="@+id/txtX" />
+        app:layout_constraintEnd_toEndOf="@+id/txtPrevY"
+        app:layout_constraintStart_toStartOf="@+id/txtPrevY"
+        app:layout_constraintTop_toTopOf="@+id/txtX"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/txtFutY"
-        android:layout_width="34dp"
+        android:id="@+id/txtX"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:gravity="right"
         android:text="0"
-        app:layout_constraintBottom_toBottomOf="@+id/txtFutX"
-        app:layout_constraintEnd_toEndOf="@+id/txtY"
-        app:layout_constraintStart_toStartOf="@+id/txtY"
-        app:layout_constraintTop_toTopOf="@+id/txtFutX" />
+        android:textColor="@color/sg_gold"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/txtPrevX"
+        app:layout_constraintStart_toStartOf="@+id/txtPrevX"
+        app:layout_constraintTop_toBottomOf="@+id/txtPrevX" />
+
+    <TextView
+        android:id="@+id/txtFutX"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="right"
+        android:text="0"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/txtX"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txtX"
+        app:layout_constraintTop_toBottomOf="@+id/txtX" />
 
     <ImageButton
         android:id="@+id/btnPlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="30dp"
         android:backgroundTint="@android:color/transparent"
         android:minHeight="48dp"
         android:src="@drawable/ic_play_arrow"
@@ -287,7 +309,7 @@
         app:layout_constraintStart_toStartOf="@+id/pctRaster"
         app:layout_constraintTop_toTopOf="@+id/pctRaster"
         app:layout_constraintVertical_bias="0.481"
-        app:srcCompat="@drawable/marker_blue_8"/>
+        app:srcCompat="@drawable/marker_blue_8" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
