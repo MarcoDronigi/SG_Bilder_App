@@ -8,7 +8,7 @@ public class Choreography {
     ArrayList<String> tänze;
     private ArrayList<Bild> bilder;
 
-    final private int MAX_BILD = 26;
+    final private int MAX_BILD = 38;
 
     //Punkte von Is it a Man's World?
     private double[] bild0 = {0, 0, 1.5, 0, 0, 1.5, 1.5, 3, 0, 3, 0, 4.5, 1.5, 1.5, 1.5, 4.5};
@@ -38,11 +38,21 @@ public class Choreography {
     private double[] bild24 = {-5.5, 0, -1.5, -4, 0.5, -6, -0.5, -5, -6.5, 1, -3.5, -2, -2.5, -3, -4.5, -1};
     private double[] bild25 = {-1, 3, 0.5, -1.5, 2, -3, 0.5, -3, -2.5, 3, -1, 0, 0.5, 0, -1, 1.5};
     private double[] bild26 = {0, 6, 1.5, 3, 3, 1.5, 1.5, 1.5, -1.5, 6, 0, 3, 1.5, 4.5, 0, 4.5};
-    //double[] bild27 = {};
-    //double[] bild28 = {};
-    //double[] bild29 = {};
-    //double[] bild30 = {};
-    //double[] bild31 = {};
+    private double[] bild27 = {-1.5, 3, 0, 1.5, 1.5, -1.5, 0, -1.5, -3, 3, -3, 0, 1.5, 1.5, -1.5, 0};
+    private double[] bild28 = {4.5, 3, -6, 1.5, -4.5, -1.5, -6, -1.5, 3, 3, 3, 0, -4.5, 1.5, 4.5, 0};
+    private double[] bild29 = {4.5, 6, -4.5, -4.5, -3, -3, -6, -6, 3, 6, 3, 4.5, -1.5, -1.5, 4.5, 4.5};
+    private double[] bild30 = {-3, 6, 3, -4.5, 4.5, -3, 1.5, -6, -6, 6, -6, 3, 6, -1.5, -3, 3};
+    private double[] bild31 = {3, 0, -3, 1, -1.5, 2.5, -4.5, -0.5, 0, 0, 0, -3, 0, 4, 3, -3};
+    private double[] bild32 = {4.5, 3, 0, 1.5, 0, 4.5, -1.5, 3, 1.5, 3, 1.5, 0, 3, 4.5, 3, 1.5};
+    private double[] bild33 = {4.5, 4.5, 0, 3, 0, 6, -1.5, 4.5, 1.5, 4.5, 1.5, 1.5, 3, 6, 3, 3};
+    private double[] bild34 = {3, 0, -1.5, -1.5, -1.5, 0, -3, 0, 0, 0, 0, -3, 1.5, 0, 1.5, -1.5};
+    private double[] bild35 = {4.5, -1.5, -1.5, -4.5, -3, -3, -4.5, -1.5, 0, -3, 0, -6, 3, -3, 1.5, -4.5};
+    private double[] bild36 = {-3, 6, -4.5, 3, -4.5, 4.5, -4.5, 6, -3, 3, -4.5, 1.5, -3, 4.5, -3, 1.5};
+    private double[] bild37 = {0, 6, -1.5, 3, -1.5, 4.5, -1.5, 6, 0, 3, -1.5, 1.5, 0, 4.5, 0, 1.5};
+    private double[] bild38 = {0, 3, -1.5, 1.5, 0, 1.5, -1.5, 3, 1.5, 0, -1.5, 0, 1.5, 1.5, 0, 0};
+    //private double[] bild39 = {};
+    //private double[] bild40 = {};
+    //private double[] bild41 = {};
 
     public Choreography() {
         //Bilder von Is it a Man's World
@@ -73,12 +83,22 @@ public class Choreography {
         bilder.add(new Bild("1.3 TG - 1. Tango", "Ende Back Corté", false, bild23));
         bilder.add(new Bild("1.3 TG - 1. Tango", "Große Diagonale Ende sykopierte Linksdrehung\nRechter Fuß Herr", false, bild24));
         bilder.add(new Bild("1.3 TG - 1. Tango", "Ende synkopiertes Fallaway", false, bild25));
-        bilder.add(new Bild("2.1 SF - 1. Slowfox", "Cijones Herr", false, bild26));
-        //bilder.add(new Bild("", "", false, bild27));
-        //bilder.add(new Bild("", "", false, bild28));
-        //bilder.add(new Bild("", "", false, bild29));
-        //bilder.add(new Bild("", "", false, bild30));
-        //bilder.add(new Bild("", "", false, bild31));
+        bilder.add(new Bild("2.1 SF - 1. Slowfox", "Cojones Herr", false, bild26));
+        bilder.add(new Bild("2.1 SF - 1. Slowfox", "Ende Federschritt\nRechter Fuß Herr", false, bild27));
+        bilder.add(new Bild("2.1 SF - 1. Slowfox", "", false, bild28));
+        bilder.add(new Bild("2.1 SF - 1. Slowfox", "Ende Tumble Turn\nRechter Fuß Herr", false, bild29));
+        bilder.add(new Bild("2.1 SF - 1. Slowfox", "Ende Federschritt\nRechter Fuß Herr", false, bild30));
+        bilder.add(new Bild("2.1 SF - 1. Slowfox", "Ende Bounced Fallaway\nRechter Fuß Herr", false, bild31));
+        bilder.add(new Bild("2.1 SF - 1. Slowfox\"", "Ende Curved Feather\nRechter Fuß Herr", false, bild32));
+        bilder.add(new Bild("2.2 TG - 2. Tango", "Rechter Fuß Herr", false, bild33));
+        bilder.add(new Bild("2.2 TG - 2. Tango", "Ende Back Corté", false, bild34));
+        bilder.add(new Bild("2.2 TG - 2. Tango", "Seit-Schluss vor Contra Check\nRechter Fuß Herr", false, bild35));
+        bilder.add(new Bild("2.2 TG - 2. Tango", "Ende Achse\nRechter Fuß\nDurchschachteln mit 4 Schlägen je 1.5 m Seite", false, bild36));
+        bilder.add(new Bild("2.3 LW - Langsamer Walzer", "Rechter Fuß Herr", false, bild37));
+        bilder.add(new Bild("2.3 LW - Langsamer Walzer", "Ende Chassé\nRechter Fuß Herr", false, bild38));
+        //bilder.add(new Bild("", "", false, bild39));
+        //bilder.add(new Bild("", "", false, bild40));
+        //bilder.add(new Bild("", "", false, bild41));
 
         String tmp = "";
         for (Bild bild:bilder) {
@@ -89,7 +109,7 @@ public class Choreography {
             }
         }
 
-        System.out.println(tänze);
+        //System.out.println(tänze);
     }
 
     public double getCoordX(int bildNumb, int pos){

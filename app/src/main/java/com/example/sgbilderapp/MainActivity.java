@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
     private int posSelected = 1;
 
     private int bildNumb;
+    private String loopDance;
+    private int loopDanceStartBild;
 
     private boolean animationOn = false;
     private double animationSpeed = 1;
@@ -183,6 +185,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 4 || i == 5){ //TODO Implement one dance Loops
+                    /*loopType = i;
+                    loopDance = isItAMansWorld.getDance(bildNumb - 1);
+                    for (int j = 0; j <= isItAMansWorld.getMAX_BILD(); j++){
+                        if (isItAMansWorld.getDance(j) == loopDance){
+                            loopDanceStartBild = j--;
+                            break;
+                        }
+                    }*/
                     spinnerLoopType.setSelection(loopType);
                     Toast.makeText(MainActivity.this, "Die Funktion wurde noch nicht implementiert", Toast.LENGTH_SHORT).show();
                 }
@@ -381,6 +391,10 @@ public class MainActivity extends AppCompatActivity {
                             updateMarker();
                             animateChoreo();
                         }
+                        /*if (loopType == 5  && isItAMansWorld.getDance(bildNumb) != loopDance){
+                            restartChoreo(loopDanceStartBild);
+                            animateChoreo();
+                        }*/
 
                     }
                 });

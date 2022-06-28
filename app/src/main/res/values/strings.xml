@@ -28,11 +28,11 @@
     </string-array>
 
     <string-array name="loopTypes">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
+        <item>Anfang - Ende</item>
+        <item>Loop: Anfang bis Ende</item>
+        <item>Ein Bild</item>
+        <item>Loop: Ein Bild</item>
+        <item>Ein Tanz</item>
+        <item>Loop: Ein Tanz</item>
     </string-array>
 </resources>
