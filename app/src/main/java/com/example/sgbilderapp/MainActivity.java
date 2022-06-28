@@ -65,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean animationOn = false;
     private double animationSpeed = 1;
 
-    final double CONVERSION_VALUE_COORD = 0.1207;
+    final double CONVERSION_VALUE_COORD = 0.1269;
+    //0.1207
     final long BASE_SPEED = 1000;
     final private int MAX_BILD = 19;
 
