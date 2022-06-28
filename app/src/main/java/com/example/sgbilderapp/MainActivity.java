@@ -434,7 +434,7 @@ public class MainActivity extends AppCompatActivity {
                 });
 
             } else {
-                //Toast.makeText(this, "Animation has stopped with " + ((Integer) bildNumb).toString(), Toast.LENGTH_SHORT).show();
+                updateTxt();
             }
 
         } else{
