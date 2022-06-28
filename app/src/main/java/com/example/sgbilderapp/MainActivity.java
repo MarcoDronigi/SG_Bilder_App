@@ -53,14 +53,16 @@ public class MainActivity extends AppCompatActivity {
     // 4 = Ein Tanz
     // 5 = Loop ein Tanz
 
+    private boolean animateLoop = false;
+    private int animateEnd;
+    private int animateStart;
+
     private int width;
     private int height;
 
     private int posSelected = 1;
 
     private int bildNumb;
-    private String loopDance;
-    private int loopDanceStartBild;
 
     private boolean animationOn = false;
     private double animationSpeed = 1;
@@ -184,21 +186,8 @@ public class MainActivity extends AppCompatActivity {
         spinnerLoopType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i == 4 || i == 5){ //TODO Implement one dance Loops
-                    /*loopType = i;
-                    loopDance = isItAMansWorld.getDance(bildNumb - 1);
-                    for (int j = 0; j <= isItAMansWorld.getMAX_BILD(); j++){
-                        if (isItAMansWorld.getDance(j) == loopDance){
-                            loopDanceStartBild = j--;
-                            break;
-                        }
-                    }*/
-                    spinnerLoopType.setSelection(loopType);
-                    Toast.makeText(MainActivity.this, "Die Funktion wurde noch nicht implementiert", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    loopType = i;
-                }
+                loopType = i;
+                updateLoopType(i);
             }
 
             @Override
@@ -262,6 +251,7 @@ public class MainActivity extends AppCompatActivity {
                     bildNumb--;
                     updateTxt();
                     updateMarker();
+                    updateLoopType(loopType);
                 }
             }
             //next Bild
@@ -273,6 +263,7 @@ public class MainActivity extends AppCompatActivity {
                     bildNumb++;
                     updateTxt();
                     updateMarker();
+                    updateLoopType(loopType);
                     if (bildNumb == isItAMansWorld.getMAX_BILD()){
                         btnPlay.setImageResource(R.drawable.ic_restart);
                     }
@@ -349,8 +340,8 @@ public class MainActivity extends AppCompatActivity {
     //Jeweils ein Bild wird Animiert
     //TODO Different kind of Animation
     public void animateChoreo (){
-        if (bildNumb < isItAMansWorld.getMAX_BILD()){
-            if (animationOn){
+        if (animationOn){
+            if (bildNumb < animateEnd){
                 bildNumb++;
 
                 txtDance.setText(isItAMansWorld.getDance(bildNumb));
@@ -378,41 +369,32 @@ public class MainActivity extends AppCompatActivity {
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
 
-
-                        if (loopType == 0 || loopType == 1){ //Nächstes Bild wird Animiert
-                            animateChoreo();
-                        }
-                        if (loopType == 2){ //Animation Stopt nach einem Bild
-                            animationOn = false;
-                            btnPlay.setImageResource(R.drawable.ic_play_arrow);
-                        }
-                        if (loopType == 3){ //Animation wiederholt sich (Ein Bild)
-                            bildNumb--;
-                            updateMarker();
-                            animateChoreo();
-                        }
-                        /*if (loopType == 5  && isItAMansWorld.getDance(bildNumb) != loopDance){
-                            restartChoreo(loopDanceStartBild);
-                            animateChoreo();
-                        }*/
-
+                        animateChoreo();
                     }
                 });
+            }
+            else {
+                if (animateLoop){
+                    restartChoreo(animateStart);
+                    animateChoreo();
+                }
+                else{
+                    updateTxt();
+                    animationOn = false;
+                    if (bildNumb == isItAMansWorld.getMAX_BILD()){
+                        btnPlay.setImageResource(R.drawable.ic_restart);
+                    }
+                    else{
+                        btnPlay.setImageResource(R.drawable.ic_play_arrow);
+                        updateLoopType(loopType);
+                    }
 
-            } else { //Fall Start/Stop-Button wird gedrückt (Animation Stopt)
-                updateTxt();
+                }
             }
-
-        } else{ //FAll letztes Bild
-            if (loopType == 0){ //Animation wird gestopt
-                animationOn = false;
-                btnPlay.setImageResource(R.drawable.ic_restart);
-                //Toast.makeText(MainActivity.this, "Letztes Bild erreicht", Toast.LENGTH_SHORT).show();
-            }
-            if (loopType == 1){ //Animation Loopt gesamte Choreo
-                restartChoreo(0);
-                animateChoreo();
-            }
+        }
+        else {
+            updateTxt();
+            updateLoopType(loopType);
         }
     }
 
@@ -421,5 +403,41 @@ public class MainActivity extends AppCompatActivity {
         bildNumb = restartAT;
         updateMarker();
         updateTxt();
+        updateLoopType(loopType);
+    }
+
+    public void updateLoopType(int i){
+        switch (i){
+            case 0:
+                animateLoop = false;
+                animateStart = 0;
+                animateEnd = isItAMansWorld.getMAX_BILD();
+                break;
+            case 1:
+                animateLoop = true;
+                animateStart = 0;
+                animateEnd = isItAMansWorld.getMAX_BILD();
+                break;
+            case 2:
+                animateLoop = false;
+                animateStart = bildNumb;
+                animateEnd = bildNumb + 1;
+                break;
+            case 3:
+                animateLoop = true;
+                animateStart = bildNumb;
+                animateEnd = bildNumb + 1;
+                break;
+            case 4:
+                animateLoop = false;
+                animateStart = isItAMansWorld.getDanceStart(isItAMansWorld.getDance(bildNumb));
+                animateEnd = isItAMansWorld.getDanceEnd(isItAMansWorld.getDance(bildNumb)) + 1;
+                break;
+            case 5:
+                animateLoop = true;
+                animateStart = isItAMansWorld.getDanceStart(isItAMansWorld.getDance(bildNumb));
+                animateEnd = isItAMansWorld.getDanceEnd(isItAMansWorld.getDance(bildNumb)) + 1;
+                break;
+        }
     }
 }

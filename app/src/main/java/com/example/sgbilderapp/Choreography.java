@@ -1,5 +1,9 @@
 package com.example.sgbilderapp;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.util.ArrayList;
 
 public class Choreography {
@@ -100,14 +104,14 @@ public class Choreography {
         //bilder.add(new Bild("", "", false, bild40));
         //bilder.add(new Bild("", "", false, bild41));
 
-        String tmp = "";
+        /*String tmp = "";
         for (Bild bild:bilder) {
             if (bild.getDance() != tmp){
                 tänze = new ArrayList<String>();
                 tänze.add(bild.getDance());
                 tmp = bild.getDance();
             }
-        }
+        }*/
 
         //System.out.println(tänze);
     }
@@ -130,5 +134,37 @@ public class Choreography {
 
     public int getMAX_BILD(){
         return MAX_BILD;
+    }
+
+    public int getDanceStart(String loopDance){
+        int i = 0;
+        for (Bild bild:bilder) {
+            if (bild.getDance() == loopDance){
+                return i;
+            }
+            else {
+                i++;
+            }
+        }
+
+        return 0;
+    }
+
+    public int getDanceEnd(String loopDance){
+        int i = 0;
+        boolean tmp = false;
+        for (Bild bild:bilder) {
+            if (bild.getDance() == loopDance){
+                tmp = true;
+                i++;
+                continue;
+            } else if(tmp == true && bild.getDance() != loopDance){
+                return i - 1;
+            } else {
+                i++;
+            }
+        }
+
+        return 0;
     }
 }
