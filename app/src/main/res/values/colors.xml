@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="sg_gold">#FFD54F</color>
+    <color name="marco_background">#212529</color>
 </resources>
