@@ -55,16 +55,19 @@ public class MainActivity extends AppCompatActivity {
     // 4 = Ein Tanz
     // 5 = Loop ein Tanz
 
+    private int width;
+    private int height;
+
     private int posSelected = 1;
 
     private int bildNumb;
-    private int bildNumbMove;
 
     private boolean animationOn = false;
     private double animationSpeed = 1;
 
-    final long baseSpeed = 1000;
-    final private int maxBild = 19;
+    final double CONVERSION_VALUE_COORD = 0.1207;
+    final long BASE_SPEED = 1000;
+    final private int MAX_BILD = 19;
 
     //private Choreography isItAMansWorld = new Choreography();
 
@@ -76,11 +79,11 @@ public class MainActivity extends AppCompatActivity {
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
-        int width = displayMetrics.widthPixels;
+        height = displayMetrics.heightPixels;
+        width = displayMetrics.widthPixels;
 
-        System.out.println("height = " + height);
-        System.out.println("width = " + width);
+//        System.out.println("height = " + height);
+//        System.out.println("width = " + width);
 
         //Punkte von Is it a Man's World?
         double[] bild0 = {0, 0, 1.5, 0, 0, 1.5, 1.5, 3, 0, 3, 0, 4.5, 1.5, 1.5, 1.5, 4.5};
@@ -252,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
                     animationOn = false;
                     btnPlay.setImageResource(R.drawable.ic_play_arrow);
 
-                } else if(bildNumb == maxBild){
+                } else if(bildNumb == MAX_BILD){
                     restartChoreo(0);
                     btnPlay.setImageResource(R.drawable.ic_play_arrow);
                 } else {
@@ -290,26 +293,24 @@ public class MainActivity extends AppCompatActivity {
                 if (bildNumb == 0){
                     Toast.makeText(MainActivity.this, "erstes Bild", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (bildNumb == maxBild){
+                    if (bildNumb == MAX_BILD){
                         btnPlay.setImageResource(R.drawable.ic_play_arrow);
                     }
 
                     bildNumb--;
                     updateTxt();
                     updateMarker();
-                    bildNumbMove = bildNumb;
                 }
             }
             //next Bild
             public void onSwipeLeft() {
-                if (bildNumb == maxBild){
+                if (bildNumb == MAX_BILD){
                     //Toast.makeText(MainActivity.this, "letztes Bild", Toast.LENGTH_SHORT).show();
                 } else {
                     bildNumb++;
                     updateTxt();
                     updateMarker();
-                    bildNumbMove = bildNumb;
-                    if (bildNumb == maxBild){
+                    if (bildNumb == MAX_BILD){
                         btnPlay.setImageResource(R.drawable.ic_restart);
                     }
                 }
@@ -321,38 +322,24 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void moveMarker(ImageView marker, int pos, int bild){
-        marker.setTranslationX(0);
-        marker.setTranslationY(0);
+    public void moveMarker(ImageView marker, int pos){
+        int pxTranslationX = (int) (width * bilder.get(bildNumb).getPositionX(pos) * CONVERSION_VALUE_COORD / 2);
+        int pxTranslationY = (int) (width * bilder.get(bildNumb).getPositionY(pos) * CONVERSION_VALUE_COORD * (-1) / 2);
 
-        Resources r = marker.getResources();
-        int pxX = (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                (float) ((bilder.get(bildNumb).getPositionX(pos)+8)*18.125+25),
-                r.getDisplayMetrics()
-        );
-        int pxY = (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                (float) (((bilder.get(bildNumb).getPositionY(pos)-8)*(-1))*18.125+38),
-                r.getDisplayMetrics()
-        );
 
-        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) marker.getLayoutParams();
-        params.topMargin = pxY;
-        params.leftMargin = pxX;
-        marker.setLayoutParams(params);
-
+        marker.setTranslationX(pxTranslationX);
+        marker.setTranslationY(pxTranslationY);
     }
 
     public void updateMarker(){
-        moveMarker(marker_1, 1, bildNumb);
-        moveMarker(marker_2, 2, bildNumb);
-        moveMarker(marker_3, 3, bildNumb);
-        moveMarker(marker_4, 4, bildNumb);
-        moveMarker(marker_5, 5, bildNumb);
-        moveMarker(marker_6, 6, bildNumb);
-        moveMarker(marker_7, 7, bildNumb);
-        moveMarker(marker_8, 8, bildNumb);
+        moveMarker(marker_1, 1);
+        moveMarker(marker_2, 2);
+        moveMarker(marker_3, 3);
+        moveMarker(marker_4, 4);
+        moveMarker(marker_5, 5);
+        moveMarker(marker_6, 6);
+        moveMarker(marker_7, 7);
+        moveMarker(marker_8, 8);
     }
 
     public void updateTxt(){
@@ -371,7 +358,7 @@ public class MainActivity extends AppCompatActivity {
         txtX.setText(String.valueOf(bilder.get(bildNumb).getPositionX(posSelected)));
         txtY.setText(String.valueOf(bilder.get(bildNumb).getPositionY(posSelected)));
 
-        if (bildNumb == maxBild){
+        if (bildNumb == MAX_BILD){
             txtFutX.setText("0.0");
             txtFutY.setText("0.0");
         } else{
@@ -383,38 +370,15 @@ public class MainActivity extends AppCompatActivity {
     public ObjectAnimator animateMarkerTo(ImageView marker, int pos, int bild, boolean isX){
         ObjectAnimator animation;
 
-        Resources r = marker.getResources();
-
         if (isX){
-            int pxXAlt = (int) TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP,
-                    (float) ((bilder.get(bildNumbMove).getPositionX(pos)+8)*18.125+25),
-                    r.getDisplayMetrics()
-            );
-
-            int pxXNeu = (int) TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP,
-                    (float) ((bilder.get(bild).getPositionX(pos)+8)*18.125+25),
-                    r.getDisplayMetrics()
-            );
-            animation = ObjectAnimator.ofFloat(marker, "translationX", pxXNeu-pxXAlt);
-            animation.setDuration((long) (baseSpeed * animationSpeed));
+            int pxTranslationX = (int) (width * bilder.get(bildNumb).getPositionX(pos) * CONVERSION_VALUE_COORD / 2);
+            animation = ObjectAnimator.ofFloat(marker, "translationX", pxTranslationX);
+            animation.setDuration((long) (BASE_SPEED * animationSpeed));
         } else{
 
-            int pxYAlt = (int) TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP,
-                    (float) (((bilder.get(bildNumbMove).getPositionY(pos)-8)*(-1))*18.125+38),
-                    r.getDisplayMetrics()
-            );
-
-            int pxYNeu = (int) TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP,
-                    (float) (((bilder.get(bild).getPositionY(pos)-8)*(-1))*18.125+38),
-                    r.getDisplayMetrics()
-            );
-
-            animation = ObjectAnimator.ofFloat(marker, "translationY", pxYNeu-pxYAlt);
-            animation.setDuration((long) (baseSpeed * animationSpeed));
+            int pxTranslationY = (int) (width * bilder.get(bildNumb).getPositionY(pos) * CONVERSION_VALUE_COORD * (-1) / 2);
+            animation = ObjectAnimator.ofFloat(marker, "translationY", pxTranslationY);
+            animation.setDuration((long) (BASE_SPEED * animationSpeed));
         }
 
         return animation;
@@ -423,7 +387,7 @@ public class MainActivity extends AppCompatActivity {
     //TODO Different kind of Animation
 
     public void animateChoreo (){
-        if (bildNumb < maxBild){
+        if (bildNumb < MAX_BILD){
             if (animationOn){
                 bildNumb++;
 
@@ -492,7 +456,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void restartChoreo (int restartAT){
         bildNumb = restartAT;
-        bildNumbMove = restartAT;
         updateMarker();
         updateTxt();
     }
