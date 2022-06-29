@@ -5,12 +5,13 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Choreography {
 
     final private String name = "Is it a Man's World";
-    ArrayList<String> tänze;
     private ArrayList<Bild> bilder;
+    List<String> listDances = new ArrayList<String>();
 
     final private int MAX_BILD = 38;
 
@@ -93,7 +94,7 @@ public class Choreography {
         bilder.add(new Bild("2.1 SF - 1. Slowfox", "Ende Tumble Turn\nRechter Fuß Herr", false, bild29));
         bilder.add(new Bild("2.1 SF - 1. Slowfox", "Ende Federschritt\nRechter Fuß Herr", false, bild30));
         bilder.add(new Bild("2.1 SF - 1. Slowfox", "Ende Bounced Fallaway\nRechter Fuß Herr", false, bild31));
-        bilder.add(new Bild("2.1 SF - 1. Slowfox\"", "Ende Curved Feather\nRechter Fuß Herr", false, bild32));
+        bilder.add(new Bild("2.1 SF - 1. Slowfox", "Ende Curved Feather\nRechter Fuß Herr", false, bild32));
         bilder.add(new Bild("2.2 TG - 2. Tango", "Rechter Fuß Herr", false, bild33));
         bilder.add(new Bild("2.2 TG - 2. Tango", "Ende Back Corté", false, bild34));
         bilder.add(new Bild("2.2 TG - 2. Tango", "Seit-Schluss vor Contra Check\nRechter Fuß Herr", false, bild35));
@@ -104,16 +105,15 @@ public class Choreography {
         //bilder.add(new Bild("", "", false, bild40));
         //bilder.add(new Bild("", "", false, bild41));
 
-        /*String tmp = "";
+        String tmp = "";
         for (Bild bild:bilder) {
             if (bild.getDance() != tmp){
-                tänze = new ArrayList<String>();
-                tänze.add(bild.getDance());
+                listDances.add(bild.getDance());
                 tmp = bild.getDance();
             }
-        }*/
+        }
 
-        //System.out.println(tänze);
+        System.out.println(listDances);
     }
 
     public double getCoordX(int bildNumb, int pos){
@@ -166,5 +166,9 @@ public class Choreography {
         }
 
         return 0;
+    }
+
+    public List<String> getDanceArray(){
+        return listDances;
     }
 }

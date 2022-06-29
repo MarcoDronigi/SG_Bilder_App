@@ -16,6 +16,7 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
     private Spinner spinnerPos;
     private Spinner spinnerAnimationSpeed;
     private Spinner spinnerLoopType;
+    private Spinner spinnerDance;
+
+    List<String> spinnerArray =  new ArrayList<String>();
+    int spinnerInterfaceInput = 1;
 
     private int loopType = 1;
     // 0 = Anfang bis Ende
@@ -88,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
         //Views bekommen Variablen zugeordnet
         raster = findViewById(R.id.pctRaster);
 
-        txtDance = findViewById(R.id.txtDance);
         txtComment = findViewById(R.id.txtComment);
 
         txtPrevX = findViewById(R.id.txtPrevX);
@@ -119,9 +124,20 @@ public class MainActivity extends AppCompatActivity {
         spinnerPos = findViewById(R.id.spinnerPos);
         spinnerAnimationSpeed = findViewById(R.id.spinnerAnimationSpeed);
         spinnerLoopType = findViewById(R.id.spinnerLoopType);
+        spinnerDance = findViewById(R.id.spinnerDance);
 
         //Animationsgeschwindigkeit wird Default 1x gesetzt
         spinnerAnimationSpeed.setSelection(3);
+
+        spinnerArray = isItAMansWorld.getDanceArray();
+
+        System.out.println(spinnerArray);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_dropdown_item, spinnerArray);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerDance.setAdapter(adapter);
 
         //Erstes Bild wird Initialisiert
         restartChoreo(0);
@@ -188,6 +204,26 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 loopType = i;
                 updateLoopType(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+
+
+        // Auswahl des Tanzes
+        spinnerDance.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (spinnerInterfaceInput == 1){
+                    bildNumb = isItAMansWorld.getDanceStart(spinnerDance.getSelectedItem().toString());
+                    updateTxt();
+                    updateMarker();
+                    updateLoopType(loopType);
+                }
+                else {
+                    spinnerInterfaceInput = 1;
+                }
             }
 
             @Override
@@ -297,7 +333,8 @@ public class MainActivity extends AppCompatActivity {
 
     // Kommentare sowie Angezeigte Koord werden auf Wert laut "bildNumb" gestellt
     public void updateTxt(){
-        txtDance.setText(isItAMansWorld.getDance(bildNumb));
+        spinnerInterfaceInput = 0;
+        spinnerDance.setSelection(spinnerArray.indexOf(isItAMansWorld.getDance(bildNumb)));
         txtComment.setText(isItAMansWorld.getComment(bildNumb));
 
         if (bildNumb == 0){ //Fall erstes Bild
@@ -343,9 +380,6 @@ public class MainActivity extends AppCompatActivity {
         if (animationOn){
             if (bildNumb < animateEnd){
                 bildNumb++;
-
-                txtDance.setText(isItAMansWorld.getDance(bildNumb));
-                txtComment.setText(isItAMansWorld.getComment(bildNumb));
 
                 updateTxt();
 
