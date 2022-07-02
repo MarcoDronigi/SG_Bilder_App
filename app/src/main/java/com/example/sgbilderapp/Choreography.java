@@ -1,68 +1,41 @@
 package com.example.sgbilderapp;
 
+import static java.lang.System.out;
+
+import android.content.Context;
 import android.os.Build;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Choreography {
+public class Choreography implements Serializable{
 
-    final private String name = "Is it a Man's World";
-    private ArrayList<Bild> bilder;
+    private static final long serialVersionUID = 8736847634070552888L;
+
+    private String name;
+    private ArrayList<Bild> bilder = new ArrayList<Bild>();;
     List<String> listDances = new ArrayList<String>();
+    //List<String> listComments = new ArrayList<String>();
 
-    final private int MAX_BILD = 38;
+    private int maxBild = -1;
 
-    //Punkte von Is it a Man's World?
-    private double[] bild0 = {0, 0, 1.5, 0, 0, 1.5, 1.5, 3, 0, 3, 0, 4.5, 1.5, 1.5, 1.5, 4.5};
-    private double[] bild1 = {-3, -1.5, 0, -1.5, -1.5, 0, 3, 1.5, 0, 1.5, 1.5, 3, 1.5, 0, 4.5, 3};
-    private double[] bild2 = {-1.5, -1.5, 1.5, -1.5, 0, 0, 4.5, 1.5, 1.5, 1.5, 3, 3, 3, 0, 6, 3};
-    private double[] bild3 = {-3, -1.5, 0, -1.5, -1.5, 0, 3, 1.5, 0, 1.5, 1.5, 3, 1.5, 0, 4.5, 3};
-    private double[] bild4 = {-6, -1.5, -3, -4.5, -4.5, -3, -1.5, -3, -4.5, 0, -1.5, 0, -3, -1.5, 0, -1.5};
-    private double[] bild5 = {-6, -3, -3, -6, -4.5, -4.5, -1.5, -4.5, -4.5, -1.5, -1.5, -1.5, -3, -3, 0, -3};
-    private double[] bild6 = {0, -3, 3, -6, 1.5, -4.5, 4.5, -4.5, 1.5, -1.5, 4.5, -1.5, 3, -3, 6, -3};
-    private double[] bild7 = {-1.5, 0, 1.5, -3, 0, -1.5, 3, -1.5, 0, 1.5, 3, 1.5, 1.5, 0, 4.5, 0};
-    private double[] bild8 = {-4.5, 3, 0, 1.5, -3, 1.5, 3, 1.5, -1.5, 3, 1.5, 3, 0, 4.5, 4.5, 3};
-    private double[] bild9 = {-2, -3, 0, -6, -2, -6, 2, -6, -1, -4.5, 1, -4.5, 0, -3, 2, -3};
-    private double[] bild10 = {-2, 1.5, 0, -1.5, -2, -1.5, 2, -1.5, -1, 0, 1, 0, 0, 1.5, 2, 1.5};
-    private double[] bild11 = {-6, -3, -3, -6, -6, -6, 6, 3, -4.5, -4.5, 4.5, 4.5, 3, 6, 6, 6};
-    private double[] bild12 = {0, -4.5, 1.5, -6, 0, -6, 0, 4.5, 1.5, -4.5, -1.5, 4.5, -1.5, 6, 0, 6};
-    private double[] bild13 = {3, -4.5, 4.5, -6, 3, -6, -3, 4.5, 4.5, -4.5, -4.5, 4.5, -4.5, 6, -3, 6};
-    private double[] bild14 = {2.25, -3.75, 3, -4.5, 1.5, -4.5, -2.25, 3.75, 3, -3, -3, 3, -3, 4.5, -1.5, 4.5};
-    private double[] bild15 = {1.5, 0, 1.5, -1.5, 0, -1.5, -1.5, 0, 1.5, 1.5, -1.5, -1.5, -1.5, 1.5, 0, 1.5};
-    private double[] bild16 = {-1.5, -4.5, -1.5, -6, -3, -6, -4.5, -4.5, -1.5, -3, -4.5, -6, -4.5, -3, -3, -3};
-    private double[] bild17 = {0, -3, 0, -4.5, -1.5, -4.5, -3, -3, 0, -1.5, -3, -4.5, -3, -1.5, -1.5, -1.5};
-    private double[] bild18 = {3, -1.5, 4.5, -3, 3, -4.5, 0, -4.5, 1.5, 0, 1.5, -6, -1.5, -3, 0, -1.5};
-    private double[] bild19 = {4.5, -1.5, 6, -3, 4.5, -4.5, 1.5, -4.5, 3, 0, 3, -6, 0, -3, 1.5, -1.5};
-    private double[] bild20 = {1.5, 3, 3, 1.5, 3, 0, -1.5, 0, 0, 3, 1.5, 1.5, -1.5, 1.5, 0, 1.5};
-    private double[] bild21 = {0.5, 6, 4.5, 2, 6.5, 0, -6.5, 1, -0.5, 7, 2.5, 4, -4.5, 3, -2.5, 5};
-    private double[] bild22 = {-1.5, 4, 2.5, 0, 4.5, -2, -4.5, -1, -2.5, 5, 0.5, 2, -2.5, 1, -0.5, 3};
-    private double[] bild23 = {-3.5, 2, 0.5, -2, 2.5, -4, -2.5, -3, -4.5, 3, -1.5, 0, -0.5, -1, -2.5, 1};
-    private double[] bild24 = {-5.5, 0, -1.5, -4, 0.5, -6, -0.5, -5, -6.5, 1, -3.5, -2, -2.5, -3, -4.5, -1};
-    private double[] bild25 = {-1, 3, 0.5, -1.5, 2, -3, 0.5, -3, -2.5, 3, -1, 0, 0.5, 0, -1, 1.5};
-    private double[] bild26 = {0, 6, 1.5, 3, 3, 1.5, 1.5, 1.5, -1.5, 6, 0, 3, 1.5, 4.5, 0, 4.5};
-    private double[] bild27 = {-1.5, 3, 0, 1.5, 1.5, -1.5, 0, -1.5, -3, 3, -3, 0, 1.5, 1.5, -1.5, 0};
-    private double[] bild28 = {4.5, 3, -6, 1.5, -4.5, -1.5, -6, -1.5, 3, 3, 3, 0, -4.5, 1.5, 4.5, 0};
-    private double[] bild29 = {4.5, 6, -4.5, -4.5, -3, -3, -6, -6, 3, 6, 3, 4.5, -1.5, -1.5, 4.5, 4.5};
-    private double[] bild30 = {-3, 6, 3, -4.5, 4.5, -3, 1.5, -6, -6, 6, -6, 3, 6, -1.5, -3, 3};
-    private double[] bild31 = {3, 0, -3, 1, -1.5, 2.5, -4.5, -0.5, 0, 0, 0, -3, 0, 4, 3, -3};
-    private double[] bild32 = {4.5, 3, 0, 1.5, 0, 4.5, -1.5, 3, 1.5, 3, 1.5, 0, 3, 4.5, 3, 1.5};
-    private double[] bild33 = {4.5, 4.5, 0, 3, 0, 6, -1.5, 4.5, 1.5, 4.5, 1.5, 1.5, 3, 6, 3, 3};
-    private double[] bild34 = {3, 0, -1.5, -1.5, -1.5, 0, -3, 0, 0, 0, 0, -3, 1.5, 0, 1.5, -1.5};
-    private double[] bild35 = {4.5, -1.5, -1.5, -4.5, -3, -3, -4.5, -1.5, 0, -3, 0, -6, 3, -3, 1.5, -4.5};
-    private double[] bild36 = {-3, 6, -4.5, 3, -4.5, 4.5, -4.5, 6, -3, 3, -4.5, 1.5, -3, 4.5, -3, 1.5};
-    private double[] bild37 = {0, 6, -1.5, 3, -1.5, 4.5, -1.5, 6, 0, 3, -1.5, 1.5, 0, 4.5, 0, 1.5};
-    private double[] bild38 = {0, 3, -1.5, 1.5, 0, 1.5, -1.5, 3, 1.5, 0, -1.5, 0, 1.5, 1.5, 0, 0};
-    //private double[] bild39 = {};
-    //private double[] bild40 = {};
-    //private double[] bild41 = {};
-
-    public Choreography() {
+    public Choreography(String name) {
+        this.name = name;
         //Bilder von Is it a Man's World
         bilder = new ArrayList<Bild>();
-        bilder.add(new Bild("Einmarsch", "Anfangsbild",false, bild0));
+        /*bilder.add(new Bild("Einmarsch", "Anfangsbild",false, bild0));
         bilder.add(new Bild("Einmarsch", "Standing Spin",false, bild1));
         bilder.add(new Bild("Einmarsch", "Ende Drehung\nLinker Fuß Herr",false, bild2));
         bilder.add(new Bild("1.1 WW - 1. Wiener Walzer", "Gong\nCojones Herr", false, bild3));
@@ -100,40 +73,71 @@ public class Choreography {
         bilder.add(new Bild("2.2 TG - 2. Tango", "Seit-Schluss vor Contra Check\nRechter Fuß Herr", false, bild35));
         bilder.add(new Bild("2.2 TG - 2. Tango", "Ende Achse\nRechter Fuß\nDurchschachteln mit 4 Schlägen je 1.5 m Seite", false, bild36));
         bilder.add(new Bild("2.3 LW - Langsamer Walzer", "Rechter Fuß Herr", false, bild37));
-        bilder.add(new Bild("2.3 LW - Langsamer Walzer", "Ende Chassé\nRechter Fuß Herr", false, bild38));
+        bilder.add(new Bild("2.3 LW - Langsamer Walzer", "Ende Chassé\nRechter Fuß Herr", false, bild38));*/
         //bilder.add(new Bild("", "", false, bild39));
         //bilder.add(new Bild("", "", false, bild40));
         //bilder.add(new Bild("", "", false, bild41));
 
-        String tmp = "";
-        for (Bild bild:bilder) {
-            if (bild.getDance() != tmp){
-                listDances.add(bild.getDance());
-                tmp = bild.getDance();
-            }
-        }
+    }
 
-        System.out.println(listDances);
+    public void addBild(double[] bildCoord, String dance, String comment){
+        assert bildCoord.length == 16;
+        bilder.add(new Bild(dance, comment, false, bildCoord));
+        if (maxBild == -1){
+            listDances.add(dance);
+        } else if (dance != bilder.get(maxBild).getDance()){
+            listDances.add(dance);
+        }
+        maxBild++;
+    }
+
+    public void addBlankBild(){
+        double[] nullBild = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        bilder.add(new Bild("Tanz", "Kommentar", false ,nullBild));
+    }
+
+    public void deleteBild(int bildIndex){
+        bilder.remove(bildIndex);
+    }
+
+    public String getName(){
+        return name;
     }
 
     public double getCoordX(int bildNumb, int pos){
         return bilder.get(bildNumb).getPositionX(pos);
     }
 
+    public void setCoordX(int bildNumb, int pos, double xValue){
+        bilder.get(bildNumb).setPositionX(pos, xValue);
+    }
+
     public double getCoordY(int bildNumb, int pos){
         return bilder.get(bildNumb).getPositionY(pos);
+    }
+
+    public void setCoordY(int bildNumb, int pos, double yValue){
+        bilder.get(bildNumb).setPositionY(pos, yValue);
     }
 
     public String getDance(int bildNumb) {
         return bilder.get(bildNumb).getDance();
     }
 
+    public void setDance(int bildNumb, String dance){
+        bilder.get(bildNumb).setDance(dance);
+    }
+
     public String getComment(int bildNumb) {
         return bilder.get(bildNumb).getComment();
     }
 
-    public int getMAX_BILD(){
-        return MAX_BILD;
+    public void setComment(int bildNumb, String comment){
+        bilder.get(bildNumb).setComment(comment);
+    }
+
+    public int getMaxBild(){
+        return maxBild;
     }
 
     public int getDanceStart(String loopDance){
@@ -171,4 +175,93 @@ public class Choreography {
     public List<String> getDanceArray(){
         return listDances;
     }
+
+    public void save(Context context) throws IOException {
+
+        try {
+
+            String FILENAME = "test2.ser";
+            String FOLDERNAME = "Choerografien";
+            //String string = "hello world!";
+
+            String folder = context.getFilesDir().getAbsolutePath() + File.separator + FOLDERNAME;
+            //Toast.makeText(context, folder, Toast.LENGTH_LONG).show();
+            out.println(folder);
+
+            File subFolder = new File(folder);
+
+            if (!subFolder.exists()) {
+                subFolder.mkdirs();
+            }
+
+            File file = new File(subFolder, FILENAME);
+            out.println(file.getAbsolutePath() + " MArk");
+
+            FileOutputStream fileOutputStream = new FileOutputStream(new File(subFolder, FILENAME));
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(this);
+            objectOutputStream.close();
+            fileOutputStream.close();
+
+        } catch (FileNotFoundException e) {
+            Log.e("ERROR", e.toString());
+        } catch (IOException e) {
+            Log.e("ERROR", e.toString());
+        }
+
+
+        try {
+            FileOutputStream fileOutputStream = context.openFileOutput("test.ser", Context.MODE_PRIVATE);
+            out.println(fileOutputStream.toString());
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(this);
+            objectOutputStream.close();
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Creates an object by reading it from a file
+    public static Choreography readFromFile(Context context) {
+        Choreography choreography = null;
+        try {
+            FileInputStream fileInputStream = context.openFileInput("test.ser");
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            choreography = (Choreography) objectInputStream.readObject();
+            objectInputStream.close();
+            fileInputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return choreography;
+    }
+
+    /*try {
+
+        String FILENAME = "hello_file";
+        String FOLDERNAME = "sub";
+        byte[] bytes = new byte[1024];
+
+        Context context = getApplicationContext();
+        String folder = context.getFilesDir().getAbsolutePath() + File.separator + FOLDERNAME;
+
+        File subFolder = new File(folder);
+
+        FileInputStream outputStream = new FileInputStream(new File(subFolder, FILENAME));
+
+        outputStream.read(bytes);
+        outputStream.close();
+
+        String string = new String(bytes);
+        Toast.makeText(getApplicationContext(), string, Toast.LENGTH_SHORT).show();
+
+    } catch (FileNotFoundException e) {
+        Log.e("ERROR", e.toString());
+    } catch (IOException e) {
+        Log.e(TAG, e.toString());
+    }*/
 }

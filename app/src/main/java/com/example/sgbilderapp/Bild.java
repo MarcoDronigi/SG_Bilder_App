@@ -1,6 +1,10 @@
 package com.example.sgbilderapp;
 
-public class Bild {
+import java.io.Serializable;
+
+public class Bild implements Serializable {
+    private static final long serialVersionUID = 3736847634070552888L;
+
     private String dance;
     private String comment;
     private boolean isSeparated;

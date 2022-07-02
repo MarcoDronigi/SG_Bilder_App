@@ -8,11 +8,13 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,12 +25,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView txtDance, txtComment;
+    private TextView txtComment;
     private TextView txtPrevX, txtX, txtFutX, txtPrevY, txtY, txtFutY;
 
     private ImageButton btnPlay;
@@ -76,15 +85,18 @@ public class MainActivity extends AppCompatActivity {
     final double CONVERSION_VALUE_COORD = 0.1269;
     //0.1207
     final long BASE_SPEED = 1000;
-    //final private int MAX_BILD = 26;
 
-    private Choreography isItAMansWorld = new Choreography();
+    private Choreography choreo;
+
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        choreo = Choreography.readFromFile(this);
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -129,9 +141,7 @@ public class MainActivity extends AppCompatActivity {
         //Animationsgeschwindigkeit wird Default 1x gesetzt
         spinnerAnimationSpeed.setSelection(3);
 
-        spinnerArray = isItAMansWorld.getDanceArray();
-
-        System.out.println(spinnerArray);
+        spinnerArray = choreo.getDanceArray();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_dropdown_item, spinnerArray);
@@ -215,15 +225,16 @@ public class MainActivity extends AppCompatActivity {
         spinnerDance.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
                 if (spinnerInterfaceInput == 1){
-                    bildNumb = isItAMansWorld.getDanceStart(spinnerDance.getSelectedItem().toString());
+                    bildNumb = choreo.getDanceStart(spinnerDance.getSelectedItem().toString());
+                    //Toast.makeText(MainActivity.this, ((Integer) bildNumb).toString(), Toast.LENGTH_SHORT).show();
                     updateTxt();
                     updateMarker();
                     updateLoopType(loopType);
                 }
-                else {
-                    spinnerInterfaceInput = 1;
-                }
+
+                spinnerInterfaceInput = 1;
             }
 
             @Override
@@ -239,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
                     animationOn = false;
                     btnPlay.setImageResource(R.drawable.ic_play_arrow);
 
-                } else if(bildNumb == isItAMansWorld.getMAX_BILD()){ //Choero wird Resetet (Fall letztes Bild)
+                } else if(bildNumb == choreo.getMaxBild()){ //Choero wird Resetet (Fall letztes Bild)
                     restartChoreo(0);
                     btnPlay.setImageResource(R.drawable.ic_play_arrow);
                 } else { //Animation wird gestartet
@@ -266,7 +277,9 @@ public class MainActivity extends AppCompatActivity {
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Funktion noch nicht implementiert!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, EditActivity.class);
+                intent.putExtra("bildNumb", bildNumb);
+                startActivity(intent);
             }
         });
 
@@ -277,14 +290,15 @@ public class MainActivity extends AppCompatActivity {
             //prev Bild
             public void onSwipeRight() {
                 if (bildNumb == 0){ //Fall "Startbild"
-                    restartChoreo(isItAMansWorld.getMAX_BILD());
+                    restartChoreo(choreo.getMaxBild());
                     btnPlay.setImageResource(R.drawable.ic_restart);
                 } else {
-                    if (bildNumb == isItAMansWorld.getMAX_BILD()){
+                    if (bildNumb == choreo.getMaxBild()){
                         btnPlay.setImageResource(R.drawable.ic_play_arrow);
                     }
 
                     bildNumb--;
+                    //Toast.makeText(MainActivity.this, ((Integer) bildNumb).toString(), Toast.LENGTH_SHORT).show();
                     updateTxt();
                     updateMarker();
                     updateLoopType(loopType);
@@ -292,28 +306,32 @@ public class MainActivity extends AppCompatActivity {
             }
             //next Bild
             public void onSwipeLeft() {
-                if (bildNumb == isItAMansWorld.getMAX_BILD()){ //Fall letztes Bild
+                if (bildNumb == choreo.getMaxBild()){ //Fall letztes Bild
                     restartChoreo(0);
                     btnPlay.setImageResource(R.drawable.ic_play_arrow);
                 } else {
                     bildNumb++;
+                    //Toast.makeText(MainActivity.this, ((Integer) bildNumb).toString(), Toast.LENGTH_SHORT).show();
                     updateTxt();
                     updateMarker();
                     updateLoopType(loopType);
-                    if (bildNumb == isItAMansWorld.getMAX_BILD()){
+                    if (bildNumb == choreo.getMaxBild()){
                         btnPlay.setImageResource(R.drawable.ic_restart);
                     }
                 }
 
             }
             public void onSwipeBottom() {}
+
         });
     }
 
+
+
     //Funktion Bewegt einen Marker zu "bildNumb"
     public void moveMarker(ImageView marker, int pos){
-        int pxTranslationX = (int) (width * isItAMansWorld.getCoordX(bildNumb, pos) * CONVERSION_VALUE_COORD / 2);
-        int pxTranslationY = (int) (width * isItAMansWorld.getCoordY(bildNumb, pos) * CONVERSION_VALUE_COORD * (-1) / 2);
+        int pxTranslationX = (int) (width * choreo.getCoordX(bildNumb, pos) * CONVERSION_VALUE_COORD / 2);
+        int pxTranslationY = (int) (width * choreo.getCoordY(bildNumb, pos) * CONVERSION_VALUE_COORD * (-1) / 2);
 
         marker.setTranslationX(pxTranslationX);
         marker.setTranslationY(pxTranslationY);
@@ -334,26 +352,27 @@ public class MainActivity extends AppCompatActivity {
     // Kommentare sowie Angezeigte Koord werden auf Wert laut "bildNumb" gestellt
     public void updateTxt(){
         spinnerInterfaceInput = 0;
-        spinnerDance.setSelection(spinnerArray.indexOf(isItAMansWorld.getDance(bildNumb)));
-        txtComment.setText(isItAMansWorld.getComment(bildNumb));
+        spinnerDance.setSelection(spinnerArray.indexOf(choreo.getDance(bildNumb)));
+
+        txtComment.setText(choreo.getComment(bildNumb));
 
         if (bildNumb == 0){ //Fall erstes Bild
             txtPrevX.setText("0.0");
             txtPrevY.setText("0.0");
         } else{
-            txtPrevX.setText(String.valueOf(isItAMansWorld.getCoordX(bildNumb - 1, posSelected)));
-            txtPrevY.setText(String.valueOf(isItAMansWorld.getCoordY(bildNumb - 1, posSelected)));
+            txtPrevX.setText(String.valueOf(choreo.getCoordX(bildNumb - 1, posSelected)));
+            txtPrevY.setText(String.valueOf(choreo.getCoordY(bildNumb - 1, posSelected)));
         }
 
-        txtX.setText(String.valueOf(isItAMansWorld.getCoordX(bildNumb, posSelected)));
-        txtY.setText(String.valueOf(isItAMansWorld.getCoordY(bildNumb, posSelected)));
+        txtX.setText(String.valueOf(choreo.getCoordX(bildNumb, posSelected)));
+        txtY.setText(String.valueOf(choreo.getCoordY(bildNumb, posSelected)));
 
-        if (bildNumb == isItAMansWorld.getMAX_BILD()){ //Fall letztes Bild
+        if (bildNumb == choreo.getMaxBild()){ //Fall letztes Bild
             txtFutX.setText("0.0");
             txtFutY.setText("0.0");
         } else{
-            txtFutX.setText(String.valueOf(isItAMansWorld.getCoordX(bildNumb + 1, posSelected)));
-            txtFutY.setText(String.valueOf(isItAMansWorld.getCoordY(bildNumb + 1, posSelected)));
+            txtFutX.setText(String.valueOf(choreo.getCoordX(bildNumb + 1, posSelected)));
+            txtFutY.setText(String.valueOf(choreo.getCoordY(bildNumb + 1, posSelected)));
         }
     }
 
@@ -362,11 +381,11 @@ public class MainActivity extends AppCompatActivity {
         ObjectAnimator animation;
 
         if (isX){
-            int pxTranslationX = (int) (width * isItAMansWorld.getCoordX(bildNumb, pos) * CONVERSION_VALUE_COORD / 2);
+            int pxTranslationX = (int) (width * choreo.getCoordX(bildNumb, pos) * CONVERSION_VALUE_COORD / 2);
             animation = ObjectAnimator.ofFloat(marker, "translationX", pxTranslationX);
             animation.setDuration((long) (BASE_SPEED * animationSpeed));
         } else{
-            int pxTranslationY = (int) (width * isItAMansWorld.getCoordY(bildNumb, pos) * CONVERSION_VALUE_COORD * (-1) / 2);
+            int pxTranslationY = (int) (width * choreo.getCoordY(bildNumb, pos) * CONVERSION_VALUE_COORD * (-1) / 2);
             animation = ObjectAnimator.ofFloat(marker, "translationY", pxTranslationY);
             animation.setDuration((long) (BASE_SPEED * animationSpeed));
         }
@@ -415,7 +434,7 @@ public class MainActivity extends AppCompatActivity {
                 else{
                     updateTxt();
                     animationOn = false;
-                    if (bildNumb == isItAMansWorld.getMAX_BILD()){
+                    if (bildNumb == choreo.getMaxBild()){
                         btnPlay.setImageResource(R.drawable.ic_restart);
                     }
                     else{
@@ -445,12 +464,12 @@ public class MainActivity extends AppCompatActivity {
             case 0:
                 animateLoop = false;
                 animateStart = 0;
-                animateEnd = isItAMansWorld.getMAX_BILD();
+                animateEnd = choreo.getMaxBild();
                 break;
             case 1:
                 animateLoop = true;
                 animateStart = 0;
-                animateEnd = isItAMansWorld.getMAX_BILD();
+                animateEnd = choreo.getMaxBild();
                 break;
             case 2:
                 animateLoop = false;
@@ -464,14 +483,38 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 4:
                 animateLoop = false;
-                animateStart = isItAMansWorld.getDanceStart(isItAMansWorld.getDance(bildNumb));
-                animateEnd = isItAMansWorld.getDanceEnd(isItAMansWorld.getDance(bildNumb)) + 1;
+                animateStart = choreo.getDanceStart(choreo.getDance(bildNumb));
+                animateEnd = choreo.getDanceEnd(choreo.getDance(bildNumb)) + 1;
                 break;
             case 5:
                 animateLoop = true;
-                animateStart = isItAMansWorld.getDanceStart(isItAMansWorld.getDance(bildNumb));
-                animateEnd = isItAMansWorld.getDanceEnd(isItAMansWorld.getDance(bildNumb)) + 1;
+                animateStart = choreo.getDanceStart(choreo.getDance(bildNumb));
+                animateEnd = choreo.getDanceEnd(choreo.getDance(bildNumb)) + 1;
                 break;
         }
     }
+
+    /*private void writeToFile(String data, Context context) {
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("config.txt", Context.MODE_PRIVATE));
+            outputStreamWriter.write(data);
+            outputStreamWriter.close();
+        }
+        catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+        try {
+            fos = new FileOutputStream(context.openFileOutput("config.txt", Context.MODE_PRIVATE));
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(isItAMansWorld);
+            oos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }*/
 }
