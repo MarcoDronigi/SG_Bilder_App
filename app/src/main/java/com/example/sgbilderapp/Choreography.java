@@ -3,11 +3,8 @@ package com.example.sgbilderapp;
 import static java.lang.System.out;
 
 import android.content.Context;
-import android.os.Build;
+import android.os.Environment;
 import android.util.Log;
-import android.widget.Toast;
-
-import androidx.annotation.RequiresApi;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,48 +32,6 @@ public class Choreography implements Serializable{
         this.name = name;
         //Bilder von Is it a Man's World
         bilder = new ArrayList<Bild>();
-        /*bilder.add(new Bild("Einmarsch", "Anfangsbild",false, bild0));
-        bilder.add(new Bild("Einmarsch", "Standing Spin",false, bild1));
-        bilder.add(new Bild("Einmarsch", "Ende Drehung\nLinker Fuß Herr",false, bild2));
-        bilder.add(new Bild("1.1 WW - 1. Wiener Walzer", "Gong\nCojones Herr", false, bild3));
-        bilder.add(new Bild("1.1 WW - 1. Wiener Walzer", "Ende RD\nLinker Fuß Herr", false, bild4));
-        bilder.add(new Bild("1.1 WW - 1. Wiener Walzer", "Achse\nLinker Fuß Herr", false, bild5));
-        bilder.add(new Bild("1.1 WW - 1. Wiener Walzer", "Schlag 3 RD\nLinker Fuß Herr", false, bild6));
-        bilder.add(new Bild("1.1 WW - 1. Wiener Walzer", "", false, bild7));
-        bilder.add(new Bild("1.1 WW - 1. Wiener Walzer", "Change of Direction\nRechter Fuß Herr", false, bild8));
-        bilder.add(new Bild("1.2 Qs - 1. Quickstep", "Fleckerl", false, bild9));
-        bilder.add(new Bild("1.2 Qs - 1. Quickstep", "Außenseitlicher Wechsel\nRechter Fuß Herr", false, bild10));
-        bilder.add(new Bild("1.2 Qs - 1. Quickstep", "2. Step Hop", false, bild11));
-        bilder.add(new Bild("1.2 Qs - 1. Quickstep", "Slow nach 4. Step Hop\nRechter Fuß Herr", false, bild12));
-        bilder.add(new Bild("1.2 Qs - 1. Quickstep", "", false, bild13));
-        bilder.add(new Bild("1.2 Qs - 1. Quickstep", "Dreieck\nRechter Fuß Herr", false, bild14));
-        bilder.add(new Bild("1.2 Qs - 1. Quickstep", "Kick Dame", false, bild15));
-        bilder.add(new Bild("1.3 TG - 1. Tango", "", false, bild16));
-        bilder.add(new Bild("1.3 TG - 1. Tango", "Verschieben mit Schlägen 1 bis 6", false, bild17));
-        bilder.add(new Bild("1.3 TG - 1. Tango", "Ende Fallaway\nRechter Fuß Herr", false, bild18));
-        bilder.add(new Bild("1.3 TG - 1. Tango", "Linker Fuß Herr außenseitlich", false, bild19));
-        bilder.add(new Bild("1.3 TG - 1. Tango", "Ende Fallaway\nRechter Fuß Herr", false, bild20));
-        bilder.add(new Bild("1.3 TG - 1. Tango", "Diagonalen Ende Fünferschritt\nRechter Fuß Herr", false, bild21));
-        bilder.add(new Bild("1.3 TG - 1. Tango", "Ende Fallaway", false, bild22));
-        bilder.add(new Bild("1.3 TG - 1. Tango", "Ende Back Corté", false, bild23));
-        bilder.add(new Bild("1.3 TG - 1. Tango", "Große Diagonale Ende sykopierte Linksdrehung\nRechter Fuß Herr", false, bild24));
-        bilder.add(new Bild("1.3 TG - 1. Tango", "Ende synkopiertes Fallaway", false, bild25));
-        bilder.add(new Bild("2.1 SF - 1. Slowfox", "Cojones Herr", false, bild26));
-        bilder.add(new Bild("2.1 SF - 1. Slowfox", "Ende Federschritt\nRechter Fuß Herr", false, bild27));
-        bilder.add(new Bild("2.1 SF - 1. Slowfox", "", false, bild28));
-        bilder.add(new Bild("2.1 SF - 1. Slowfox", "Ende Tumble Turn\nRechter Fuß Herr", false, bild29));
-        bilder.add(new Bild("2.1 SF - 1. Slowfox", "Ende Federschritt\nRechter Fuß Herr", false, bild30));
-        bilder.add(new Bild("2.1 SF - 1. Slowfox", "Ende Bounced Fallaway\nRechter Fuß Herr", false, bild31));
-        bilder.add(new Bild("2.1 SF - 1. Slowfox", "Ende Curved Feather\nRechter Fuß Herr", false, bild32));
-        bilder.add(new Bild("2.2 TG - 2. Tango", "Rechter Fuß Herr", false, bild33));
-        bilder.add(new Bild("2.2 TG - 2. Tango", "Ende Back Corté", false, bild34));
-        bilder.add(new Bild("2.2 TG - 2. Tango", "Seit-Schluss vor Contra Check\nRechter Fuß Herr", false, bild35));
-        bilder.add(new Bild("2.2 TG - 2. Tango", "Ende Achse\nRechter Fuß\nDurchschachteln mit 4 Schlägen je 1.5 m Seite", false, bild36));
-        bilder.add(new Bild("2.3 LW - Langsamer Walzer", "Rechter Fuß Herr", false, bild37));
-        bilder.add(new Bild("2.3 LW - Langsamer Walzer", "Ende Chassé\nRechter Fuß Herr", false, bild38));*/
-        //bilder.add(new Bild("", "", false, bild39));
-        //bilder.add(new Bild("", "", false, bild40));
-        //bilder.add(new Bild("", "", false, bild41));
 
     }
 
@@ -93,7 +48,7 @@ public class Choreography implements Serializable{
 
     public void addBlankBild(){
         double[] nullBild = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        bilder.add(new Bild("Tanz", "Kommentar", false ,nullBild));
+        addBild(nullBild, "Tanz", "Kommentar");
     }
 
     public void deleteBild(int bildIndex){
@@ -176,28 +131,11 @@ public class Choreography implements Serializable{
         return listDances;
     }
 
-    public void save(Context context) throws IOException {
+    public void save(Context context, String pathChoreo) throws IOException {
 
         try {
 
-            String FILENAME = "test2.ser";
-            String FOLDERNAME = "Choerografien";
-            //String string = "hello world!";
-
-            String folder = context.getFilesDir().getAbsolutePath() + File.separator + FOLDERNAME;
-            //Toast.makeText(context, folder, Toast.LENGTH_LONG).show();
-            out.println(folder);
-
-            File subFolder = new File(folder);
-
-            if (!subFolder.exists()) {
-                subFolder.mkdirs();
-            }
-
-            File file = new File(subFolder, FILENAME);
-            out.println(file.getAbsolutePath() + " MArk");
-
-            FileOutputStream fileOutputStream = new FileOutputStream(new File(subFolder, FILENAME));
+            FileOutputStream fileOutputStream = new FileOutputStream(new File(pathChoreo));
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(this);
             objectOutputStream.close();
@@ -210,7 +148,7 @@ public class Choreography implements Serializable{
         }
 
 
-        try {
+        /*try {
             FileOutputStream fileOutputStream = context.openFileOutput("test.ser", Context.MODE_PRIVATE);
             out.println(fileOutputStream.toString());
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -219,14 +157,16 @@ public class Choreography implements Serializable{
             fileOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     // Creates an object by reading it from a file
-    public static Choreography readFromFile(Context context) {
+    public static Choreography readFromFile(Context context, String pathChoreo) {
         Choreography choreography = null;
         try {
-            FileInputStream fileInputStream = context.openFileInput("test.ser");
+
+            FileInputStream fileInputStream = new FileInputStream(new File(pathChoreo));
+            //FileInputStream fileInputStream = context.openFileInput("test.ser");
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             choreography = (Choreography) objectInputStream.readObject();
             objectInputStream.close();
@@ -239,29 +179,4 @@ public class Choreography implements Serializable{
         }
         return choreography;
     }
-
-    /*try {
-
-        String FILENAME = "hello_file";
-        String FOLDERNAME = "sub";
-        byte[] bytes = new byte[1024];
-
-        Context context = getApplicationContext();
-        String folder = context.getFilesDir().getAbsolutePath() + File.separator + FOLDERNAME;
-
-        File subFolder = new File(folder);
-
-        FileInputStream outputStream = new FileInputStream(new File(subFolder, FILENAME));
-
-        outputStream.read(bytes);
-        outputStream.close();
-
-        String string = new String(bytes);
-        Toast.makeText(getApplicationContext(), string, Toast.LENGTH_SHORT).show();
-
-    } catch (FileNotFoundException e) {
-        Log.e("ERROR", e.toString());
-    } catch (IOException e) {
-        Log.e(TAG, e.toString());
-    }*/
 }

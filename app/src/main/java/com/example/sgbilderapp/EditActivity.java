@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -26,6 +27,8 @@ public class EditActivity extends AppCompatActivity {
     private ImageView[] marker;
 
     ImageView raster;
+
+    private TextView txtHeadline;
 
     private EditText edtTxt1X, edtTxt1Y;
     private EditText edtTxt2X, edtTxt2Y;
@@ -59,9 +62,12 @@ public class EditActivity extends AppCompatActivity {
         width = displayMetrics.widthPixels;
 
         btnSave = findViewById(R.id.btnEdit);
-        btnMenu = findViewById(R.id.btnMenu);
+        btnMenu = findViewById(R.id.btnCloud);
 
         raster = findViewById(R.id.pctRaster);
+
+        txtHeadline = findViewById(R.id.txtHeadline);
+        txtHeadline.setText(choreo.getName());
 
         marker_1 = findViewById(R.id.marker_blue_1);
         marker_2 = findViewById(R.id.marker_blue_2);
@@ -91,7 +97,7 @@ public class EditActivity extends AppCompatActivity {
         edtTxt8X = findViewById(R.id.edtTxt8X);
         edtTxt8Y = findViewById(R.id.edtTxt8Y);
 
-        choreo = Choreography.readFromFile(this);
+        choreo = Choreography.readFromFile(this, getIntent().getExtras().getString("pathChoreo"));
 
 
         restartChoreo(getIntent().getExtras().getInt("bildNumb"));
@@ -100,12 +106,13 @@ public class EditActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    choreo.save(getApplicationContext());
+                    choreo.save(getApplicationContext(), getIntent().getExtras().getString("pathChoreo"));
                 } catch (IOException e) {
                     Toast.makeText(EditActivity.this, "Fehler", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
                 Intent intent = new Intent(EditActivity.this, MainActivity.class);
+                intent.putExtra("pathChoreo", getIntent().getExtras().getString("pathChoreo"));
                 startActivity(intent);
             }
         });

@@ -11,7 +11,7 @@
         android:id="@+id/txtHeadline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/choreography_name"
+        android:text=""
         android:textColor="@color/sg_gold"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -35,7 +35,7 @@
         app:layout_constraintTop_toTopOf="@+id/txtHeadline" />
 
     <ImageButton
-        android:id="@+id/btnMenu"
+        android:id="@+id/btnCloud"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/transparent"

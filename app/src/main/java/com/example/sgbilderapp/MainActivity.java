@@ -1,21 +1,16 @@
 package com.example.sgbilderapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,20 +18,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private TextView txtHeadline;
     private TextView txtComment;
     private TextView txtPrevX, txtX, txtFutX, txtPrevY, txtY, txtFutY;
 
@@ -95,8 +83,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Bundle bundle = getIntent().getExtras();
+        String pathChoreo = bundle.getString("pathChoreo");
 
-        choreo = Choreography.readFromFile(this);
+        choreo = Choreography.readFromFile(this, pathChoreo);
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -105,6 +95,9 @@ public class MainActivity extends AppCompatActivity {
 
         //Views bekommen Variablen zugeordnet
         raster = findViewById(R.id.pctRaster);
+
+        txtHeadline = findViewById(R.id.txtHeadline);
+        txtHeadline.setText(choreo.getName());
 
         txtComment = findViewById(R.id.txtComment);
 
@@ -131,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnPlay = findViewById(R.id.btnPlay);
         btnEdit = findViewById(R.id.btnEdit);
-        btnMenu = findViewById(R.id.btnMenu);
+        btnMenu = findViewById(R.id.btnCloud);
 
         spinnerPos = findViewById(R.id.spinnerPos);
         spinnerAnimationSpeed = findViewById(R.id.spinnerAnimationSpeed);
@@ -279,6 +272,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, EditActivity.class);
                 intent.putExtra("bildNumb", bildNumb);
+                intent.putExtra("pathChoreo", pathChoreo);
                 startActivity(intent);
             }
         });

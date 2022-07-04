@@ -23,17 +23,16 @@
         android:padding="16dp"/>
 
     <Button
-        android:id="@+id/btnStart"
+        android:id="@+id/btnLaden"
         style="@style/Widget.AppCompat.ActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Start"
+        android:text="Laden"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/txtStart"
         app:layout_constraintStart_toStartOf="@+id/txtStart"
-        app:layout_constraintTop_toBottomOf="@+id/txtStart" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerChoreo" />
 
     <TextView
         android:id="@+id/textView10"
@@ -44,4 +43,23 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnNewChoreo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+ Neue Choreografie"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtStart"
+        android:onClick="btnCreateChoreo"/>
+
+    <Spinner
+        android:id="@+id/spinnerChoreo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnNewChoreo" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
