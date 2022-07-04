@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
+import android.text.method.DigitsKeyListener;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.EditText;
@@ -39,6 +41,8 @@ public class EditActivity extends AppCompatActivity {
     private EditText edtTxt7X, edtTxt7Y;
     private EditText edtTxt8X, edtTxt8Y;
 
+    private EditText edtTxtDance, edtTxtComment;
+
     private int height;
     private int width;
 
@@ -46,7 +50,9 @@ public class EditActivity extends AppCompatActivity {
 
     final double CONVERSION_VALUE_COORD = 0.1269;
 
-    Choreography choreo;
+    private Choreography choreo;
+
+    private boolean coordView = true;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -67,7 +73,6 @@ public class EditActivity extends AppCompatActivity {
         raster = findViewById(R.id.pctRaster);
 
         txtHeadline = findViewById(R.id.txtHeadline);
-        txtHeadline.setText(choreo.getName());
 
         marker_1 = findViewById(R.id.marker_blue_1);
         marker_2 = findViewById(R.id.marker_blue_2);
@@ -97,8 +102,23 @@ public class EditActivity extends AppCompatActivity {
         edtTxt8X = findViewById(R.id.edtTxt8X);
         edtTxt8Y = findViewById(R.id.edtTxt8Y);
 
-        choreo = Choreography.readFromFile(this, getIntent().getExtras().getString("pathChoreo"));
+        TextView txtPos1 = findViewById(R.id.txtPos1);
+        TextView txtPos2 = findViewById(R.id.txtPos2);
+        TextView txtPos3 = findViewById(R.id.txtPos3);
+        TextView txtPos4 = findViewById(R.id.txtPos4);
+        TextView txtPos5 = findViewById(R.id.txtPos5);
+        TextView txtPos6 = findViewById(R.id.txtPos6);
+        TextView txtPos7 = findViewById(R.id.txtPos7);
+        TextView txtPos8 = findViewById(R.id.txtPos8);
 
+        edtTxtDance = findViewById(R.id.edtTextDance);
+        edtTxtComment = findViewById(R.id.edtTxtComment);
+
+        TextView txtDance = findViewById(R.id.txtDance_1);
+        TextView txtComment = findViewById(R.id.txtComment_1);
+
+        choreo = Choreography.readFromFile(this, getIntent().getExtras().getString("pathChoreo"));
+        txtHeadline.setText(choreo.getName());
 
         restartChoreo(getIntent().getExtras().getInt("bildNumb"));
 
@@ -120,8 +140,81 @@ public class EditActivity extends AppCompatActivity {
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://onedrive.live.com/?authkey=%21AIuE2fVU8xePeB8&id=3E68918F98BDA615%2122770&cid=3E68918F98BDA615"));
-                startActivity(browserIntent);
+                if (coordView) {
+                    coordView = false;
+
+                    btnMenu.setImageResource(R.drawable.ic_round_edit_location_alt_24);
+
+                    edtTxt1X.setVisibility(View.GONE);
+                    edtTxt1Y.setVisibility(View.GONE);
+                    edtTxt2X.setVisibility(View.GONE);
+                    edtTxt2Y.setVisibility(View.GONE);
+                    edtTxt3X.setVisibility(View.GONE);
+                    edtTxt3Y.setVisibility(View.GONE);
+                    edtTxt4X.setVisibility(View.GONE);
+                    edtTxt4Y.setVisibility(View.GONE);
+                    edtTxt5X.setVisibility(View.GONE);
+                    edtTxt5Y.setVisibility(View.GONE);
+                    edtTxt6X.setVisibility(View.GONE);
+                    edtTxt6Y.setVisibility(View.GONE);
+                    edtTxt7X.setVisibility(View.GONE);
+                    edtTxt7Y.setVisibility(View.GONE);
+                    edtTxt8X.setVisibility(View.GONE);
+                    edtTxt8Y.setVisibility(View.GONE);
+
+                    txtPos1.setVisibility(View.GONE);
+                    txtPos2.setVisibility(View.GONE);
+                    txtPos3.setVisibility(View.GONE);
+                    txtPos4.setVisibility(View.GONE);
+                    txtPos5.setVisibility(View.GONE);
+                    txtPos6.setVisibility(View.GONE);
+                    txtPos7.setVisibility(View.GONE);
+                    txtPos8.setVisibility(View.GONE);
+
+                    txtDance.setVisibility(View.VISIBLE);
+                    txtComment.setVisibility(View.VISIBLE);
+
+                    edtTxtDance.setVisibility(View.VISIBLE);
+                    edtTxtComment.setVisibility(View.VISIBLE);
+
+                } else {
+                    coordView = true;
+
+                    btnMenu.setImageResource(R.drawable.ic_comment);
+
+                    txtDance.setVisibility(View.GONE);
+                    txtComment.setVisibility(View.GONE);
+
+                    edtTxtDance.setVisibility(View.GONE);
+                    edtTxtComment.setVisibility(View.GONE);
+
+
+                    edtTxt1X.setVisibility(View.VISIBLE);
+                    edtTxt1Y.setVisibility(View.VISIBLE);
+                    edtTxt2X.setVisibility(View.VISIBLE);
+                    edtTxt2Y.setVisibility(View.VISIBLE);
+                    edtTxt3X.setVisibility(View.VISIBLE);
+                    edtTxt3Y.setVisibility(View.VISIBLE);
+                    edtTxt4X.setVisibility(View.VISIBLE);
+                    edtTxt4Y.setVisibility(View.VISIBLE);
+                    edtTxt5X.setVisibility(View.VISIBLE);
+                    edtTxt5Y.setVisibility(View.VISIBLE);
+                    edtTxt6X.setVisibility(View.VISIBLE);
+                    edtTxt6Y.setVisibility(View.VISIBLE);
+                    edtTxt7X.setVisibility(View.VISIBLE);
+                    edtTxt7Y.setVisibility(View.VISIBLE);
+                    edtTxt8X.setVisibility(View.VISIBLE);
+                    edtTxt8Y.setVisibility(View.VISIBLE);
+
+                    txtPos1.setVisibility(View.VISIBLE);
+                    txtPos2.setVisibility(View.VISIBLE);
+                    txtPos3.setVisibility(View.VISIBLE);
+                    txtPos4.setVisibility(View.VISIBLE);
+                    txtPos5.setVisibility(View.VISIBLE);
+                    txtPos6.setVisibility(View.VISIBLE);
+                    txtPos7.setVisibility(View.VISIBLE);
+                    txtPos8.setVisibility(View.VISIBLE);
+                }
             }
         });
 
@@ -168,6 +261,31 @@ public class EditActivity extends AppCompatActivity {
         edtTxtListener(edtTxt7Y, 7, false);
         edtTxtListener(edtTxt8X, 8, true);
         edtTxtListener(edtTxt8Y, 8, false);
+
+        edtTxtDance.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                choreo.setDance(bildNumb, editable.toString());
+            }
+        });
+
+        edtTxtComment.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                choreo.setComment(bildNumb, editable.toString());
+            }
+        });
 
     }
 
@@ -244,6 +362,9 @@ public class EditActivity extends AppCompatActivity {
         edtTxt7Y.setText(((Double) choreo.getCoordY(bildNumb, 7)).toString());
         edtTxt8X.setText(((Double) choreo.getCoordX(bildNumb, 8)).toString());
         edtTxt8Y.setText(((Double) choreo.getCoordY(bildNumb, 8)).toString());
+
+        edtTxtDance.setText(choreo.getDance(bildNumb));
+        edtTxtComment.setText(choreo.getComment(bildNumb));
     }
 
 }

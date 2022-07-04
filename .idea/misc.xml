@@ -9,11 +9,12 @@
         <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/drawable/ic_comment.xml" value="0.3395" />
         <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3395" />
         <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/drawable/ic_round_save_24.xml" value="0.3395" />
-        <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/layout/activity_edit.xml" value="0.394655704008222" />
+        <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/layout/activity_edit.xml" value="0.5" />
         <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/layout/activity_main.xml" value="0.5" />
         <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/layout/activity_start.xml" value="0.33" />
         <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/layout/dialog_name_choreo.xml" value="0.33" />
         <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/layout/fragment_comment.xml" value="0.29743589743589743" />
+        <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/layout/fragment_coord.xml" value="0.29743589743589743" />
         <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/mipmap-anydpi-v26/ic_Start.xml" value="0.2055" />
       </map>
     </option>

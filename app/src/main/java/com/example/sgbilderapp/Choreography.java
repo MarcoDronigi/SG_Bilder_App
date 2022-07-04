@@ -5,6 +5,7 @@ import static java.lang.System.out;
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -81,6 +82,21 @@ public class Choreography implements Serializable{
 
     public void setDance(int bildNumb, String dance){
         bilder.get(bildNumb).setDance(dance);
+
+        listDances.clear();
+
+        //out.println(maxBild);
+
+        for (int j = 0; j <= maxBild; j++){
+            out.println(j);
+            //j--;
+            String tmp = bilder.get(j).getDance();
+            if (j == 0){
+                listDances.add(tmp);
+            } else if (tmp != bilder.get(j - 1).getDance()){
+                listDances.add(tmp);
+            }
+        }
     }
 
     public String getComment(int bildNumb) {
@@ -146,18 +162,6 @@ public class Choreography implements Serializable{
         } catch (IOException e) {
             Log.e("ERROR", e.toString());
         }
-
-
-        /*try {
-            FileOutputStream fileOutputStream = context.openFileOutput("test.ser", Context.MODE_PRIVATE);
-            out.println(fileOutputStream.toString());
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(this);
-            objectOutputStream.close();
-            fileOutputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
     }
 
     // Creates an object by reading it from a file

@@ -153,8 +153,9 @@
         android:layout_marginStart="8dp"
         android:gravity="right"
         android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toTopOf="@+id/edtTxt1Y" />
+        app:layout_constraintStart_toEndOf="@+id/txtPos5"
+        app:layout_constraintTop_toTopOf="@+id/edtTxt1Y"
+        android:inputType="number|numberDecimal|numberSigned"/>
 
     <EditText
         android:id="@+id/edtTxt1Y"
@@ -164,7 +165,8 @@
         android:gravity="right"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/edtTxt1X"
-        app:layout_constraintTop_toTopOf="@+id/edtTxt1X" />
+        app:layout_constraintTop_toTopOf="@+id/edtTxt1X"
+        android:inputType="number|numberDecimal|numberSigned"/>
 
     <EditText
         android:id="@+id/edtTxt1X"
@@ -173,9 +175,10 @@
         android:layout_marginStart="8dp"
         android:gravity="right"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="@+id/textView" />
+        app:layout_constraintBottom_toBottomOf="@+id/txtPos1"
+        app:layout_constraintStart_toEndOf="@+id/txtPos1"
+        app:layout_constraintTop_toTopOf="@+id/txtPos1"
+        android:inputType="number|numberDecimal|numberSigned"/>
 
     <EditText
         android:id="@+id/edtTxt2X"
@@ -185,7 +188,8 @@
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/edtTxt3X"
         app:layout_constraintStart_toStartOf="@+id/edtTxt1X"
-        app:layout_constraintTop_toBottomOf="@+id/edtTxt1X" />
+        app:layout_constraintTop_toBottomOf="@+id/edtTxt1X"
+        android:inputType="number|numberDecimal|numberSigned"/>
 
     <EditText
         android:id="@+id/edtTxt2Y"
@@ -194,7 +198,8 @@
         android:gravity="right"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/edtTxt1Y"
-        app:layout_constraintTop_toTopOf="@+id/edtTxt2X" />
+        app:layout_constraintTop_toTopOf="@+id/edtTxt2X"
+        android:inputType="number|numberDecimal|numberSigned"/>
 
     <EditText
         android:id="@+id/edtTxt3X"
@@ -204,7 +209,8 @@
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/edtTxt4X"
         app:layout_constraintStart_toStartOf="@+id/edtTxt1X"
-        app:layout_constraintTop_toBottomOf="@+id/edtTxt2X" />
+        app:layout_constraintTop_toBottomOf="@+id/edtTxt2X"
+        android:inputType="number|numberDecimal|numberSigned"/>
 
     <EditText
         android:id="@+id/edtTxt3Y"
@@ -213,7 +219,8 @@
         android:gravity="right"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/edtTxt2Y"
-        app:layout_constraintTop_toTopOf="@+id/edtTxt3X" />
+        app:layout_constraintTop_toTopOf="@+id/edtTxt3X"
+        android:inputType="number|numberDecimal|numberSigned"/>
 
     <EditText
         android:id="@+id/edtTxt4X"
@@ -223,7 +230,8 @@
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/edtTxt1X"
-        app:layout_constraintTop_toBottomOf="@+id/edtTxt3X" />
+        app:layout_constraintTop_toBottomOf="@+id/edtTxt3X"
+        android:inputType="number|numberDecimal|numberSigned"/>
 
     <EditText
         android:id="@+id/edtTxt4Y"
@@ -232,7 +240,8 @@
         android:gravity="right"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/edtTxt3Y"
-        app:layout_constraintTop_toTopOf="@+id/edtTxt4X" />
+        app:layout_constraintTop_toTopOf="@+id/edtTxt4X"
+        android:inputType="number|numberDecimal|numberSigned"/>
 
     <EditText
         android:id="@+id/edtTxt5Y"
@@ -242,7 +251,8 @@
         android:gravity="right"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/edtTxt5X"
-        app:layout_constraintTop_toTopOf="@+id/edtTxt5X" />
+        app:layout_constraintTop_toTopOf="@+id/edtTxt5X"
+        android:inputType="number|numberDecimal|numberSigned"/>
 
     <EditText
         android:id="@+id/edtTxt6X"
@@ -251,7 +261,8 @@
         android:gravity="right"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/edtTxt5X"
-        app:layout_constraintTop_toTopOf="@+id/edtTxt2Y" />
+        app:layout_constraintTop_toTopOf="@+id/edtTxt2Y"
+        android:inputType="number|numberDecimal|numberSigned"/>
 
     <EditText
         android:id="@+id/edtTxt6Y"
@@ -260,7 +271,8 @@
         android:gravity="right"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/edtTxt5Y"
-        app:layout_constraintTop_toTopOf="@+id/edtTxt6X" />
+        app:layout_constraintTop_toTopOf="@+id/edtTxt6X"
+        android:inputType="number|numberDecimal|numberSigned"/>
 
     <EditText
         android:id="@+id/edtTxt7X"
@@ -269,7 +281,8 @@
         android:gravity="right"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/edtTxt6X"
-        app:layout_constraintTop_toTopOf="@+id/edtTxt3Y" />
+        app:layout_constraintTop_toTopOf="@+id/edtTxt3Y"
+        android:inputType="number|numberDecimal|numberSigned"/>
 
     <EditText
         android:id="@+id/edtTxt7Y"
@@ -278,7 +291,8 @@
         android:gravity="right"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/edtTxt6Y"
-        app:layout_constraintTop_toTopOf="@+id/edtTxt7X" />
+        app:layout_constraintTop_toTopOf="@+id/edtTxt7X"
+        android:inputType="number|numberDecimal|numberSigned"/>
 
     <EditText
         android:id="@+id/edtTxt8X"
@@ -287,7 +301,8 @@
         android:gravity="right"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/edtTxt7X"
-        app:layout_constraintTop_toTopOf="@+id/edtTxt4Y" />
+        app:layout_constraintTop_toTopOf="@+id/edtTxt4Y"
+        android:inputType="number|numberDecimal|numberSigned"/>
 
     <EditText
         android:id="@+id/edtTxt8Y"
@@ -296,10 +311,12 @@
         android:gravity="right"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/edtTxt7Y"
-        app:layout_constraintTop_toTopOf="@+id/edtTxt8X" />
+        app:layout_constraintTop_toTopOf="@+id/edtTxt8X"
+        android:inputType="number|numberDecimal|numberSigned"
+        />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/txtPos1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -308,68 +325,68 @@
         app:layout_constraintTop_toBottomOf="@+id/pctRaster" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/txtPos2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pos 2"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintBottom_toTopOf="@+id/txtPos3"
+        app:layout_constraintStart_toStartOf="@+id/txtPos1"
+        app:layout_constraintTop_toBottomOf="@+id/txtPos1" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/txtPos3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pos 3"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintBottom_toTopOf="@+id/txtPos4"
+        app:layout_constraintStart_toStartOf="@+id/txtPos2"
+        app:layout_constraintTop_toBottomOf="@+id/txtPos2" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/txtPos4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pos 4"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintStart_toStartOf="@+id/txtPos3"
+        app:layout_constraintTop_toBottomOf="@+id/txtPos3" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/txtPos5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="Pos 5"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintBottom_toBottomOf="@+id/txtPos1"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="@+id/txtPos1" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/txtPos6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pos 6"
-        app:layout_constraintBottom_toTopOf="@+id/textView7"
-        app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintBottom_toTopOf="@+id/txtPos7"
+        app:layout_constraintStart_toStartOf="@+id/txtPos5"
+        app:layout_constraintTop_toBottomOf="@+id/txtPos5" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/txtPos7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pos 7"
-        app:layout_constraintBottom_toTopOf="@+id/textView8"
-        app:layout_constraintStart_toStartOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintBottom_toTopOf="@+id/txtPos8"
+        app:layout_constraintStart_toStartOf="@+id/txtPos6"
+        app:layout_constraintTop_toBottomOf="@+id/txtPos6" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/txtPos8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pos 8"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        app:layout_constraintStart_toStartOf="@+id/txtPos7"
+        app:layout_constraintTop_toBottomOf="@+id/txtPos7" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -380,6 +397,52 @@
         app:layout_constraintGuide_begin="196dp"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/edtTextDance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/txtDance_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtDance_1"
+        app:layout_constraintTop_toTopOf="@+id/txtDance_1" />
+
+    <TextView
+        android:id="@+id/txtDance_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="TextView"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pctRaster" />
+
+    <TextView
+        android:id="@+id/txtComment_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/edtTxtComment"
+        app:layout_constraintStart_toStartOf="@+id/txtDance_1"
+        app:layout_constraintTop_toTopOf="@+id/edtTxtComment" />
+
+    <EditText
+        android:id="@+id/edtTxtComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/edtTextDance"
+        app:layout_constraintStart_toStartOf="@+id/edtTextDance"
+        app:layout_constraintTop_toBottomOf="@+id/edtTextDance" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
