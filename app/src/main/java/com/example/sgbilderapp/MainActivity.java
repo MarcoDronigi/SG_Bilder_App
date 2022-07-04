@@ -1,5 +1,6 @@
 package com.example.sgbilderapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.Animator;
@@ -7,22 +8,30 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    final private int passwortCloud = 151022;
 
     private TextView txtHeadline;
     private TextView txtComment;
@@ -46,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private Spinner spinnerDance;
 
     List<String> spinnerArray =  new ArrayList<String>();
-    int spinnerInterfaceInput = 1;
+    boolean spinnerInterfaceInput = true;
 
     private int loopType = 1;
     // 0 = Anfang bis Ende
@@ -86,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String pathChoreo = bundle.getString("pathChoreo");
 
-        choreo = Choreography.readFromFile(this, pathChoreo);
+        choreo = Choreography.readFromFile(pathChoreo);
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -219,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (spinnerInterfaceInput == 1){
+                if (spinnerInterfaceInput == true){
                     bildNumb = choreo.getDanceStart(spinnerDance.getSelectedItem().toString());
                     //Toast.makeText(MainActivity.this, ((Integer) bildNumb).toString(), Toast.LENGTH_SHORT).show();
                     updateTxt();
@@ -227,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
                     updateLoopType(loopType);
                 }
 
-                spinnerInterfaceInput = 1;
+                spinnerInterfaceInput = true;
             }
 
             @Override
@@ -256,17 +265,48 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        // Derzeit Bringt Buttton User in die Cloud
+        // Derzeit Bringt Buttton User in die Cloud nach Abfrage von Passworts
         // Gedacht: Menü
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://onedrive.live.com/?authkey=%21AIuE2fVU8xePeB8&id=3E68918F98BDA615%2122770&cid=3E68918F98BDA615"));
-                startActivity(browserIntent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+                //LayoutInflater inflater = this.getLayoutInflater();
+                final EditText input = new EditText(MainActivity.this);
+                input.setInputType(InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+                builder.setView(input);
+
+
+                builder.setTitle("Passwort")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if (input == null){
+                                    Toast.makeText(MainActivity.this, "null", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    int inputInt = Integer.parseInt(input.getText().toString());
+                                    if (inputInt == passwortCloud){
+                                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://onedrive.live.com/?authkey=%21AIuE2fVU8xePeB8&id=3E68918F98BDA615%2122770&cid=3E68918F98BDA615"));
+                                        startActivity(browserIntent);
+                                    }
+                                    else {
+                                        Toast.makeText(MainActivity.this, "Falsches Passwort", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {}
+                        });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
 
-        //TODO Funktion zur Berabeitung von Bildern
+
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -345,7 +385,10 @@ public class MainActivity extends AppCompatActivity {
 
     // Kommentare sowie Angezeigte Koord werden auf Wert laut "bildNumb" gestellt
     public void updateTxt(){
-        spinnerInterfaceInput = 0;
+        if (spinnerDance.getSelectedItemPosition() != spinnerArray.indexOf(choreo.getDance(bildNumb))){
+            spinnerInterfaceInput = false;
+        }
+
         spinnerDance.setSelection(spinnerArray.indexOf(choreo.getDance(bildNumb)));
 
         txtComment.setText(choreo.getComment(bildNumb));
@@ -388,7 +431,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Jeweils ein Bild wird Animiert
-    //TODO Different kind of Animation
     public void animateChoreo (){
         if (animationOn){
             if (bildNumb < animateEnd){
@@ -487,28 +529,4 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
-
-    /*private void writeToFile(String data, Context context) {
-        try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("config.txt", Context.MODE_PRIVATE));
-            outputStreamWriter.write(data);
-            outputStreamWriter.close();
-        }
-        catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-
-        FileOutputStream fos = null;
-        ObjectOutputStream oos = null;
-        try {
-            fos = new FileOutputStream(context.openFileOutput("config.txt", Context.MODE_PRIVATE));
-            oos = new ObjectOutputStream(fos);
-            oos.writeObject(isItAMansWorld);
-            oos.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
 }

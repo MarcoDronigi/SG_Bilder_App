@@ -11,6 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:padding="16dp"
         android:text="TSC Schwarz Gold\nBilder App"
         android:textColor="@color/sg_gold"
         android:textSize="36sp"
@@ -19,8 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3"
-        android:padding="16dp"/>
+        app:layout_constraintVertical_bias="0.25" />
 
     <Button
         android:id="@+id/btnLaden"
@@ -54,13 +54,14 @@
         android:text="+ Neue Choreografie"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtStart" />
+        app:layout_constraintTop_toBottomOf="@+id/txtStart"
+        android:textColor="@color/black"/>
 
     <Spinner
         android:id="@+id/spinnerChoreo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnNewChoreo" />

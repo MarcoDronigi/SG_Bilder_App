@@ -1,17 +1,13 @@
 package com.example.sgbilderapp;
 
-import androidx.annotation.RequiresApi;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
-import android.text.method.DigitsKeyListener;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.EditText;
@@ -61,8 +57,6 @@ public class EditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
-
-        Toast.makeText(this, "Noch nicht Funktional!", Toast.LENGTH_SHORT).show();
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -116,7 +110,7 @@ public class EditActivity extends AppCompatActivity {
         edtTxtDance = findViewById(R.id.edtTextDance);
         edtTxtComment = findViewById(R.id.edtTxtComment);
 
-        choreo = Choreography.readFromFile(this, getIntent().getExtras().getString("pathChoreo"));
+        choreo = Choreography.readFromFile(getIntent().getExtras().getString("pathChoreo"));
         txtHeadline.setText(choreo.getName());
 
         restartChoreo(getIntent().getExtras().getInt("bildNumb"));
@@ -125,7 +119,7 @@ public class EditActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    choreo.save(getApplicationContext(), getIntent().getExtras().getString("pathChoreo"));
+                    choreo.save(getIntent().getExtras().getString("pathChoreo"));
                 } catch (IOException e) {
                     Toast.makeText(EditActivity.this, "Fehler", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
@@ -330,8 +324,6 @@ public class EditActivity extends AppCompatActivity {
                     updateMarker();
                 } catch (Exception e){
                     e.printStackTrace();
-                    /*edtTxt1X.setText(((Double) choreo.getCoordX(bildNumb, 1)).toString());
-                    Toast.makeText(EditActivity.this, "Ungültige Eingabe", Toast.LENGTH_SHORT).show();*/
                 }
 
             }
@@ -339,6 +331,27 @@ public class EditActivity extends AppCompatActivity {
     }
 
     public void updateTxt(){
+        edtTxt1X.setText("");
+        edtTxt1Y.setText("");
+        edtTxt2X.setText("");
+        edtTxt2Y.setText("");
+        edtTxt3X.setText("");
+        edtTxt3Y.setText("");
+        edtTxt4X.setText("");
+        edtTxt4Y.setText("");
+        edtTxt5X.setText("");
+        edtTxt5Y.setText("");
+        edtTxt6X.setText("");
+        edtTxt6Y.setText("");
+        edtTxt7X.setText("");
+        edtTxt7Y.setText("");
+        edtTxt8X.setText("");
+        edtTxt8Y.setText("");
+
+        /*edtTxtDance.setText("");
+        edtTxtComment.setText("");*/
+
+
         edtTxt1X.setHint(((Double) choreo.getCoordX(bildNumb, 1)).toString());
         edtTxt1Y.setHint(((Double) choreo.getCoordY(bildNumb, 1)).toString());
         edtTxt2X.setHint(((Double) choreo.getCoordX(bildNumb, 2)).toString());
@@ -356,14 +369,14 @@ public class EditActivity extends AppCompatActivity {
         edtTxt8X.setHint(((Double) choreo.getCoordX(bildNumb, 8)).toString());
         edtTxt8Y.setHint(((Double) choreo.getCoordY(bildNumb, 8)).toString());
 
-        edtTxtDance.setHint(choreo.getDance(bildNumb));
         /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String[] strings = (String[]) choreo.getDanceArray().toArray();
+            String[] strings = choreo.getDanceArray().toArray(new String[0]);
             edtTxtDance.setAutofillHints(strings);
         } else {
             edtTxtDance.setHint(choreo.getDance(bildNumb));
         }*/
-        edtTxtComment.setHint(choreo.getComment(bildNumb));
+        edtTxtDance.setText(choreo.getDance(bildNumb));
+        edtTxtComment.setText(choreo.getComment(bildNumb));
     }
 
 }

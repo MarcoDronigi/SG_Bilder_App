@@ -16,6 +16,7 @@
         <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/layout/fragment_comment.xml" value="0.29743589743589743" />
         <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/layout/fragment_coord.xml" value="0.29743589743589743" />
         <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/mipmap-anydpi-v26/ic_Start.xml" value="0.2055" />
+        <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/xml/tags.xml" value="0.15" />
       </map>
     </option>
   </component>
@@ -24,5 +25,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.33" />
+      </ProjectState>
+    </option>
   </component>
 </project>

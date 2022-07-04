@@ -2,10 +2,8 @@ package com.example.sgbilderapp;
 
 import static java.lang.System.out;
 
-import android.content.Context;
-import android.os.Environment;
+
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,15 +23,11 @@ public class Choreography implements Serializable{
     private String name;
     private ArrayList<Bild> bilder = new ArrayList<Bild>();;
     List<String> listDances = new ArrayList<String>();
-    //List<String> listComments = new ArrayList<String>();
 
     private int maxBild = -1;
 
     public Choreography(String name) {
         this.name = name;
-        //Bilder von Is it a Man's World
-        bilder = new ArrayList<Bild>();
-
     }
 
     public void addBild(double[] bildCoord, String dance, String comment){
@@ -41,7 +35,7 @@ public class Choreography implements Serializable{
         bilder.add(new Bild(dance, comment, false, bildCoord));
         if (maxBild == -1){
             listDances.add(dance);
-        } else if (dance != bilder.get(maxBild).getDance()){
+        } else if (!dance.equals(bilder.get(maxBild).getDance())){
             listDances.add(dance);
         }
         maxBild++;
@@ -84,19 +78,18 @@ public class Choreography implements Serializable{
         bilder.get(bildNumb).setDance(dance);
 
         listDances.clear();
-
-        //out.println(maxBild);
-
         for (int j = 0; j <= maxBild; j++){
-            out.println(j);
-            //j--;
             String tmp = bilder.get(j).getDance();
             if (j == 0){
+                out.println("Fall j == 0");
                 listDances.add(tmp);
-            } else if (tmp != bilder.get(j - 1).getDance()){
+            } else if (!tmp.equals(bilder.get(j - 1).getDance())){
+                out.println(tmp + " != " + bilder.get(j - 1).getDance());
                 listDances.add(tmp);
             }
         }
+
+        out.println(listDances);
     }
 
     public String getComment(int bildNumb) {
@@ -114,7 +107,7 @@ public class Choreography implements Serializable{
     public int getDanceStart(String loopDance){
         int i = 0;
         for (Bild bild:bilder) {
-            if (bild.getDance() == loopDance){
+            if (bild.getDance().equals(loopDance)){
                 return i;
             }
             else {
@@ -129,11 +122,11 @@ public class Choreography implements Serializable{
         int i = 0;
         boolean tmp = false;
         for (Bild bild:bilder) {
-            if (bild.getDance() == loopDance){
+            if (bild.getDance().equals(loopDance)){
                 tmp = true;
                 i++;
                 continue;
-            } else if(tmp == true && bild.getDance() != loopDance){
+            } else if(tmp == true && !bild.getDance().equals(loopDance)){
                 return i - 1;
             } else {
                 i++;
@@ -147,10 +140,9 @@ public class Choreography implements Serializable{
         return listDances;
     }
 
-    public void save(Context context, String pathChoreo) throws IOException {
+    public void save(String pathChoreo) throws IOException {
 
         try {
-
             FileOutputStream fileOutputStream = new FileOutputStream(new File(pathChoreo));
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(this);
@@ -165,12 +157,11 @@ public class Choreography implements Serializable{
     }
 
     // Creates an object by reading it from a file
-    public static Choreography readFromFile(Context context, String pathChoreo) {
+    public static Choreography readFromFile(String pathChoreo) {
         Choreography choreography = null;
         try {
 
             FileInputStream fileInputStream = new FileInputStream(new File(pathChoreo));
-            //FileInputStream fileInputStream = context.openFileInput("test.ser");
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             choreography = (Choreography) objectInputStream.readObject();
             objectInputStream.close();
