@@ -402,34 +402,14 @@
         android:id="@+id/edtTextDance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/txtDance_1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtDance_1"
-        app:layout_constraintTop_toTopOf="@+id/txtDance_1" />
-
-    <TextView
-        android:id="@+id/txtDance_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:text="TextView"
-        android:visibility="gone"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pctRaster" />
-
-    <TextView
-        android:id="@+id/txtComment_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/edtTxtComment"
-        app:layout_constraintStart_toStartOf="@+id/txtDance_1"
-        app:layout_constraintTop_toTopOf="@+id/edtTxtComment" />
 
     <EditText
         android:id="@+id/edtTxtComment"

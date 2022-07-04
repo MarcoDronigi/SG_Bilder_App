@@ -234,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
-        // Button zum Start und Stop der Animationen (& Restart Choero
+        // Button zum Start und Stop der Animationen (& Restart Choero)
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

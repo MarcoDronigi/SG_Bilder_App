@@ -27,6 +27,7 @@
         style="@style/Widget.AppCompat.ActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Laden"
         android:textSize="25sp"
         android:textStyle="bold"
@@ -48,16 +49,18 @@
         android:id="@+id/btnNewChoreo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:onClick="btnCreateChoreo"
         android:text="+ Neue Choreografie"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtStart"
-        android:onClick="btnCreateChoreo"/>
+        app:layout_constraintTop_toBottomOf="@+id/txtStart" />
 
     <Spinner
         android:id="@+id/spinnerChoreo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnNewChoreo" />

@@ -1,10 +1,12 @@
 package com.example.sgbilderapp;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -114,9 +116,6 @@ public class EditActivity extends AppCompatActivity {
         edtTxtDance = findViewById(R.id.edtTextDance);
         edtTxtComment = findViewById(R.id.edtTxtComment);
 
-        TextView txtDance = findViewById(R.id.txtDance_1);
-        TextView txtComment = findViewById(R.id.txtComment_1);
-
         choreo = Choreography.readFromFile(this, getIntent().getExtras().getString("pathChoreo"));
         txtHeadline.setText(choreo.getName());
 
@@ -171,9 +170,6 @@ public class EditActivity extends AppCompatActivity {
                     txtPos7.setVisibility(View.GONE);
                     txtPos8.setVisibility(View.GONE);
 
-                    txtDance.setVisibility(View.VISIBLE);
-                    txtComment.setVisibility(View.VISIBLE);
-
                     edtTxtDance.setVisibility(View.VISIBLE);
                     edtTxtComment.setVisibility(View.VISIBLE);
 
@@ -181,9 +177,6 @@ public class EditActivity extends AppCompatActivity {
                     coordView = true;
 
                     btnMenu.setImageResource(R.drawable.ic_comment);
-
-                    txtDance.setVisibility(View.GONE);
-                    txtComment.setVisibility(View.GONE);
 
                     edtTxtDance.setVisibility(View.GONE);
                     edtTxtComment.setVisibility(View.GONE);
@@ -346,25 +339,31 @@ public class EditActivity extends AppCompatActivity {
     }
 
     public void updateTxt(){
-        edtTxt1X.setText(((Double) choreo.getCoordX(bildNumb, 1)).toString());
-        edtTxt1Y.setText(((Double) choreo.getCoordY(bildNumb, 1)).toString());
-        edtTxt2X.setText(((Double) choreo.getCoordX(bildNumb, 2)).toString());
-        edtTxt2Y.setText(((Double) choreo.getCoordY(bildNumb, 2)).toString());
-        edtTxt3X.setText(((Double) choreo.getCoordX(bildNumb, 3)).toString());
-        edtTxt3Y.setText(((Double) choreo.getCoordY(bildNumb, 3)).toString());
-        edtTxt4X.setText(((Double) choreo.getCoordX(bildNumb, 4)).toString());
-        edtTxt4Y.setText(((Double) choreo.getCoordY(bildNumb, 4)).toString());
-        edtTxt5X.setText(((Double) choreo.getCoordX(bildNumb, 5)).toString());
-        edtTxt5Y.setText(((Double) choreo.getCoordY(bildNumb, 5)).toString());
-        edtTxt6X.setText(((Double) choreo.getCoordX(bildNumb, 6)).toString());
-        edtTxt6Y.setText(((Double) choreo.getCoordY(bildNumb, 6)).toString());
-        edtTxt7X.setText(((Double) choreo.getCoordX(bildNumb, 7)).toString());
-        edtTxt7Y.setText(((Double) choreo.getCoordY(bildNumb, 7)).toString());
-        edtTxt8X.setText(((Double) choreo.getCoordX(bildNumb, 8)).toString());
-        edtTxt8Y.setText(((Double) choreo.getCoordY(bildNumb, 8)).toString());
+        edtTxt1X.setHint(((Double) choreo.getCoordX(bildNumb, 1)).toString());
+        edtTxt1Y.setHint(((Double) choreo.getCoordY(bildNumb, 1)).toString());
+        edtTxt2X.setHint(((Double) choreo.getCoordX(bildNumb, 2)).toString());
+        edtTxt2Y.setHint(((Double) choreo.getCoordY(bildNumb, 2)).toString());
+        edtTxt3X.setHint(((Double) choreo.getCoordX(bildNumb, 3)).toString());
+        edtTxt3Y.setHint(((Double) choreo.getCoordY(bildNumb, 3)).toString());
+        edtTxt4X.setHint(((Double) choreo.getCoordX(bildNumb, 4)).toString());
+        edtTxt4Y.setHint(((Double) choreo.getCoordY(bildNumb, 4)).toString());
+        edtTxt5X.setHint(((Double) choreo.getCoordX(bildNumb, 5)).toString());
+        edtTxt5Y.setHint(((Double) choreo.getCoordY(bildNumb, 5)).toString());
+        edtTxt6X.setHint(((Double) choreo.getCoordX(bildNumb, 6)).toString());
+        edtTxt6Y.setHint(((Double) choreo.getCoordY(bildNumb, 6)).toString());
+        edtTxt7X.setHint(((Double) choreo.getCoordX(bildNumb, 7)).toString());
+        edtTxt7Y.setHint(((Double) choreo.getCoordY(bildNumb, 7)).toString());
+        edtTxt8X.setHint(((Double) choreo.getCoordX(bildNumb, 8)).toString());
+        edtTxt8Y.setHint(((Double) choreo.getCoordY(bildNumb, 8)).toString());
 
-        edtTxtDance.setText(choreo.getDance(bildNumb));
-        edtTxtComment.setText(choreo.getComment(bildNumb));
+        edtTxtDance.setHint(choreo.getDance(bildNumb));
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String[] strings = (String[]) choreo.getDanceArray().toArray();
+            edtTxtDance.setAutofillHints(strings);
+        } else {
+            edtTxtDance.setHint(choreo.getDance(bildNumb));
+        }*/
+        edtTxtComment.setHint(choreo.getComment(bildNumb));
     }
 
 }
