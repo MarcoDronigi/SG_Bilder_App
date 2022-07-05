@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView[] marker;
 
     private int[] drawableBlue;
+    private int[] drawableRed;
     private int[] drawableGold;
 
     private Spinner spinnerPos;
@@ -129,7 +130,8 @@ public class MainActivity extends AppCompatActivity {
         marker = new ImageView[] {marker_1, marker_2, marker_3, marker_4, marker_5, marker_6, marker_7, marker_8};
         //Arrays für die Marker Icons
         drawableBlue = new int[] {R.drawable.marker_blue_1, R.drawable.marker_blue_2, R.drawable.marker_blue_3, R.drawable.marker_blue_4, R.drawable.marker_blue_5, R.drawable.marker_blue_6, R.drawable.marker_blue_7, R.drawable.marker_blue_8};
-        drawableGold = new int[] {R.drawable.marker_gold_1, R.drawable.marker_gold_2, R.drawable.marker_gold_3, R.drawable.marker_gold_4, R.drawable.marker_gold_5, R.drawable.marker_gold_6, R.drawable.marker_gold_7, R.drawable.marker_gold_8};
+        //drawableRed = new int[] {R.drawable.marker_rot_1, R.drawable.marker_rot_2, R.drawable.marker_rot_3, R.drawable.marker_rot_4, R.drawable.marker_rot_5, R.drawable.marker_rot_6, R.drawable.marker_rot_7, R.drawable.marker_rot_8};
+        drawableGold = new int[] {R.drawable.marker_sg_1, R.drawable.marker_sg_2, R.drawable.marker_sg_3, R.drawable.marker_sg_4, R.drawable.marker_sg_5, R.drawable.marker_sg_6, R.drawable.marker_sg_7, R.drawable.marker_sg_8};
 
         btnPlay = findViewById(R.id.btnPlay);
         btnEdit = findViewById(R.id.btnEdit);
