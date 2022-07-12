@@ -1,9 +1,11 @@
 package com.example.sgbilderapp;
 
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -67,6 +69,7 @@ public class EditActivity extends AppCompatActivity {
         btnMenu = findViewById(R.id.btnCloud);
 
         raster = findViewById(R.id.pctRaster);
+        raster.setLongClickable(true);
 
         txtHeadline = findViewById(R.id.txtHeadline);
 
@@ -221,15 +224,47 @@ public class EditActivity extends AppCompatActivity {
             //next Bild
             public void onSwipeLeft() {
                 if (bildNumb == choreo.getMaxBild()) { //Fall letztes Bild
-                    choreo.addBlankBild();
+                    bildNumb = 0;
+                } else {
+                    bildNumb++;
                 }
 
-                bildNumb++;
                 updateTxt();
                 updateMarker();
 
             }
             public void onSwipeBottom() {}
+
+            @Override
+            public void onLongClick() {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(EditActivity.this);
+                builder.setTitle("Bild " + bildNumb);
+                builder.setPositiveButton("Hinzufügen", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        choreo.addBlankBild(bildNumb);
+                        bildNumb++;
+                        updateTxt();
+                        updateMarker();
+                        Toast.makeText(EditActivity.this, "Bild wurde erfolgreich erstellt!", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("Löschen", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        choreo.deleteBild(bildNumb);
+                        Toast.makeText(EditActivity.this, "Bild wurde erfolgreich gelöscht!", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNeutralButton("Schließen", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                builder.create().show();
+            }
         });
 
         edtTxtListener(edtTxt1X, 1, true);
@@ -322,6 +357,7 @@ public class EditActivity extends AppCompatActivity {
                         choreo.setCoordY(bildNumb, pos, Double.parseDouble(edtTxt.getText().toString()));
                     }
                     updateMarker();
+                    updateHint(edtTxt, edtTxt.getText().toString());
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -377,6 +413,10 @@ public class EditActivity extends AppCompatActivity {
         }*/
         edtTxtDance.setText(choreo.getDance(bildNumb));
         edtTxtComment.setText(choreo.getComment(bildNumb));
+    }
+
+    public void updateHint (EditText editText, String newCoord) {
+        editText.setHint(newCoord);
     }
 
 }

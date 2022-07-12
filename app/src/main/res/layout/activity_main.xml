@@ -40,12 +40,13 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/transparent"
         android:minHeight="48dp"
-        android:src="@drawable/ic_cloud"
+        android:src="@drawable/ic_pdf"
         app:layout_constraintBottom_toBottomOf="@+id/txtHeadline"
         app:layout_constraintEnd_toStartOf="@+id/txtHeadline"
         app:layout_constraintHorizontal_bias="0.3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/txtHeadline" />
+
 
     <ImageView
         android:id="@+id/pctRaster"

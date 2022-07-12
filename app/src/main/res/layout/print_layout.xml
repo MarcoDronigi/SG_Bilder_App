@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="700dp"
+    android:layout_height="990dp">
+
+    <ImageView
+        android:id="@+id/pctPdfRaster1"
+        android:layout_width="450dp"
+        android:layout_height="450dp"
+        android:layout_marginTop="32dp"
+        android:textColor="@color/sg_gold"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/raster_klein" />
+
+    <ImageView
+        android:id="@+id/pctPdfRaster2"
+        android:layout_width="450dp"
+        android:layout_height="450dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/raster_klein" />
+
+    <TextView
+        android:id="@+id/txtPdfDance1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:text="TextView"
+        android:textColor="@color/sg_gold"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pctPdfRaster1"
+        app:layout_constraintTop_toTopOf="@+id/pctPdfRaster1" />
+
+    <TextView
+        android:id="@+id/txtPdfComment1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pctPdfRaster1"
+        app:layout_constraintTop_toBottomOf="@+id/txtPdfDance1" />
+
+    <TextView
+        android:id="@+id/txtPdfDance2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:text="TextView"
+        android:textColor="@color/sg_gold"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pctPdfRaster2"
+        app:layout_constraintTop_toTopOf="@+id/pctPdfRaster2" />
+
+    <TextView
+        android:id="@+id/txtPdfComment2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pctPdfRaster2"
+        app:layout_constraintTop_toBottomOf="@+id/txtPdfDance2" />
+
+    <ImageView
+        android:id="@+id/pdfMarker18"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pctPdfRaster1"
+        app:layout_constraintEnd_toEndOf="@+id/pctPdfRaster1"
+        app:layout_constraintStart_toStartOf="@+id/pctPdfRaster1"
+        app:layout_constraintTop_toTopOf="@+id/pctPdfRaster1"
+        app:layout_constraintVertical_bias="0.481"
+        app:srcCompat="@drawable/marker_blue_8" />
+
+
+    <ImageView
+        android:id="@+id/pdfMarker17"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pctPdfRaster1"
+        app:layout_constraintEnd_toEndOf="@+id/pctPdfRaster1"
+        app:layout_constraintStart_toStartOf="@+id/pctPdfRaster1"
+        app:layout_constraintTop_toTopOf="@+id/pctPdfRaster1"
+        app:layout_constraintVertical_bias="0.481"
+        app:srcCompat="@drawable/marker_blue_7" />
+
+    <ImageView
+        android:id="@+id/pdfMarker16"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pctPdfRaster1"
+        app:layout_constraintEnd_toEndOf="@+id/pctPdfRaster1"
+        app:layout_constraintStart_toStartOf="@+id/pctPdfRaster1"
+        app:layout_constraintTop_toTopOf="@+id/pctPdfRaster1"
+        app:layout_constraintVertical_bias="0.481"
+        app:srcCompat="@drawable/marker_blue_6" />
+
+    <ImageView
+        android:id="@+id/pdfMarker15"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pctPdfRaster1"
+        app:layout_constraintEnd_toEndOf="@+id/pctPdfRaster1"
+        app:layout_constraintStart_toStartOf="@+id/pctPdfRaster1"
+        app:layout_constraintTop_toTopOf="@+id/pctPdfRaster1"
+        app:layout_constraintVertical_bias="0.481"
+        app:srcCompat="@drawable/marker_blue_5" />
+
+    <ImageView
+        android:id="@+id/pdfMarker14"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pctPdfRaster1"
+        app:layout_constraintEnd_toEndOf="@+id/pctPdfRaster1"
+        app:layout_constraintStart_toStartOf="@+id/pctPdfRaster1"
+        app:layout_constraintTop_toTopOf="@+id/pctPdfRaster1"
+        app:layout_constraintVertical_bias="0.481"
+        app:srcCompat="@drawable/marker_blue_4" />
+
+    <ImageView
+        android:id="@+id/pdfMarker13"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pctPdfRaster1"
+        app:layout_constraintEnd_toEndOf="@+id/pctPdfRaster1"
+        app:layout_constraintStart_toStartOf="@+id/pctPdfRaster1"
+        app:layout_constraintTop_toTopOf="@+id/pctPdfRaster1"
+        app:layout_constraintVertical_bias="0.481"
+        app:srcCompat="@drawable/marker_blue_3" />
+
+    <ImageView
+        android:id="@+id/pdfMarker12"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pctPdfRaster1"
+        app:layout_constraintEnd_toEndOf="@+id/pctPdfRaster1"
+        app:layout_constraintStart_toStartOf="@+id/pctPdfRaster1"
+        app:layout_constraintTop_toTopOf="@+id/pctPdfRaster1"
+        app:layout_constraintVertical_bias="0.481"
+        app:srcCompat="@drawable/marker_blue_2" />
+
+    <ImageView
+        android:id="@+id/pdfMarker11"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pctPdfRaster1"
+        app:layout_constraintEnd_toEndOf="@+id/pctPdfRaster1"
+        app:layout_constraintStart_toStartOf="@+id/pctPdfRaster1"
+        app:layout_constraintTop_toTopOf="@+id/pctPdfRaster1"
+        app:layout_constraintVertical_bias="0.481"
+        app:srcCompat="@drawable/marker_blue_1" />
+
+    <ImageView
+        android:id="@+id/pdfMarker28"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pctPdfRaster2"
+        app:layout_constraintEnd_toEndOf="@+id/pctPdfRaster2"
+        app:layout_constraintStart_toStartOf="@+id/pctPdfRaster2"
+        app:layout_constraintTop_toTopOf="@+id/pctPdfRaster2"
+        app:layout_constraintVertical_bias="0.481"
+        app:srcCompat="@drawable/marker_blue_8" />
+
+    <ImageView
+        android:id="@+id/pdfMarker27"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pctPdfRaster2"
+        app:layout_constraintEnd_toEndOf="@+id/pctPdfRaster2"
+        app:layout_constraintStart_toStartOf="@+id/pctPdfRaster2"
+        app:layout_constraintTop_toTopOf="@+id/pctPdfRaster2"
+        app:layout_constraintVertical_bias="0.481"
+        app:srcCompat="@drawable/marker_blue_7" />
+
+    <ImageView
+        android:id="@+id/pdfMarker26"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pctPdfRaster2"
+        app:layout_constraintEnd_toEndOf="@+id/pctPdfRaster2"
+        app:layout_constraintStart_toStartOf="@+id/pctPdfRaster2"
+        app:layout_constraintTop_toTopOf="@+id/pctPdfRaster2"
+        app:layout_constraintVertical_bias="0.481"
+        app:srcCompat="@drawable/marker_blue_6" />
+
+    <ImageView
+        android:id="@+id/pdfMarker25"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pctPdfRaster2"
+        app:layout_constraintEnd_toEndOf="@+id/pctPdfRaster2"
+        app:layout_constraintStart_toStartOf="@+id/pctPdfRaster2"
+        app:layout_constraintTop_toTopOf="@+id/pctPdfRaster2"
+        app:layout_constraintVertical_bias="0.481"
+        app:srcCompat="@drawable/marker_blue_5" />
+
+    <ImageView
+        android:id="@+id/pdfMarker24"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pctPdfRaster2"
+        app:layout_constraintEnd_toEndOf="@+id/pctPdfRaster2"
+        app:layout_constraintStart_toStartOf="@+id/pctPdfRaster2"
+        app:layout_constraintTop_toTopOf="@+id/pctPdfRaster2"
+        app:layout_constraintVertical_bias="0.481"
+        app:srcCompat="@drawable/marker_blue_4" />
+
+    <ImageView
+        android:id="@+id/pdfMarker23"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pctPdfRaster2"
+        app:layout_constraintEnd_toEndOf="@+id/pctPdfRaster2"
+        app:layout_constraintStart_toStartOf="@+id/pctPdfRaster2"
+        app:layout_constraintTop_toTopOf="@+id/pctPdfRaster2"
+        app:layout_constraintVertical_bias="0.481"
+        app:srcCompat="@drawable/marker_blue_3" />
+
+    <ImageView
+        android:id="@+id/pdfMarker22"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pctPdfRaster2"
+        app:layout_constraintEnd_toEndOf="@+id/pctPdfRaster2"
+        app:layout_constraintStart_toStartOf="@+id/pctPdfRaster2"
+        app:layout_constraintTop_toTopOf="@+id/pctPdfRaster2"
+        app:layout_constraintVertical_bias="0.481"
+        app:srcCompat="@drawable/marker_blue_2" />
+
+    <ImageView
+        android:id="@+id/pdfMarker21"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pctPdfRaster2"
+        app:layout_constraintEnd_toEndOf="@+id/pctPdfRaster2"
+        app:layout_constraintStart_toStartOf="@+id/pctPdfRaster2"
+        app:layout_constraintTop_toTopOf="@+id/pctPdfRaster2"
+        app:layout_constraintVertical_bias="0.481"
+        app:srcCompat="@drawable/marker_blue_1" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

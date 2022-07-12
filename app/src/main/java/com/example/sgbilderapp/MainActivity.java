@@ -1,6 +1,6 @@
 package com.example.sgbilderapp;
 
-import androidx.appcompat.app.AlertDialog;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.Animator;
@@ -8,30 +8,23 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
-    final private int passwortCloud = 151022;
 
     private TextView txtHeadline;
     private TextView txtComment;
@@ -272,39 +265,12 @@ public class MainActivity extends AppCompatActivity {
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-
-                //LayoutInflater inflater = this.getLayoutInflater();
-                final EditText input = new EditText(MainActivity.this);
-                input.setInputType(InputType.TYPE_NUMBER_VARIATION_PASSWORD);
-                builder.setView(input);
-
-
-                builder.setTitle("Passwort")
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                if (input == null){
-                                    Toast.makeText(MainActivity.this, "null", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    int inputInt = Integer.parseInt(input.getText().toString());
-                                    if (inputInt == passwortCloud){
-                                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://onedrive.live.com/?authkey=%21AIuE2fVU8xePeB8&id=3E68918F98BDA615%2122770&cid=3E68918F98BDA615"));
-                                        startActivity(browserIntent);
-                                    }
-                                    else {
-                                        Toast.makeText(MainActivity.this, "Falsches Passwort", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {}
-                        });
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                Toast.makeText(MainActivity.this, "Noch nicht funktionabel", Toast.LENGTH_SHORT).show();
+                try {
+                    printToPdf();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -530,5 +496,35 @@ public class MainActivity extends AppCompatActivity {
                 animateEnd = choreo.getDanceEnd(choreo.getDance(bildNumb)) + 1;
                 break;
         }
+    }
+
+    public void printToPdf() throws IOException {
+        /*LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+        View view = inflater.inflate(R.layout.print_layout, null);
+
+        TextView test = view.findViewById(R.id.txtPdfDance1);
+        test.setText("Das ist ein Test!");
+
+
+        Bitmap bitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+
+        PdfDocument pdfDocument = new PdfDocument();
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
+
+        PdfDocument.Page page = pdfDocument.startPage(pageInfo);
+        page.getCanvas().drawBitmap(bitmap, 0F, 0F, null);
+        pdfDocument.finishPage(page);
+
+        Bundle bundle = getIntent().getExtras();
+        String pathChoreo = bundle.getString("pathChoreo");
+
+        pdfDocument.writeTo(new FileOutputStream(new File(pathChoreo)));
+
+        pdfDocument.close();*/
+
+
+
     }
 }

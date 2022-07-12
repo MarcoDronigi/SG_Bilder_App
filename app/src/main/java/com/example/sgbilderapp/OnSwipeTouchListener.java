@@ -59,7 +59,14 @@ public class OnSwipeTouchListener implements OnTouchListener {
             }
             return result;
         }
+
+        @Override
+        public void onLongPress(MotionEvent e) {
+            onLongClick();
+            super.onLongPress(e);
+        }
     }
+
 
     public void onSwipeRight() {
     }
@@ -71,5 +78,9 @@ public class OnSwipeTouchListener implements OnTouchListener {
     }
 
     public void onSwipeBottom() {
+    }
+
+    public void onLongClick(){
+
     }
 }

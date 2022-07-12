@@ -22,28 +22,19 @@ public class Choreography implements Serializable{
 
     private String name;
     private ArrayList<Bild> bilder = new ArrayList<Bild>();;
-    List<String> listDances = new ArrayList<String>();
-
-    private int maxBild = -1;
 
     public Choreography(String name) {
         this.name = name;
     }
 
-    public void addBild(double[] bildCoord, String dance, String comment){
+    public void addBild(int index, double[] bildCoord, String dance, String comment){
         assert bildCoord.length == 16;
-        bilder.add(new Bild(dance, comment, false, bildCoord));
-        if (maxBild == -1){
-            listDances.add(dance);
-        } else if (!dance.equals(bilder.get(maxBild).getDance())){
-            listDances.add(dance);
-        }
-        maxBild++;
+        bilder.add(index + 1, new Bild(dance, comment, false, bildCoord));
     }
 
-    public void addBlankBild(){
+    public void addBlankBild(int index){
         double[] nullBild = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        addBild(nullBild, "Tanz", "Kommentar");
+        addBild(index, nullBild, "Tanz", "Kommentar");
     }
 
     public void deleteBild(int bildIndex){
@@ -76,20 +67,6 @@ public class Choreography implements Serializable{
 
     public void setDance(int bildNumb, String dance){
         bilder.get(bildNumb).setDance(dance);
-
-        listDances.clear();
-        for (int j = 0; j <= maxBild; j++){
-            String tmp = bilder.get(j).getDance();
-            if (j == 0){
-                out.println("Fall j == 0");
-                listDances.add(tmp);
-            } else if (!tmp.equals(bilder.get(j - 1).getDance())){
-                out.println(tmp + " != " + bilder.get(j - 1).getDance());
-                listDances.add(tmp);
-            }
-        }
-
-        out.println(listDances);
     }
 
     public String getComment(int bildNumb) {
@@ -101,7 +78,7 @@ public class Choreography implements Serializable{
     }
 
     public int getMaxBild(){
-        return maxBild;
+        return bilder.size() - 1;
     }
 
     public int getDanceStart(String loopDance){
@@ -137,6 +114,19 @@ public class Choreography implements Serializable{
     }
 
     public List<String> getDanceArray(){
+        List<String> listDances = new ArrayList<String>();
+
+        listDances.clear();
+        for (int j = 0; j <= (bilder.size() - 1); j++){
+            String tmp = bilder.get(j).getDance();
+            if (j == 0){
+                out.println("Fall j == 0");
+                listDances.add(tmp);
+            } else if (!tmp.equals(bilder.get(j - 1).getDance())){
+                out.println(tmp + " != " + bilder.get(j - 1).getDance());
+                listDances.add(tmp);
+            }
+        }
         return listDances;
     }
 
