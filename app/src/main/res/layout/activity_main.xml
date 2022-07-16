@@ -27,6 +27,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/transparent"
         android:minHeight="48dp"
+        android:onClick="editBild"
         android:src="@drawable/ic_edit"
         app:layout_constraintBottom_toBottomOf="@+id/txtHeadline"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,11 +36,12 @@
         app:layout_constraintTop_toTopOf="@+id/txtHeadline" />
 
     <ImageButton
-        android:id="@+id/btnCloud"
+        android:id="@+id/btnCreatePdf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/transparent"
         android:minHeight="48dp"
+        android:onClick="printToPdf"
         android:src="@drawable/ic_pdf"
         app:layout_constraintBottom_toBottomOf="@+id/txtHeadline"
         app:layout_constraintEnd_toStartOf="@+id/txtHeadline"
@@ -187,11 +189,12 @@
 
     <ImageButton
         android:id="@+id/btnPlay"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="32dp"
         android:backgroundTint="@android:color/transparent"
         android:minHeight="48dp"
+        android:onClick="playAnimation"
         android:src="@drawable/ic_play_arrow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

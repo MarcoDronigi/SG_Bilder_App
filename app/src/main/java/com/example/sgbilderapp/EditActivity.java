@@ -22,37 +22,23 @@ import java.io.IOException;
 
 public class EditActivity extends AppCompatActivity {
 
-    private ImageButton btnSave;
-    private ImageButton btnMenu;
+    final double CONVERSION_VALUE_COORD = 0.1269;
 
-    private ImageView marker_1, marker_2, marker_3, marker_4, marker_5, marker_6, marker_7, marker_8;
     private ImageView[] marker;
-
-    ImageView raster;
-
-    private TextView txtHeadline;
-
-    private EditText edtTxt1X, edtTxt1Y;
-    private EditText edtTxt2X, edtTxt2Y;
-    private EditText edtTxt3X, edtTxt3Y;
-    private EditText edtTxt4X, edtTxt4Y;
-    private EditText edtTxt5X, edtTxt5Y;
-    private EditText edtTxt6X, edtTxt6Y;
-    private EditText edtTxt7X, edtTxt7Y;
-    private EditText edtTxt8X, edtTxt8Y;
-
+    private EditText[] editTexts;
+    private TextView[] txtPosArray;
     private EditText edtTxtDance, edtTxtComment;
 
     private int height;
     private int width;
 
-    int bildNumb;
-
-    final double CONVERSION_VALUE_COORD = 0.1269;
+    private int bildNumb;
 
     private Choreography choreo;
 
     private boolean coordView = true;
+
+    private Intent intentEditToMain;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -65,41 +51,41 @@ public class EditActivity extends AppCompatActivity {
         height = displayMetrics.heightPixels;
         width = displayMetrics.widthPixels;
 
-        btnSave = findViewById(R.id.btnEdit);
-        btnMenu = findViewById(R.id.btnCloud);
-
-        raster = findViewById(R.id.pctRaster);
+        ImageView raster = findViewById(R.id.pctRaster);
         raster.setLongClickable(true);
 
-        txtHeadline = findViewById(R.id.txtHeadline);
 
-        marker_1 = findViewById(R.id.marker_blue_1);
-        marker_2 = findViewById(R.id.marker_blue_2);
-        marker_3 = findViewById(R.id.marker_blue_3);
-        marker_4 = findViewById(R.id.marker_blue_4);
-        marker_5 = findViewById(R.id.marker_blue_5);
-        marker_6 = findViewById(R.id.marker_blue_6);
-        marker_7 = findViewById(R.id.marker_blue_7);
-        marker_8 = findViewById(R.id.marker_blue_8);
+        TextView txtHeadline = findViewById(R.id.txtHeadline);
+
+        ImageView marker_1 = findViewById(R.id.marker_blue_1);
+        ImageView marker_2 = findViewById(R.id.marker_blue_2);
+        ImageView marker_3 = findViewById(R.id.marker_blue_3);
+        ImageView marker_4 = findViewById(R.id.marker_blue_4);
+        ImageView marker_5 = findViewById(R.id.marker_blue_5);
+        ImageView marker_6 = findViewById(R.id.marker_blue_6);
+        ImageView marker_7 = findViewById(R.id.marker_blue_7);
+        ImageView marker_8 = findViewById(R.id.marker_blue_8);
 
         marker = new ImageView[] {marker_1, marker_2, marker_3, marker_4, marker_5, marker_6, marker_7, marker_8};
 
-        edtTxt1X = findViewById(R.id.edtTxt1X);
-        edtTxt1Y = findViewById(R.id.edtTxt1Y);
-        edtTxt2X = findViewById(R.id.edtTxt2X);
-        edtTxt2Y = findViewById(R.id.edtTxt2Y);
-        edtTxt3X = findViewById(R.id.edtTxt3X);
-        edtTxt3Y = findViewById(R.id.edtTxt3Y);
-        edtTxt4X = findViewById(R.id.edtTxt4X);
-        edtTxt4Y = findViewById(R.id.edtTxt4Y);
-        edtTxt5X = findViewById(R.id.edtTxt5X);
-        edtTxt5Y = findViewById(R.id.edtTxt5Y);
-        edtTxt6X = findViewById(R.id.edtTxt6X);
-        edtTxt6Y = findViewById(R.id.edtTxt6Y);
-        edtTxt7X = findViewById(R.id.edtTxt7X);
-        edtTxt7Y = findViewById(R.id.edtTxt7Y);
-        edtTxt8X = findViewById(R.id.edtTxt8X);
-        edtTxt8Y = findViewById(R.id.edtTxt8Y);
+        EditText edtTxt1X = findViewById(R.id.edtTxt1X);
+        EditText edtTxt1Y = findViewById(R.id.edtTxt1Y);
+        EditText edtTxt2X = findViewById(R.id.edtTxt2X);
+        EditText edtTxt2Y = findViewById(R.id.edtTxt2Y);
+        EditText edtTxt3X = findViewById(R.id.edtTxt3X);
+        EditText edtTxt3Y = findViewById(R.id.edtTxt3Y);
+        EditText edtTxt4X = findViewById(R.id.edtTxt4X);
+        EditText edtTxt4Y = findViewById(R.id.edtTxt4Y);
+        EditText edtTxt5X = findViewById(R.id.edtTxt5X);
+        EditText edtTxt5Y = findViewById(R.id.edtTxt5Y);
+        EditText edtTxt6X = findViewById(R.id.edtTxt6X);
+        EditText edtTxt6Y = findViewById(R.id.edtTxt6Y);
+        EditText edtTxt7X = findViewById(R.id.edtTxt7X);
+        EditText edtTxt7Y = findViewById(R.id.edtTxt7Y);
+        EditText edtTxt8X = findViewById(R.id.edtTxt8X);
+        EditText edtTxt8Y = findViewById(R.id.edtTxt8Y);
+
+        editTexts = new EditText[]{edtTxt1X, edtTxt1Y, edtTxt2X, edtTxt2Y, edtTxt3X, edtTxt3Y, edtTxt4X, edtTxt4Y, edtTxt5X, edtTxt5Y, edtTxt6X, edtTxt6Y, edtTxt7X, edtTxt7Y, edtTxt8X, edtTxt8Y};
 
         TextView txtPos1 = findViewById(R.id.txtPos1);
         TextView txtPos2 = findViewById(R.id.txtPos2);
@@ -110,6 +96,8 @@ public class EditActivity extends AppCompatActivity {
         TextView txtPos7 = findViewById(R.id.txtPos7);
         TextView txtPos8 = findViewById(R.id.txtPos8);
 
+        txtPosArray = new TextView[]{txtPos1, txtPos2, txtPos3, txtPos4, txtPos5, txtPos6, txtPos7, txtPos8};
+
         edtTxtDance = findViewById(R.id.edtTextDance);
         edtTxtComment = findViewById(R.id.edtTxtComment);
 
@@ -118,95 +106,11 @@ public class EditActivity extends AppCompatActivity {
 
         restartChoreo(getIntent().getExtras().getInt("bildNumb"));
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    choreo.save(getIntent().getExtras().getString("pathChoreo"));
-                } catch (IOException e) {
-                    Toast.makeText(EditActivity.this, "Fehler", Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
-                }
-                Intent intent = new Intent(EditActivity.this, MainActivity.class);
-                intent.putExtra("pathChoreo", getIntent().getExtras().getString("pathChoreo"));
-                startActivity(intent);
-            }
-        });
-
-        btnMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (coordView) {
-                    coordView = false;
-
-                    btnMenu.setImageResource(R.drawable.ic_round_edit_location_alt_24);
-
-                    edtTxt1X.setVisibility(View.GONE);
-                    edtTxt1Y.setVisibility(View.GONE);
-                    edtTxt2X.setVisibility(View.GONE);
-                    edtTxt2Y.setVisibility(View.GONE);
-                    edtTxt3X.setVisibility(View.GONE);
-                    edtTxt3Y.setVisibility(View.GONE);
-                    edtTxt4X.setVisibility(View.GONE);
-                    edtTxt4Y.setVisibility(View.GONE);
-                    edtTxt5X.setVisibility(View.GONE);
-                    edtTxt5Y.setVisibility(View.GONE);
-                    edtTxt6X.setVisibility(View.GONE);
-                    edtTxt6Y.setVisibility(View.GONE);
-                    edtTxt7X.setVisibility(View.GONE);
-                    edtTxt7Y.setVisibility(View.GONE);
-                    edtTxt8X.setVisibility(View.GONE);
-                    edtTxt8Y.setVisibility(View.GONE);
-
-                    txtPos1.setVisibility(View.GONE);
-                    txtPos2.setVisibility(View.GONE);
-                    txtPos3.setVisibility(View.GONE);
-                    txtPos4.setVisibility(View.GONE);
-                    txtPos5.setVisibility(View.GONE);
-                    txtPos6.setVisibility(View.GONE);
-                    txtPos7.setVisibility(View.GONE);
-                    txtPos8.setVisibility(View.GONE);
-
-                    edtTxtDance.setVisibility(View.VISIBLE);
-                    edtTxtComment.setVisibility(View.VISIBLE);
-
-                } else {
-                    coordView = true;
-
-                    btnMenu.setImageResource(R.drawable.ic_comment);
-
-                    edtTxtDance.setVisibility(View.GONE);
-                    edtTxtComment.setVisibility(View.GONE);
-
-
-                    edtTxt1X.setVisibility(View.VISIBLE);
-                    edtTxt1Y.setVisibility(View.VISIBLE);
-                    edtTxt2X.setVisibility(View.VISIBLE);
-                    edtTxt2Y.setVisibility(View.VISIBLE);
-                    edtTxt3X.setVisibility(View.VISIBLE);
-                    edtTxt3Y.setVisibility(View.VISIBLE);
-                    edtTxt4X.setVisibility(View.VISIBLE);
-                    edtTxt4Y.setVisibility(View.VISIBLE);
-                    edtTxt5X.setVisibility(View.VISIBLE);
-                    edtTxt5Y.setVisibility(View.VISIBLE);
-                    edtTxt6X.setVisibility(View.VISIBLE);
-                    edtTxt6Y.setVisibility(View.VISIBLE);
-                    edtTxt7X.setVisibility(View.VISIBLE);
-                    edtTxt7Y.setVisibility(View.VISIBLE);
-                    edtTxt8X.setVisibility(View.VISIBLE);
-                    edtTxt8Y.setVisibility(View.VISIBLE);
-
-                    txtPos1.setVisibility(View.VISIBLE);
-                    txtPos2.setVisibility(View.VISIBLE);
-                    txtPos3.setVisibility(View.VISIBLE);
-                    txtPos4.setVisibility(View.VISIBLE);
-                    txtPos5.setVisibility(View.VISIBLE);
-                    txtPos6.setVisibility(View.VISIBLE);
-                    txtPos7.setVisibility(View.VISIBLE);
-                    txtPos8.setVisibility(View.VISIBLE);
-                }
-            }
-        });
+        intentEditToMain = new Intent(EditActivity.this, MainActivity.class);
+        intentEditToMain. putExtra("pathChoreo", getIntent().getExtras().getString("pathChoreo"));
+        intentEditToMain.removeExtra("bildNumbEdit");
+        intentEditToMain.putExtra("bildNumbEdit", bildNumb);
+        System.out.println("Put Extra: " + bildNumb);
 
         //Swip nach Rechts und Links springt zum nächsten und letzten Bild
         raster.setOnTouchListener(new OnSwipeTouchListener(this) {
@@ -220,6 +124,10 @@ public class EditActivity extends AppCompatActivity {
                     updateTxt();
                     updateMarker();
                 }
+
+                intentEditToMain.removeExtra("bildNumbEdit");
+                intentEditToMain.putExtra("bildNumbEdit", bildNumb);
+                System.out.println("Put Extra: " + bildNumb);
             }
             //next Bild
             public void onSwipeLeft() {
@@ -231,6 +139,9 @@ public class EditActivity extends AppCompatActivity {
 
                 updateTxt();
                 updateMarker();
+                intentEditToMain.removeExtra("bildNumbEdit");
+                intentEditToMain.putExtra("bildNumbEdit", bildNumb);
+                System.out.println("Put Extra: " + bildNumb);
 
             }
             public void onSwipeBottom() {}
@@ -240,28 +151,24 @@ public class EditActivity extends AppCompatActivity {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(EditActivity.this);
                 builder.setTitle("Bild " + bildNumb);
-                builder.setPositiveButton("Hinzufügen", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        choreo.addBlankBild(bildNumb);
-                        bildNumb++;
-                        updateTxt();
-                        updateMarker();
-                        Toast.makeText(EditActivity.this, "Bild wurde erfolgreich erstellt!", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .setNegativeButton("Löschen", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        choreo.deleteBild(bildNumb);
-                        Toast.makeText(EditActivity.this, "Bild wurde erfolgreich gelöscht!", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .setNeutralButton("Schließen", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                builder.setPositiveButton("Hinzufügen", (dialogInterface, i) -> {
+                    choreo.addBlankBild(bildNumb);
+                    bildNumb++;
+                    updateTxt();
+                    updateMarker();
 
-                    }
+                    intentEditToMain.removeExtra("bildNumbEdit");
+                    intentEditToMain.putExtra("bildNumbEdit", bildNumb);
+                    System.out.println("Put Extra: " + bildNumb);
+
+                    Toast.makeText(EditActivity.this, "Bild wurde erfolgreich erstellt!", Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton("Löschen", (dialogInterface, i) -> {
+                    choreo.deleteBild(bildNumb);
+                    Toast.makeText(EditActivity.this, "Bild wurde erfolgreich gelöscht!", Toast.LENGTH_SHORT).show();
+                })
+                .setNeutralButton("Schließen", (dialogInterface, i) -> {
+
                 });
                 builder.create().show();
             }
@@ -311,6 +218,54 @@ public class EditActivity extends AppCompatActivity {
 
     }
 
+
+    public void changeEdtText(View view){
+        ImageButton btnChangeEdtMode = findViewById(R.id.btnChangeEdtMode);
+
+        if (coordView) {
+            coordView = false;
+
+            btnChangeEdtMode.setImageResource(R.drawable.ic_round_edit_location_alt_24);
+
+            for (EditText editText : editTexts){
+                editText.setVisibility(View.GONE);
+            }
+
+            for (TextView txtView : txtPosArray){
+                txtView.setVisibility(View.GONE);
+            }
+
+            edtTxtDance.setVisibility(View.VISIBLE);
+            edtTxtComment.setVisibility(View.VISIBLE);
+
+        } else {
+            coordView = true;
+
+            btnChangeEdtMode.setImageResource(R.drawable.ic_comment);
+
+            edtTxtDance.setVisibility(View.GONE);
+            edtTxtComment.setVisibility(View.GONE);
+
+            for (EditText editText : editTexts){
+                editText.setVisibility(View.VISIBLE);
+            }
+
+            for (TextView txtView : txtPosArray){
+                txtView.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    public void save(View view){
+        try {
+            choreo.save(getIntent().getExtras().getString("pathChoreo"));
+        } catch (IOException e) {
+            Toast.makeText(EditActivity.this, "Fehler", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+        startActivity(intentEditToMain);
+    }
+
     //Funktion Bewegt einen Marker zu "bildNumb"
     public void moveMarker(ImageView marker, int pos){
         int pxTranslationX = (int) (width * choreo.getCoordX(bildNumb, pos) * CONVERSION_VALUE_COORD / 2);
@@ -322,14 +277,9 @@ public class EditActivity extends AppCompatActivity {
 
     //Funktion Bewegt alle Marker zu "bildNumb"
     public void updateMarker(){
-        moveMarker(marker_1, 1);
-        moveMarker(marker_2, 2);
-        moveMarker(marker_3, 3);
-        moveMarker(marker_4, 4);
-        moveMarker(marker_5, 5);
-        moveMarker(marker_6, 6);
-        moveMarker(marker_7, 7);
-        moveMarker(marker_8, 8);
+        for (int i = 0; i < 8; i++) {
+            moveMarker(marker[i], i + 1);
+        }
     }
 
     //Punkte und Anzwigen werden auf ein bestimmten Punkt gesetzt
@@ -357,7 +307,7 @@ public class EditActivity extends AppCompatActivity {
                         choreo.setCoordY(bildNumb, pos, Double.parseDouble(edtTxt.getText().toString()));
                     }
                     updateMarker();
-                    updateHint(edtTxt, edtTxt.getText().toString());
+                    edtTxt.setHint(edtTxt.getText().toString());
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -366,44 +316,30 @@ public class EditActivity extends AppCompatActivity {
         });
     }
 
+    //TODO
     public void updateTxt(){
-        edtTxt1X.setText("");
-        edtTxt1Y.setText("");
-        edtTxt2X.setText("");
-        edtTxt2Y.setText("");
-        edtTxt3X.setText("");
-        edtTxt3Y.setText("");
-        edtTxt4X.setText("");
-        edtTxt4Y.setText("");
-        edtTxt5X.setText("");
-        edtTxt5Y.setText("");
-        edtTxt6X.setText("");
-        edtTxt6Y.setText("");
-        edtTxt7X.setText("");
-        edtTxt7Y.setText("");
-        edtTxt8X.setText("");
-        edtTxt8Y.setText("");
 
+        boolean isX = true;
+        int pos = 1;
+
+        for (int i = 0; i < 16; i++) {
+            editTexts[i].setText("");
+
+            if (isX){
+                editTexts[i].setHint(((Double) choreo.getCoordX(bildNumb, pos)).toString());
+                isX = false;
+            }
+            else{
+                editTexts[i].setHint(((Double) choreo.getCoordY(bildNumb, pos)).toString());
+                pos++;
+                isX = true;
+            }
+        }
+
+        //TODO
         /*edtTxtDance.setText("");
         edtTxtComment.setText("");*/
 
-
-        edtTxt1X.setHint(((Double) choreo.getCoordX(bildNumb, 1)).toString());
-        edtTxt1Y.setHint(((Double) choreo.getCoordY(bildNumb, 1)).toString());
-        edtTxt2X.setHint(((Double) choreo.getCoordX(bildNumb, 2)).toString());
-        edtTxt2Y.setHint(((Double) choreo.getCoordY(bildNumb, 2)).toString());
-        edtTxt3X.setHint(((Double) choreo.getCoordX(bildNumb, 3)).toString());
-        edtTxt3Y.setHint(((Double) choreo.getCoordY(bildNumb, 3)).toString());
-        edtTxt4X.setHint(((Double) choreo.getCoordX(bildNumb, 4)).toString());
-        edtTxt4Y.setHint(((Double) choreo.getCoordY(bildNumb, 4)).toString());
-        edtTxt5X.setHint(((Double) choreo.getCoordX(bildNumb, 5)).toString());
-        edtTxt5Y.setHint(((Double) choreo.getCoordY(bildNumb, 5)).toString());
-        edtTxt6X.setHint(((Double) choreo.getCoordX(bildNumb, 6)).toString());
-        edtTxt6Y.setHint(((Double) choreo.getCoordY(bildNumb, 6)).toString());
-        edtTxt7X.setHint(((Double) choreo.getCoordX(bildNumb, 7)).toString());
-        edtTxt7Y.setHint(((Double) choreo.getCoordY(bildNumb, 7)).toString());
-        edtTxt8X.setHint(((Double) choreo.getCoordX(bildNumb, 8)).toString());
-        edtTxt8Y.setHint(((Double) choreo.getCoordY(bildNumb, 8)).toString());
 
         /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             String[] strings = choreo.getDanceArray().toArray(new String[0]);
@@ -411,12 +347,8 @@ public class EditActivity extends AppCompatActivity {
         } else {
             edtTxtDance.setHint(choreo.getDance(bildNumb));
         }*/
+
         edtTxtDance.setText(choreo.getDance(bildNumb));
         edtTxtComment.setText(choreo.getComment(bildNumb));
     }
-
-    public void updateHint (EditText editText, String newCoord) {
-        editText.setHint(newCoord);
-    }
-
 }

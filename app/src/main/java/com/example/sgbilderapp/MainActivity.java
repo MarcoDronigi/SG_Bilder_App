@@ -9,7 +9,9 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,24 +22,22 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView txtHeadline;
+    final double CONVERSION_VALUE_COORD = 0.1269;
+    final long BASE_ANIMATION_SPEED = 1000;
+
     private TextView txtComment;
     private TextView txtPrevX, txtX, txtFutX, txtPrevY, txtY, txtFutY;
 
     private ImageButton btnPlay;
-    private ImageButton btnMenu;
-    private ImageButton btnEdit;
 
     private ImageView raster;
-
     private ImageView marker_1, marker_2, marker_3, marker_4, marker_5, marker_6, marker_7, marker_8;
-    private ImageView[] marker;
+    private ImageView[] markerArray;
 
     private int[] drawableBlue;
     private int[] drawableRed;
@@ -45,10 +45,10 @@ public class MainActivity extends AppCompatActivity {
 
     private Spinner spinnerPos;
     private Spinner spinnerAnimationSpeed;
-    private Spinner spinnerLoopType;
     private Spinner spinnerDance;
+    private Spinner spinnerLoopType;
 
-    List<String> spinnerArray =  new ArrayList<String>();
+    List<String> spinnerArray =  new ArrayList<>();
     boolean spinnerInterfaceInput = true;
 
     private int loopType = 1;
@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
     private int animateStart;
 
     private int width;
-    private int height;
 
     private int posSelected = 1;
 
@@ -73,33 +72,31 @@ public class MainActivity extends AppCompatActivity {
     private boolean animationOn = false;
     private double animationSpeed = 1;
 
-    final double CONVERSION_VALUE_COORD = 0.1269;
-    //0.1207
-    final long BASE_SPEED = 1000;
-
     private Choreography choreo;
 
+    private String pathChoreo;
 
-    @SuppressLint("ClickableViewAccessibility")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         Bundle bundle = getIntent().getExtras();
-        String pathChoreo = bundle.getString("pathChoreo");
+        pathChoreo = bundle.getString("pathChoreo");
 
         choreo = Choreography.readFromFile(pathChoreo);
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        height = displayMetrics.heightPixels;
+        int height = displayMetrics.heightPixels;
         width = displayMetrics.widthPixels;
 
         //Views bekommen Variablen zugeordnet
+
         raster = findViewById(R.id.pctRaster);
 
-        txtHeadline = findViewById(R.id.txtHeadline);
+        TextView txtHeadline = findViewById(R.id.txtHeadline);
         txtHeadline.setText(choreo.getName());
 
         txtComment = findViewById(R.id.txtComment);
@@ -120,15 +117,15 @@ public class MainActivity extends AppCompatActivity {
         marker_7 = findViewById(R.id.marker_blue_7);
         marker_8 = findViewById(R.id.marker_blue_8);
 
-        marker = new ImageView[] {marker_1, marker_2, marker_3, marker_4, marker_5, marker_6, marker_7, marker_8};
+        markerArray = new ImageView[] {marker_1, marker_2, marker_3, marker_4, marker_5, marker_6, marker_7, marker_8};
+
+
         //Arrays für die Marker Icons
         drawableBlue = new int[] {R.drawable.marker_blue_1, R.drawable.marker_blue_2, R.drawable.marker_blue_3, R.drawable.marker_blue_4, R.drawable.marker_blue_5, R.drawable.marker_blue_6, R.drawable.marker_blue_7, R.drawable.marker_blue_8};
         //drawableRed = new int[] {R.drawable.marker_rot_1, R.drawable.marker_rot_2, R.drawable.marker_rot_3, R.drawable.marker_rot_4, R.drawable.marker_rot_5, R.drawable.marker_rot_6, R.drawable.marker_rot_7, R.drawable.marker_rot_8};
         drawableGold = new int[] {R.drawable.marker_sg_1, R.drawable.marker_sg_2, R.drawable.marker_sg_3, R.drawable.marker_sg_4, R.drawable.marker_sg_5, R.drawable.marker_sg_6, R.drawable.marker_sg_7, R.drawable.marker_sg_8};
 
         btnPlay = findViewById(R.id.btnPlay);
-        btnEdit = findViewById(R.id.btnEdit);
-        btnMenu = findViewById(R.id.btnCloud);
 
         spinnerPos = findViewById(R.id.spinnerPos);
         spinnerAnimationSpeed = findViewById(R.id.spinnerAnimationSpeed);
@@ -138,16 +135,46 @@ public class MainActivity extends AppCompatActivity {
         //Animationsgeschwindigkeit wird Default 1x gesetzt
         spinnerAnimationSpeed.setSelection(3);
 
+
+
+        System.out.println("create");
+        System.out.println(getIntent().getExtras().getInt("bildNumbEdit"));
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        System.out.println("restart");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        System.out.println("start");
+
         spinnerArray = choreo.getDanceArray();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_dropdown_item, spinnerArray);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spinnerArray);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDance.setAdapter(adapter);
 
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    @Override
+    protected void onResume() {
+        super.onResume();
+
         //Erstes Bild wird Initialisiert
-        restartChoreo(0);
+        //TODO
+        System.out.println("Restart: " + getIntent().getExtras().getInt("bildNumbEdit"));
+        restartChoreo(getIntent().getExtras().getInt("bildNumbEdit"));
+        //restartChoreo(0);
+
+        System.out.println("resume");
 
         //Durch Spinnner kann User die hervorgehobene Position & die entsprechend davon angezeigten Coord auswählen
         spinnerPos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -155,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 //Davor ausgewählter Marker wird wieder mit Default Token anzgezeigt
-                marker[posSelected - 1].setImageResource(drawableBlue[posSelected - 1]);
+                markerArray[posSelected - 1].setImageResource(drawableBlue[posSelected - 1]);
 
                 posSelected = Integer.parseInt(spinnerPos.getSelectedItem().toString().substring(4));
 
@@ -163,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
                 updateTxt();
 
                 //Neu ausgewählter Marker wird mit anderem Token angezeigt
-                marker[posSelected - 1].setImageResource(drawableGold[posSelected - 1]);
+                markerArray[posSelected - 1].setImageResource(drawableGold[posSelected - 1]);
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {}
@@ -223,9 +250,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (spinnerInterfaceInput == true){
+                if (spinnerInterfaceInput){
                     bildNumb = choreo.getDanceStart(spinnerDance.getSelectedItem().toString());
-                    //Toast.makeText(MainActivity.this, ((Integer) bildNumb).toString(), Toast.LENGTH_SHORT).show();
                     updateTxt();
                     updateMarker();
                     updateLoopType(loopType);
@@ -236,53 +262,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {}
-        });
-
-        // Button zum Start und Stop der Animationen (& Restart Choero)
-        btnPlay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (animationOn){ // Animation wird gestoppt
-                    animationOn = false;
-                    btnPlay.setImageResource(R.drawable.ic_play_arrow);
-
-                } else if(bildNumb == choreo.getMaxBild()){ //Choero wird Resetet (Fall letztes Bild)
-                    restartChoreo(0);
-                    btnPlay.setImageResource(R.drawable.ic_play_arrow);
-                } else { //Animation wird gestartet
-                    animationOn = true;
-                    animateChoreo();
-                    btnPlay.setImageResource(R.drawable.ic_stop);
-                }
-
-            }
-
-        });
-
-        // Derzeit Bringt Buttton User in die Cloud nach Abfrage von Passworts
-        // Gedacht: Menü
-        btnMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Noch nicht funktionabel", Toast.LENGTH_SHORT).show();
-                try {
-                    printToPdf();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-
-        btnEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, EditActivity.class);
-                intent.putExtra("bildNumb", bildNumb);
-                intent.putExtra("pathChoreo", pathChoreo);
-                startActivity(intent);
-            }
         });
 
 
@@ -329,26 +308,71 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    // Button to start, stop and restart animation
+    public void playAnimation(View view){
+        if (animationOn){ // animation stop
+            animationOn = false;
+            btnPlay.setImageResource(R.drawable.ic_play_arrow);
 
-    //Funktion Bewegt einen Marker zu "bildNumb"
-    public void moveMarker(ImageView marker, int pos){
-        int pxTranslationX = (int) (width * choreo.getCoordX(bildNumb, pos) * CONVERSION_VALUE_COORD / 2);
-        int pxTranslationY = (int) (width * choreo.getCoordY(bildNumb, pos) * CONVERSION_VALUE_COORD * (-1) / 2);
-
-        marker.setTranslationX(pxTranslationX);
-        marker.setTranslationY(pxTranslationY);
+        } else if(bildNumb == choreo.getMaxBild()){ // animation restart (case last Bild"
+            restartChoreo(0);
+            btnPlay.setImageResource(R.drawable.ic_play_arrow);
+        } else { // animation start
+            animationOn = true;
+            animateChoreo();
+            btnPlay.setImageResource(R.drawable.ic_stop);
+        }
     }
 
-    //Funktion Bewegt alle Marker zu "bildNumb"
+    //TODO printToPdf
+    public void printToPdf(View view) {
+        Toast.makeText(MainActivity.this, "Noch nicht funktionabel", Toast.LENGTH_SHORT).show();
+
+        /*LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+        View view = inflater.inflate(R.layout.print_layout, null);
+
+        TextView test = view.findViewById(R.id.txtPdfDance1);
+        test.setText("Das ist ein Test!");
+
+
+        Bitmap bitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+
+        PdfDocument pdfDocument = new PdfDocument();
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
+
+        PdfDocument.Page page = pdfDocument.startPage(pageInfo);
+        page.getCanvas().drawBitmap(bitmap, 0F, 0F, null);
+        pdfDocument.finishPage(page);
+
+        Bundle bundle = getIntent().getExtras();
+        String pathChoreo = bundle.getString("pathChoreo");
+
+        pdfDocument.writeTo(new FileOutputStream(new File(pathChoreo)));
+
+        pdfDocument.close();*/
+
+    }
+
+    // button to edit Bild (edit activity)
+    public void editBild(View view){
+        Intent intent = new Intent(MainActivity.this, EditActivity.class);
+        //Bild id and path is shared with Edit Activity
+        intent.putExtra("bildNumb", bildNumb);
+        intent.putExtra("pathChoreo", pathChoreo);
+        startActivity(intent);
+    }
+
+    // move marker to position of bildNumb
     public void updateMarker(){
-        moveMarker(marker_1, 1);
-        moveMarker(marker_2, 2);
-        moveMarker(marker_3, 3);
-        moveMarker(marker_4, 4);
-        moveMarker(marker_5, 5);
-        moveMarker(marker_6, 6);
-        moveMarker(marker_7, 7);
-        moveMarker(marker_8, 8);
+        for (int i = 0; i < 8; i ++){
+            int pxTranslationX = (int) (width * choreo.getCoordX(bildNumb, i + 1) * CONVERSION_VALUE_COORD / 2);
+            int pxTranslationY = (int) (width * choreo.getCoordY(bildNumb, i + 1) * CONVERSION_VALUE_COORD * (-1) / 2);
+
+            markerArray[i].setTranslationX(pxTranslationX);
+            markerArray[i].setTranslationY(pxTranslationY);
+        }
     }
 
     // Kommentare sowie Angezeigte Koord werden auf Wert laut "bildNumb" gestellt
@@ -388,11 +412,11 @@ public class MainActivity extends AppCompatActivity {
         if (isX){
             int pxTranslationX = (int) (width * choreo.getCoordX(bildNumb, pos) * CONVERSION_VALUE_COORD / 2);
             animation = ObjectAnimator.ofFloat(marker, "translationX", pxTranslationX);
-            animation.setDuration((long) (BASE_SPEED * animationSpeed));
+            animation.setDuration((long) (BASE_ANIMATION_SPEED * animationSpeed));
         } else{
             int pxTranslationY = (int) (width * choreo.getCoordY(bildNumb, pos) * CONVERSION_VALUE_COORD * (-1) / 2);
             animation = ObjectAnimator.ofFloat(marker, "translationY", pxTranslationY);
-            animation.setDuration((long) (BASE_SPEED * animationSpeed));
+            animation.setDuration((long) (BASE_ANIMATION_SPEED * animationSpeed));
         }
 
         return animation;
@@ -457,7 +481,9 @@ public class MainActivity extends AppCompatActivity {
 
     //Punkte und Anzwigen werden auf ein bestimmten Punkt gesetzt
     public void restartChoreo (int restartAT){
+        System.out.println("Restart triggerd");
         bildNumb = restartAT;
+        System.out.println(bildNumb);
         updateMarker();
         updateTxt();
         updateLoopType(loopType);
@@ -498,33 +524,5 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void printToPdf() throws IOException {
-        /*LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
-        View view = inflater.inflate(R.layout.print_layout, null);
 
-        TextView test = view.findViewById(R.id.txtPdfDance1);
-        test.setText("Das ist ein Test!");
-
-
-        Bitmap bitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        view.draw(canvas);
-
-        PdfDocument pdfDocument = new PdfDocument();
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
-
-        PdfDocument.Page page = pdfDocument.startPage(pageInfo);
-        page.getCanvas().drawBitmap(bitmap, 0F, 0F, null);
-        pdfDocument.finishPage(page);
-
-        Bundle bundle = getIntent().getExtras();
-        String pathChoreo = bundle.getString("pathChoreo");
-
-        pdfDocument.writeTo(new FileOutputStream(new File(pathChoreo)));
-
-        pdfDocument.close();*/
-
-
-
-    }
 }

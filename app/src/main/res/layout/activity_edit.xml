@@ -21,7 +21,7 @@
         app:layout_constraintVertical_bias="0.8" />
 
     <ImageButton
-        android:id="@+id/btnEdit"
+        android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/transparent"
@@ -31,10 +31,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.7"
         app:layout_constraintStart_toEndOf="@+id/txtHeadline"
-        app:layout_constraintTop_toTopOf="@+id/txtHeadline" />
+        app:layout_constraintTop_toTopOf="@+id/txtHeadline"
+        android:onClick="save"/>
 
     <ImageButton
-        android:id="@+id/btnCloud"
+        android:id="@+id/btnChangeEdtMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/transparent"
@@ -44,7 +45,8 @@
         app:layout_constraintEnd_toStartOf="@+id/txtHeadline"
         app:layout_constraintHorizontal_bias="0.3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txtHeadline" />
+        app:layout_constraintTop_toTopOf="@+id/txtHeadline"
+        android:onClick="changeEdtText"/>
 
     <ImageView
         android:id="@+id/pctRaster"

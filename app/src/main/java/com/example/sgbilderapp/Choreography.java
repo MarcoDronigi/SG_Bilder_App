@@ -120,10 +120,10 @@ public class Choreography implements Serializable{
         for (int j = 0; j <= (bilder.size() - 1); j++){
             String tmp = bilder.get(j).getDance();
             if (j == 0){
-                out.println("Fall j == 0");
+                //out.println("Fall j == 0");
                 listDances.add(tmp);
             } else if (!tmp.equals(bilder.get(j - 1).getDance())){
-                out.println(tmp + " != " + bilder.get(j - 1).getDance());
+                //out.println(tmp + " != " + bilder.get(j - 1).getDance());
                 listDances.add(tmp);
             }
         }
