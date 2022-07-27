@@ -5,7 +5,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -39,6 +38,7 @@ public class EditActivity extends AppCompatActivity {
     private boolean coordView = true;
 
     private Intent intentEditToMain;
+
 
     @SuppressLint("ClickableViewAccessibility")
     @Override

@@ -1,5 +1,7 @@
 package com.example.sgbilderapp;
 
+import static android.provider.Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -7,10 +9,14 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
 import android.widget.ArrayAdapter;
@@ -20,7 +26,13 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,20 +50,74 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        //Permissions Choreo Files
-        ActivityCompat.requestPermissions(this,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.MANAGE_EXTERNAL_STORAGE},
-                PackageManager.PERMISSION_GRANTED);
+        boolean mboolean = false;
 
-        //Path to Choerografien
-        String folder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath() + File.separator + FOLDERNAME;
+        SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
+        mboolean = settings.getBoolean("FIRST_RUN", false);
+        if (!mboolean) {
+            // do the thing for the first time
+            settings = getSharedPreferences("PREFS_NAME", 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean("FIRST_RUN", true);
+            editor.apply();
 
-        subFolder = new File(folder);
+            Intent intent = new Intent(ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, Uri.parse("package:" + BuildConfig.APPLICATION_ID));
 
-        if (!subFolder.exists()) {
-            subFolder.mkdirs();
+            startActivity(intent);
+            //startActivityForResult(intent, APP_STORAGE_ACCESS_REQUEST_CODE);
+
+            //Path to Choerografien
+            String folder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath() + File.separator + FOLDERNAME;
+
+            subFolder = new File(folder);
+
+            if (!subFolder.exists()) {
+                subFolder.mkdirs();
+            }
+
+            AssetManager assetManager = getAssets();
+
+            InputStream is = null;
+            try {
+                is = assetManager.open("MansWorld");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Choreography choreography = null;
+            try {
+                ObjectInputStream objectInputStream = new ObjectInputStream(is);
+                choreography = (Choreography) objectInputStream.readObject();
+                objectInputStream.close();
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                FileOutputStream fileOutputStream = new FileOutputStream(new File(subFolder + File.separator + "MansWorld"));
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+                objectOutputStream.writeObject(choreography);
+                objectOutputStream.close();
+                fileOutputStream.close();
+
+            } catch (FileNotFoundException e) {
+                Log.e("ERROR", e.toString());
+            } catch (IOException e) {
+                Log.e("ERROR", e.toString());
+            }
+
+        } else {
+            String folder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath() + File.separator + FOLDERNAME;
+
+            subFolder = new File(folder);
+
+            if (!subFolder.exists()) {
+                subFolder.mkdirs();
+            }
         }
     }
 
@@ -127,6 +193,10 @@ public class StartActivity extends AppCompatActivity {
 
 
         reloadChoreo();
+    }
+
+    public void settings(View view){
+
     }
 
     //Grap Choreos from folder and fill spinner

@@ -150,7 +150,6 @@ public class Choreography implements Serializable{
     public static Choreography readFromFile(String pathChoreo) {
         Choreography choreography = null;
         try {
-
             FileInputStream fileInputStream = new FileInputStream(new File(pathChoreo));
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             choreography = (Choreography) objectInputStream.readObject();
