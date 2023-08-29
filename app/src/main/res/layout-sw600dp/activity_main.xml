@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <TextView
+        android:id="@+id/txtHeadline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@color/sg_gold"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/pctRaster"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.8" />
+
+    <ImageButton
+        android:id="@+id/btnEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@android:color/transparent"
+        android:minHeight="48dp"
+        android:onClick="editBild"
+        android:src="@drawable/ic_edit"
+        app:layout_constraintBottom_toBottomOf="@+id/txtHeadline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintStart_toEndOf="@+id/txtHeadline"
+        app:layout_constraintTop_toTopOf="@+id/txtHeadline" />
+
+    <ImageButton
+        android:id="@+id/btnCreatePdf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@android:color/transparent"
+        android:minHeight="48dp"
+        android:onClick="printToPdf"
+        android:src="@drawable/ic_pdf"
+        app:layout_constraintBottom_toBottomOf="@+id/txtHeadline"
+        app:layout_constraintEnd_toStartOf="@+id/txtHeadline"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtHeadline" />
+
+
+    <ImageView
+        android:id="@+id/pctRaster"
+        android:layout_width="match_parent"
+        android:layout_height="480dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/raster_klein" />
+
+    <Spinner
+        android:id="@+id/spinnerPos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:animateLayoutChanges="true"
+        android:animationCache="true"
+        android:entries="@array/postitions"
+        android:minHeight="48dp"
+        android:theme="@android:style/Theme.Holo.NoActionBar"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerLoopType"
+        app:layout_constraintEnd_toEndOf="@+id/txtPrevY"
+        app:layout_constraintStart_toStartOf="@+id/txtPrevX"
+        app:layout_constraintTop_toBottomOf="@+id/pctRaster"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Spinner
+        android:id="@+id/spinnerDance"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="8dp"
+        android:theme="@android:style/Theme.Holo.NoActionBar"
+        app:layout_constraintBottom_toBottomOf="@+id/spinnerPos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/txtPrevY"
+        app:layout_constraintTop_toTopOf="@+id/spinnerPos" />
+
+    <TextView
+        android:id="@+id/txtComment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="20dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerAnimationSpeed"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerDance"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/spinnerDance"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerDance" />
+
+    <TextView
+        android:id="@+id/txtFutY"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="0"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txtFutX"
+        app:layout_constraintEnd_toEndOf="@+id/txtY"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txtY"
+        app:layout_constraintTop_toTopOf="@+id/txtFutX"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/txtPrevY"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:gravity="right"
+        android:text="0.0"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txtPrevX"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerDance"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/txtPrevX"
+        app:layout_constraintTop_toTopOf="@+id/txtPrevX"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/txtPrevX"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="right"
+        android:text="0.0"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/txtPrevY"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerPos" />
+
+    <TextView
+        android:id="@+id/txtY"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="0"
+        android:textColor="@color/sg_gold"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/txtX"
+        app:layout_constraintEnd_toEndOf="@+id/txtPrevY"
+        app:layout_constraintStart_toStartOf="@+id/txtPrevY"
+        app:layout_constraintTop_toTopOf="@+id/txtX"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/txtX"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="right"
+        android:text="0"
+        android:textColor="@color/sg_gold"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/txtPrevX"
+        app:layout_constraintStart_toStartOf="@+id/txtPrevX"
+        app:layout_constraintTop_toBottomOf="@+id/txtPrevX" />
+
+    <TextView
+        android:id="@+id/txtFutX"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="right"
+        android:text="0"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/txtX"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txtX"
+        app:layout_constraintTop_toBottomOf="@+id/txtX" />
+
+    <ImageButton
+        android:id="@+id/btnPlay"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@android:color/transparent"
+        android:minHeight="48dp"
+        android:onClick="playAnimation"
+        android:src="@drawable/ic_play_arrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinnerAnimationSpeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/speeds"
+        android:minHeight="48dp"
+        android:theme="@android:style/Theme.Holo.NoActionBar"
+        app:layout_constraintBottom_toBottomOf="@+id/btnPlay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnPlay"
+        app:layout_constraintTop_toTopOf="@+id/btnPlay" />
+
+    <Spinner
+        android:id="@+id/spinnerLoopType"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:entries="@array/loopTypes"
+        android:minHeight="48dp"
+        android:theme="@android:style/Theme.Holo.NoActionBar"
+        app:layout_constraintBottom_toBottomOf="@+id/btnPlay"
+        app:layout_constraintEnd_toStartOf="@+id/btnPlay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnPlay" />
+
+
+    <ImageView
+        android:id="@+id/marker_blue_1"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pctRaster"
+        app:layout_constraintEnd_toEndOf="@+id/pctRaster"
+        app:layout_constraintStart_toStartOf="@+id/pctRaster"
+        app:layout_constraintTop_toTopOf="@+id/pctRaster"
+        app:layout_constraintVertical_bias="0.481"
+        app:srcCompat="@drawable/marker_blue_1" />
+
+    <ImageView
+        android:id="@+id/marker_blue_2"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pctRaster"
+        app:layout_constraintEnd_toEndOf="@+id/pctRaster"
+        app:layout_constraintStart_toStartOf="@+id/pctRaster"
+        app:layout_constraintTop_toTopOf="@+id/pctRaster"
+        app:layout_constraintVertical_bias="0.481"
+        app:srcCompat="@drawable/marker_blue_2" />
+
+    <ImageView
+        android:id="@+id/marker_blue_3"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pctRaster"
+        app:layout_constraintEnd_toEndOf="@+id/pctRaster"
+        app:layout_constraintStart_toStartOf="@+id/pctRaster"
+        app:layout_constraintTop_toTopOf="@+id/pctRaster"
+        app:layout_constraintVertical_bias="0.481"
+        app:srcCompat="@drawable/marker_blue_3" />
+
+    <ImageView
+        android:id="@+id/marker_blue_4"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pctRaster"
+        app:layout_constraintEnd_toEndOf="@+id/pctRaster"
+        app:layout_constraintStart_toStartOf="@+id/pctRaster"
+        app:layout_constraintTop_toTopOf="@+id/pctRaster"
+        app:layout_constraintVertical_bias="0.481"
+        app:srcCompat="@drawable/marker_blue_4" />
+
+    <ImageView
+        android:id="@+id/marker_blue_5"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pctRaster"
+        app:layout_constraintEnd_toEndOf="@+id/pctRaster"
+        app:layout_constraintStart_toStartOf="@+id/pctRaster"
+        app:layout_constraintTop_toTopOf="@+id/pctRaster"
+        app:layout_constraintVertical_bias="0.481"
+        app:srcCompat="@drawable/marker_blue_5" />
+
+    <ImageView
+        android:id="@+id/marker_blue_6"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pctRaster"
+        app:layout_constraintEnd_toEndOf="@+id/pctRaster"
+        app:layout_constraintStart_toStartOf="@+id/pctRaster"
+        app:layout_constraintTop_toTopOf="@+id/pctRaster"
+        app:layout_constraintVertical_bias="0.481"
+        app:srcCompat="@drawable/marker_blue_6" />
+
+    <ImageView
+        android:id="@+id/marker_blue_7"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pctRaster"
+        app:layout_constraintEnd_toEndOf="@+id/pctRaster"
+        app:layout_constraintStart_toStartOf="@+id/pctRaster"
+        app:layout_constraintTop_toTopOf="@+id/pctRaster"
+        app:layout_constraintVertical_bias="0.481"
+        app:srcCompat="@drawable/marker_blue_7" />
+
+    <ImageView
+        android:id="@+id/marker_blue_8"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pctRaster"
+        app:layout_constraintEnd_toEndOf="@+id/pctRaster"
+        app:layout_constraintStart_toStartOf="@+id/pctRaster"
+        app:layout_constraintTop_toTopOf="@+id/pctRaster"
+        app:layout_constraintVertical_bias="0.481"
+        app:srcCompat="@drawable/marker_blue_8" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

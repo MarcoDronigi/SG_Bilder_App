@@ -9,9 +9,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.AdapterView;
@@ -63,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private int animateEnd;
     private int animateStart;
 
-    private int width;
+    private int width, height;
 
     private int posSelected = 1;
 
@@ -89,12 +87,15 @@ public class MainActivity extends AppCompatActivity {
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
+        height = displayMetrics.heightPixels;
         width = displayMetrics.widthPixels;
+        float density = displayMetrics.density;
+        int widthDp = width / ((int) density);
 
         //Views bekommen Variablen zugeordnet
 
         raster = findViewById(R.id.pctRaster);
+        raster.getLayoutParams().height = (int) (width * 1.3);
 
         TextView txtHeadline = findViewById(R.id.txtHeadline);
         txtHeadline.setText(choreo.getName());
@@ -327,31 +328,34 @@ public class MainActivity extends AppCompatActivity {
     //TODO printToPdf
     public void printToPdf(View view) {
         Toast.makeText(MainActivity.this, "Noch nicht funktionabel", Toast.LENGTH_SHORT).show();
+        choreo.choreoToLatex(pathChoreo);
+//        for (int i = 0; i <= choreo.getMaxBild(); i++) {
+//            System.out.println("\\def\\tanz{" + choreo.getDance(i) + "}");
+//            System.out.println("\\def\\pos{(" + choreo.getCoordX(i, 1) + "," + choreo.getCoordY(i, 1) +
+//                    "), (" + choreo.getCoordX(i, 2) + "," + choreo.getCoordY(i, 2) +
+//                    "), (" + choreo.getCoordX(i, 3) + "," + choreo.getCoordY(i, 3) +
+//                    "), (" + choreo.getCoordX(i, 4) + "," + choreo.getCoordY(i, 4) +
+//                    "), (" + choreo.getCoordX(i, 5) + "," + choreo.getCoordY(i, 5) +
+//                    "), (" + choreo.getCoordX(i, 6) + "," + choreo.getCoordY(i, 6) +
+//                    "), (" + choreo.getCoordX(i, 7) + "," + choreo.getCoordY(i, 7) +
+//                    "), (" + choreo.getCoordX(i, 8) + "," + choreo.getCoordY(i, 8) +
+//                    ")}");
+//            System.out.println("\\def\\definitionen{" + choreo.getComment(i) + "}");
+//            System.out.println("\\tikz\\pic[scale=0.7]{flaeche};");
+//            System.out.println("\\vspace{1cm}");
+//            System.out.println();
+//
+//        }
 
-        /*LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
-        View view = inflater.inflate(R.layout.print_layout, null);
+        /*
+        \def\tanz{Einmarsch}
+        \def\pos{(0,0), (1.5,0), (0,1.5), (1.5,3), (0,3), (0,4.5), (1.5,1.5), (1.5,4.5)}
+        \def\definitionen{Anfangsbild}
+        \tikz\pic[scale=0.7]{flaeche};
+        \vspace{1cm}
 
-        TextView test = view.findViewById(R.id.txtPdfDance1);
-        test.setText("Das ist ein Test!");
+         */
 
-
-        Bitmap bitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        view.draw(canvas);
-
-        PdfDocument pdfDocument = new PdfDocument();
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
-
-        PdfDocument.Page page = pdfDocument.startPage(pageInfo);
-        page.getCanvas().drawBitmap(bitmap, 0F, 0F, null);
-        pdfDocument.finishPage(page);
-
-        Bundle bundle = getIntent().getExtras();
-        String pathChoreo = bundle.getString("pathChoreo");
-
-        pdfDocument.writeTo(new FileOutputStream(new File(pathChoreo)));
-
-        pdfDocument.close();*/
 
     }
 

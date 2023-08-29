@@ -19,6 +19,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -90,10 +91,7 @@ public class StartActivity extends AppCompatActivity {
                 choreography = (Choreography) objectInputStream.readObject();
                 objectInputStream.close();
                 is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            catch (ClassNotFoundException e) {
+            } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
 
@@ -104,8 +102,6 @@ public class StartActivity extends AppCompatActivity {
                 objectOutputStream.close();
                 fileOutputStream.close();
 
-            } catch (FileNotFoundException e) {
-                Log.e("ERROR", e.toString());
             } catch (IOException e) {
                 Log.e("ERROR", e.toString());
             }
@@ -126,10 +122,11 @@ public class StartActivity extends AppCompatActivity {
         super.onResume();
 
         reloadChoreo();
+
     }
 
     //btn "Laden" -> send user to main Activity
-    public void loadChoreo(View view){
+    public void loadChoreo(View view) throws IOException {
 
         if (files.length == 0) { //Case no files found in dir
             Toast.makeText(StartActivity.this, "Es konnte keine Choreografie geladen werden!", Toast.LENGTH_SHORT).show();
@@ -196,6 +193,7 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void settings(View view){
+
 
     }
 

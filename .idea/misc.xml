@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
@@ -9,20 +8,25 @@
         <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/drawable/ic_comment.xml" value="0.3395" />
         <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3395" />
         <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/drawable/ic_round_save_24.xml" value="0.3395" />
+        <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/layout-sw600dp/activity_main.xml" value="0.18125" />
+        <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/layout-sw600dp/main_tablet.xml" value="0.18125" />
         <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/layout/activity_edit.xml" value="0.5" />
-        <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/layout/activity_main.xml" value="0.2621468926553672" />
+        <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/layout/activity_main.xml" value="0.18723958333333332" />
+        <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/layout/activity_main_tablet.xml" value="0.18125" />
         <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/layout/activity_start.xml" value="0.29743589743589743" />
         <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/layout/dialog_name_choreo.xml" value="0.33" />
         <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/layout/fragment_comment.xml" value="0.29743589743589743" />
         <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/layout/fragment_coord.xml" value="0.29743589743589743" />
         <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/layout/fragment_test.xml" value="0.33" />
+        <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/layout/main_tablet.xml" value="0.17421875" />
         <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/layout/print_layout.xml" value="0.33" />
+        <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/layout/settings_activity.xml" value="0.29743589743589743" />
         <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/mipmap-anydpi-v26/ic_Start.xml" value="0.2055" />
         <entry key="..\:/Users/Marco Dronigi/AndroidStudioProjects/SGBilderApp/app/src/main/res/xml/tags.xml" value="0.15" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
@@ -31,7 +35,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.33" />
+        <option name="scale" value="0.18723958333333332" />
       </ProjectState>
     </option>
   </component>
